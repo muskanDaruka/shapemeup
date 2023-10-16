@@ -1,0 +1,23 @@
+"use client";
+
+import { AuthContext, AuthType } from "@/context/Auth";
+import Login from "@/components/Login";
+import { useContext } from "react";
+
+export default function HomeLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { isOpen } = useContext<AuthType>(AuthContext);
+  return (
+    <>
+      {isOpen && (
+        <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
+          <Login />
+        </div>
+      )}
+      <div className="relative top-14 sm:top-16">{children}</div>
+    </>
+  );
+}
