@@ -6,6 +6,8 @@ import MobileApp from "@/components/MobileApp";
 import { IcardImages, Images } from "@/types/type";
 import Link from "next/link";
 
+
+
 const heroImages: Images[] = [
   {
     image: "exercise/exercise_banner_01",
