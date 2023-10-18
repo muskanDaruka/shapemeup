@@ -2,7 +2,6 @@
 import Hero from "@/components/Hero";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import Link from "next/link";
 import { IcardImages, Images } from "@/types/type";
 import CardSection from "@/components/CardSection";
@@ -45,7 +44,6 @@ const productImages: IcardImages[] = [
     image: "fitness_equipment",
   },
 ];
-
 const heroImages: Images[] = [
   {
     image: "home/banner",
@@ -69,13 +67,11 @@ const heroImages: Images[] = [
     buttonText: "Check out our Workouts",
   },
 ];
-
 export default function Home() {
   return (
     <>
       <Hero data={heroImages} />
       <HeroCard />
-
       <section className="mt-4 relative">
         <p className="text-center font-bold text-4xl my-4">
           Making healthy living affordable, approachable, and attainable is our
@@ -102,13 +98,11 @@ export default function Home() {
           </p>
         </h4>
       </section>
-
       <CardSection
         data={cardImages}
         title="Get access to thousands of workouts"
         description="Get the entire studio experience at home with hundreds of classes for body, mind and spirit, whether you're a complete beginner or want to pick up your routine."
       />
-
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
         <div className="relative flex-1">
           <div className="relative flex flex-col items-start justify-between">
@@ -141,7 +135,6 @@ export default function Home() {
           />
         </div>
       </section>
-
       <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           Stay connected.Stay healthy.
@@ -162,7 +155,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       <section className="w-full px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           The fitness blog
@@ -180,7 +172,6 @@ export default function Home() {
           <span className="text-[#f2994a] text-2xl font-bold">⟶</span>
         </Link>
       </section>
-
       <section className="mt-4 relative bg-[#f5f5f5] px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           Our fitness shop
@@ -214,9 +205,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       <MobileApp />
-
       <Footer />
     </>
   );

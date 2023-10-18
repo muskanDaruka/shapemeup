@@ -27,7 +27,6 @@ const cards: ICards[] = [
     href: "classes",
   },
 ];
-
 const HeroCard = () => {
   return (
     <div className="flex flex-col lg:flex-row flex-wrap items-start justify-evenly gap-5 lg:gap-10 px-8 pb-10 bg-gray-100 relative -top-10">
@@ -46,5 +45,4 @@ const HeroCard = () => {
     </div>
   );
 };
-
 export default HeroCard;

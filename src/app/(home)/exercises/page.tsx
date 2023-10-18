@@ -1,10 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 import CardSection from "@/components/CardSection";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import MobileApp from "@/components/MobileApp";
 import { IcardImages, Images } from "@/types/type";
 import Link from "next/link";
+
+
 
 const heroImages: Images[] = [
   {
@@ -79,7 +82,7 @@ const Exercises = () => {
       </section>
 
       <MobileApp />
-
+      <FAQ />
       <Footer />
     </main>
   );

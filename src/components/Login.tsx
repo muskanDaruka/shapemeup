@@ -7,12 +7,12 @@ const Login = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmitLogin = () => {};
-  const password = () => {};
-  const rememberMe = () => {};
-  const forgotPassword = () => {};
-  const googleLogin = () => {};
-  const signup = () => {};
+  const onSubmitLogin = () => { };
+  const password = () => { };
+  const rememberMe = () => { };
+  const forgotPassword = () => { };
+  const googleLogin = () => { };
+  const signup = () => { };
 
   return (
     <div className="w-[calc(100vw-200px)] h-5/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
