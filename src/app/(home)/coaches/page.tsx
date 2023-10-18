@@ -23,8 +23,10 @@ const Coaches = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
+      <section className="bg-[#f5f5f5] w-full h-64 px-5 py-10 space-y-5">
         <h3 className="text-black text-5xl font-bold mb-20"><center>Our Coaches</center></h3>
+        <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-10 rounded-full text-2xl font-bold float-right">⟶</span>
+        <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-10 rounded-full text-2xl font-bold float-left">⟵</span>
       </section>
       <section className="w-full px-5 py-10 space-y-5 ">
         <div>

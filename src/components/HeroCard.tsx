@@ -27,15 +27,7 @@ const cards: ICards[] = [
     href: "classes",
   },
 ];
-
-
-
-interface HeroCardProps {
-  hideLink?: boolean;
-}
-
-const HeroCard: React.FC<HeroCardProps> = ({ hideLink }: HeroCardProps) => {
-
+const HeroCard = () => {
   return (
     <div className="flex flex-col lg:flex-row flex-wrap items-start justify-evenly gap-5 lg:gap-10 px-8 pb-10 bg-gray-100 relative -top-10">
       {cards.map((card) => (
@@ -45,13 +37,12 @@ const HeroCard: React.FC<HeroCardProps> = ({ hideLink }: HeroCardProps) => {
         >
           <h3 className="text-xl font-bold">{card.title}</h3>
           <p className="font-medium text-lg">{card.description}</p>
-          {!hideLink && <Link href={`/${card.href}`} className="text-[#f2994a] text-base">
+          <Link href={`/${card.href}`} className="text-[#f2994a] text-base">
             View more
-          </Link>}
+          </Link>
         </div>
       ))}
     </div>
   );
 };
-
 export default HeroCard;

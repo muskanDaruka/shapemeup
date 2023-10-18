@@ -1,5 +1,3 @@
-
-import { IcardImages, Images } from "@/types/type";
 import HorizontalList from "@/components/HorizontalList";
 import Footer from "@/components/Footer";
 
@@ -80,4 +78,3 @@ const Classes = () => {
 };
 
 export default Classes;
-//className=""
