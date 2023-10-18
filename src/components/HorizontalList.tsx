@@ -11,11 +11,13 @@ const HorizontalList: React.FC<HorizontalListProps> = ({ data }: HorizontalListP
     const [activeIndex, setActiveIndex] = useState(0);
     console.log(activeIndex, "This is the activeindex");
     return (
-        <>
-            {data.map((item, index) => (
-                <li onClick={() => { setActiveIndex(index) }} className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}>{item}</li>
-            ))}
-        </>
+        <div className="flex justify-center text-[#34383d80]">
+            <ul className="flex space-x-10 items-center">
+                {data.map((item, index) => (
+                    <li onClick={() => { setActiveIndex(index) }} className={`${index === activeIndex ? "text-[#f2994a] font-bold underline" : ""}`}>{item}</li>
+                ))}
+            </ul>
+        </div>
     );
 };
 
