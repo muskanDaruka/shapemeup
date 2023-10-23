@@ -12,7 +12,7 @@ const Coaches = () => {
             className="relative w-full object-cover h-auto min-h-[490px]"
           />
           <div className="absolute flex flex-col items-center justify-center w-full top-0 h-full gap-10 ">
-            <h2 className="text-white text-5xl font-bold ">
+            <h2 className="text-white text-3xl font-bold ">
               On demand digital personal coaches
             </h2>
             <h3 className="text-white text-2xl font-normal w-583 h-168 m-10">
@@ -34,7 +34,7 @@ const Coaches = () => {
           <div className="flex space-x-5 mx-64">
 
             <div>
-              <div className="w-96 h-80 bg-[#FBEFB0] text-black mt-10 rounded-lg">
+              <div className="pt-1 w-96 h-80 bg-[#FBEFB0] text-black mt-10 rounded-lg">
                 <center>
                   <img
                     src="/assets/images/coaches/fitness.png"
@@ -45,7 +45,7 @@ const Coaches = () => {
                 <h2 className="mt-10"><center>
                   Fitness + diet plan and questions answered</center>
                 </h2>
-                <p className="mt-10"><center>
+                <p className="mt-6"><center>
                   We answer all of your fitness and nutrition questions, so you can focus on getting in shape. Logging your food intake and workouts is easy with our user-friendly app, and our team of experts are always here to help. So what are you waiting for.</center>
                 </p>
               </div>

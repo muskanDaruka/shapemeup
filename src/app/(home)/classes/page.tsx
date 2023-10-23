@@ -8,14 +8,26 @@ const Classes = () => {
       <section className="relative">
         <div className="relative flex bg-gradient-to-r from-[#f0f5ff] via-[#f0f5ff] to-[#c2d4f7]">
           <div className="mx-5 my-5 font-bold">
-            <h2 className="text-black text-4xl font-bold m-8">
+            <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8">
               April 2022 Weight Loss class
             </h2>
-            <div className="flex w-full lg:w-1/3 p-4 space-x-20">
+            {/* <div className="flex w-full lg:w-1/3 p-4 space-x-20">
               <h5 className="text-black font-normal text-2xl mt-0 mx-5 gap-10">Type:Weightloss</h5>
               <h5 className="text-black font-normal text-2xl mt-0 mx-5 gap-10">Number of Days:10 days</h5>
               <h5 className="text-black font-normal text-2xl mt-0 mx-5 gap-10">Duration:30 minutes/day</h5>
+            </div> */}
+            <div className="flex flex-col lg:flex-row w-full lg:w-2/3 xl:w-1/2 p-4 space-y-4 lg:space-y-0 lg:space-x-4">
+              <div className=" p-4 flex-1">
+                <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">Type: Weightloss</h5>
+              </div>
+              <div className="p-4 flex-1">
+                <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">Number of Days: 10 days</h5>
+              </div>
+              <div className="p-4 flex-1">
+                <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">Duration: 30 minutes/day</h5>
+              </div>
             </div>
+
 
             <p className="text-2xl font-normal mx-10 my-5">
               Looking for a way to get in shape? With this course you can
