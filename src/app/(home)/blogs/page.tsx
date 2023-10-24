@@ -39,7 +39,7 @@ const Blogs = () => {
                     do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis</p>
-                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
                   <div className="flex">
                     <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                     <span className="font-bold mt-5 ml-[430px]">Fitness</span>
@@ -59,7 +59,7 @@ const Blogs = () => {
                     do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis</p>
-                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
                   <div className="flex">
                     <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                     <span className="font-bold mt-5 ml-[230px]">Fitness</span>
@@ -75,7 +75,7 @@ const Blogs = () => {
                     do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis</p>
-                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
                   <div className="flex">
                     <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                     <span className="font-bold mt-5 ml-[230px]">Fitness</span>
@@ -95,7 +95,7 @@ const Blogs = () => {
                     do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis</p>
-                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
                   <div className="flex">
                     <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                     <span className="font-bold  mt-5 ml-[230px]">Fitness</span>
@@ -111,7 +111,7 @@ const Blogs = () => {
                     do eiusmod tempor incididunt ut
                     labore et dolore magna aliqua.
                     Ut enim ad minim veniam, quis</p>
-                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                  <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
                   <div className="flex">
                     <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                     <span className="font-bold mt-5 ml-[230px]">Fitness</span>
@@ -121,9 +121,9 @@ const Blogs = () => {
             </div>
           </div>
           <div className="m-[100px">
-            <button className="w-[70px] text-black border-slate-250 border-2 mt-[330px] ml-[480px]">Pre</button>
+            <button className="w-[70px] text-black border-slate-250 border-2 mt-[330px] ml-[480px]">Pre&lt;&lt;</button>
             <button className="w-[70px] text-black border-slate-250 border-2">Page 1</button>
-            <button className="w-[70px] text-[#f2994a] border-slate-250 border-2">Next</button>
+            <button className="w-[70px] text-[#f2994a] border-slate-250 border-2">Next&gt;&gt;</button>
           </div>
         </div>
         <div className=" w-px h-[1500px] bg-gray-400">
@@ -138,7 +138,7 @@ const Blogs = () => {
                 do eiusmod tempor incididunt ut
                 labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis</p>
-              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
               <div className="flex mb-5">
                 <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                 <span className="font-bold mt-5 ml-[350px]">Fitness</span>
@@ -153,7 +153,7 @@ const Blogs = () => {
                 do eiusmod tempor incididunt ut
                 labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis</p>
-              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
               <div className="flex mb-5">
                 <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                 <span className="font-bold mt-5 ml-[350px]">Fitness</span>
@@ -168,7 +168,7 @@ const Blogs = () => {
                 do eiusmod tempor incididunt ut
                 labore et dolore magna aliqua.
                 Ut enim ad minim veniam, quis</p>
-              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+              <a href="#" id="readMoreLink" className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More&gt;&gt;</a>
               <div className="flex mb-20">
                 <span className="text-black font-bold ml-5 mt-5">21 October 2023</span>
                 <span className="font-bold mt-5 ml-[350px]">Fitness</span>
