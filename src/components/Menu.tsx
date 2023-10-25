@@ -42,7 +42,7 @@ const menus: IMenu[] = [
 ];
 
 const Menu = () => {
-  const { isOpen, setIsOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } = useContext<AuthType>(AuthContext);
 
   return (
     <section className="h-14 sm:h-16 bg-gray-50 fixed w-full z-10">
@@ -68,7 +68,11 @@ const Menu = () => {
               <span>{menu.label}</span>
             </Link>
           ))}
-          <div>Register</div>
+          <div
+            onClick={() => setIsRegistrationOpen(true)}
+          >
+            Register
+          </div>
           <div
             className="bg-[#f2994a] px-10 h-full flex items-center text-white"
             onClick={() => setIsOpen(true)}

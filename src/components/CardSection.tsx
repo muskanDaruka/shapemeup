@@ -9,6 +9,7 @@ interface Props {
   description: string;
 }
 
+
 const CardSection: FC<Props> = ({ data, title, description }) => {
   return (
     <section className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5">
@@ -45,11 +46,11 @@ const CardSection: FC<Props> = ({ data, title, description }) => {
           </div>
         ))}
       </div>
-      <div className="w-full flex justify-center">
+      {<div className="w-full flex justify-center">
         <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
           View more
         </button>
-      </div>
+      </div>}
     </section>
   );
 };

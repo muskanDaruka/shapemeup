@@ -2,6 +2,7 @@
 
 import { AuthContext, AuthType } from "@/context/Auth";
 import Login from "@/components/Login";
+import Register from "@/components/Register";
 import { useContext } from "react";
 
 export default function HomeLayout({
@@ -9,7 +10,8 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, isRegistrationOpen } = useContext<AuthType>(AuthContext);
+
   return (
     <>
       {isOpen && (
@@ -17,7 +19,12 @@ export default function HomeLayout({
           <Login />
         </div>
       )}
-      <div className="relative top-14 sm:top-16">{children}</div>
+      {isRegistrationOpen && (
+        <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
+          <Register />
+        </div>
+      )}
+      <div className="relative top-14 sm:top-16 ">{children}</div>
     </>
   );
 }

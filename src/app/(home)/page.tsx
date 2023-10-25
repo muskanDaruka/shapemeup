@@ -67,6 +67,32 @@ const heroImages: Images[] = [
     buttonText: "Check out our Workouts",
   },
 ];
+const blogPosts = [
+  {
+    imageSrc: "/assets/images/blogs/equipments.png",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
+    date: "21 October 2023",
+    category: "Fitness",
+    readMoreLink: "#",
+  },
+  {
+    imageSrc: "/assets/images/blogs/workout.png",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
+    date: "21 October 2023",
+    category: "Fitness",
+    readMoreLink: "#",
+  },
+  {
+    imageSrc: "/assets/images/blogs/blogs.png",
+    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
+    date: "21 October 2023",
+    category: "Fitness",
+    readMoreLink: "#",
+  },
+];
 export default function Home() {
   return (
     <>
@@ -165,11 +191,30 @@ export default function Home() {
             the latest news and trends on healthy living.
           </p>
         </h4>
+        <div className="ml-[140px] w-[1100px] h-[202px]">
+          <div className="flex">
+            {blogPosts.map((post, index) => (
+              <div
+                key={index}
+                className="flex-shrink-0 w-[410px] h-[520px] m-[50px] border-slate-250 border-2 rounded-lg "
+              >
+                <img src={post.imageSrc} alt="blog_banner" className="w-[500px] object-cover h-[230px] flex-shrink rounded-lg" />
+                <h1 className="font-bold mt-5 ml-5">{post.title}</h1>
+                <p className="font-normal mr-5 mt-5 ml-5">{post.content}</p>
+                <a href={post.readMoreLink} className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
+                <div className="flex">
+                  <span className="text-black font-bold ml-5 mt-5">{post.date}</span>
+                  <span className="font-bold mt-5 ml-[170px]">{post.category}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <Link href={"/blogs"} className="w-full flex justify-center">
-          <button className="text-[#f2994a] underline text-2xl font-bold text-center">
+          <button className="text-[#f2994a] mt-96 underline text-2xl font-bold text-center">
             View blogs
           </button>
-          <span className="text-[#f2994a] text-2xl font-bold">⟶</span>
+          <span className="text-[#f2994a] text-2xl mt-96 font-bold">⟶</span>
         </Link>
       </section>
       <section className="mt-4 relative bg-[#f5f5f5] px-5 py-10 space-y-5">
