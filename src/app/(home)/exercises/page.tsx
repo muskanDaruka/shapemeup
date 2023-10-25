@@ -4,10 +4,8 @@ import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import MobileApp from "@/components/MobileApp";
-import { IcardImages, Images } from "@/types/type";
+import { IcardImages, Images } from "@/types/image.type";
 import Link from "next/link";
-
-
 
 const heroImages: Images[] = [
   {

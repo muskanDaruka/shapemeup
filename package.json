@@ -9,13 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "mongoose": "^7.6.3",
     "next": "13.5.4",
+    "next-auth": "^4.23.2",
     "react": "^18",
     "react-dom": "^18",
     "react-easy-swipe": "^0.0.23",
     "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

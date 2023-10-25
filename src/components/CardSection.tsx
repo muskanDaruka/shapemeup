@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { IcardImages } from "@/types/type";
+import { IcardImages } from "@/types/image.type";
 import Link from "next/link";
 import { FC } from "react";
 
