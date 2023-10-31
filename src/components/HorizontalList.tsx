@@ -14,7 +14,7 @@ const HorizontalList: React.FC<HorizontalListProps> = ({ data }: HorizontalListP
         <div className="flex justify-center text-[#34383d80]">
             <ul className="flex space-x-10 items-center">
                 {data.map((item, index) => (
-                    <li onClick={() => { setActiveIndex(index) }} className={`${index === activeIndex ? "text-[#f2994a] font-bold underline" : ""}`}>{item}</li>
+                    <li onClick={() => { setActiveIndex(index) }} className={` mb-2 sm:mb-0 sm:mr-4 ${index === activeIndex ? "text-[#f2994a] font-bold text-2xl underline" : ""}`}>{item}</li>
                 ))}
             </ul>
         </div>
