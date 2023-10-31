@@ -1,8 +1,8 @@
-import Menu from "@/components/Menu";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import AuthProvider from "@/context/Auth";
+import QueryProvider from "@/providers/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider>
-          <Menu />
-          <main>{children}</main>
-        </AuthProvider>
+        <QueryProvider>
+          <AuthProvider>
+            <main>{children}</main>
+          </AuthProvider>
+        </QueryProvider>
       </body>
     </html>
   );

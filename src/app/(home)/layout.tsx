@@ -4,6 +4,7 @@ import { AuthContext, AuthType } from "@/context/Auth";
 import Login from "@/components/Login";
 import Register from "@/components/Register";
 import { useContext } from "react";
+import Menu from "@/components/Menu";
 
 export default function HomeLayout({
   children,
@@ -14,6 +15,7 @@ export default function HomeLayout({
 
   return (
     <>
+      <Menu />
       {isOpen && (
         <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
           <Login />
