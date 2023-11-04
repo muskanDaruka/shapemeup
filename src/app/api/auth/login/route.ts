@@ -27,8 +27,9 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({
-    message: "Invalid credentials",
-    status: "Failed",
-    statusCode: 401,
+    message: "Login successful",
+    status: "Success",
+    statusCode: 200,
+    data: user,
   });
 }

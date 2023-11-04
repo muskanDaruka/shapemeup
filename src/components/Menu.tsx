@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AuthContext, AuthType } from "@/context/Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 interface IMenu {
   label: string;
@@ -43,6 +43,7 @@ const menus: IMenu[] = [
 
 const Menu = () => {
   const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } = useContext<AuthType>(AuthContext);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section className="h-14 sm:h-16 bg-gray-50 fixed w-full z-10">
@@ -63,8 +64,11 @@ const Menu = () => {
         </div>
 
         <div className="sm:flex hidden items-center justify-between w-11/12 ml-10 h-full">
-          {menus.map((menu) => (
-            <Link key={menu.path} href={menu.path}>
+          {menus.map((menu, index) => (
+            <Link key={menu.path} href={menu.path}
+              onClick={() => { setActiveIndex(index) }}
+              className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
+            >
               <span>{menu.label}</span>
             </Link>
           ))}
@@ -81,7 +85,7 @@ const Menu = () => {
           </div>
         </div>
       </nav>
-    </section>
+    </section >
   );
 };
 
