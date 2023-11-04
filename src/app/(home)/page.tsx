@@ -260,6 +260,7 @@ export default function Home() {
           </Link>
         </div>
       </section>
+
       <MobileApp />
       <Footer />
     </>
