@@ -73,7 +73,7 @@ const Classes = () => {
         <h2 className="font-bold"><center>Classes for you</center></h2><br />
         <HorizontalList data={list} />
         <div className="flex relative">
-          <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span>
+          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span> */}
           <div className="ml-[140px] w-[1100px] h-[202px] relative">
             <div className="flex">
               {classImages.map((items, index) => (
@@ -92,7 +92,28 @@ const Classes = () => {
               ))}
             </div>
           </div>
-          <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute right-0">⟶</span>
+          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute right-0">⟶</span> */}
+        </div>
+        <div className="flex relative mt-[200px]">
+          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span> */}
+          <div className="ml-[140px] w-[1100px] h-[202px] relative">
+            <div className="flex">
+              {classImages.map((items, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-[394px] h-[400px] m-[50px] ml-5 relative"
+                >
+                  <img src={items.imageSrc} alt="classes" className="w-full object-cover-fit h-full flex-shrink rounded-lg" />
+                  <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white"><center>
+                    <span className="text-white text-[15px]  font-normal">{items.date}</span>
+                    <hr />
+                    <p className="text-white text-[20px] font-bold">{items.description}</p>
+                  </center>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
       <section className="mt-[300px]" >

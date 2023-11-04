@@ -182,40 +182,50 @@ export default function Home() {
         </div>
       </section>
       <section className="w-full px-5 py-10 space-y-5">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
           The fitness blog
         </h2>
-        <h4 className="text-center">
-          <p className="font-normal">
-            A blog about fitness is a great way for people to stay in touch with
-            the latest news and trends on healthy living.
-          </p>
+        <h4 className="text-center mb-4">
+          A blog about fitness is a great way for people to stay in touch with
+          the latest news and trends on healthy living.
         </h4>
-        <div className="ml-[140px] w-[1100px] h-[202px]">
-          <div className="flex">
+        <div className="mx-auto w-full sm:w-[1100px]">
+          <div className="flex flex-col space-y-8 sm:space-y-0 sm:flex-row sm:space-x-4">
             {blogPosts.map((post, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 w-[410px] h-[520px] m-[50px] border-slate-250 border-2 rounded-lg "
+                className="w-full sm:w-[410px] h-[520px] border-slate-250 border-2 rounded-lg"
               >
-                <img src={post.imageSrc} alt="blog_banner" className="w-[500px] object-cover h-[230px] flex-shrink rounded-lg" />
-                <h1 className="font-bold mt-5 ml-5">{post.title}</h1>
-                <p className="font-normal mr-5 mt-5 ml-5">{post.content}</p>
-                <a href={post.readMoreLink} className="text-[#f2994a] transition duration-300 hover:underline ml-5">Read More</a>
-                <div className="flex">
-                  <span className="text-black font-bold ml-5 mt-5">{post.date}</span>
-                  <span className="font-bold mt-5 ml-[170px]">{post.category}</span>
+                <img
+                  src={post.imageSrc}
+                  alt="blog_banner"
+                  className="w-full h-[230px] object-cover rounded-t-lg"
+                />
+                <div className="p-5">
+                  <h1 className="font-bold mb-2">{post.title}</h1>
+                  <p className="font-normal mb-4">{post.content}</p>
+                  <a
+                    href={post.readMoreLink}
+                    className="text-[#f2994a] hover:underline inline-block mb-2"
+                  >
+                    Read More
+                  </a>
+                  <div className="flex justify-between">
+                    <span className="text-black font-bold">{post.date}</span>
+                    <span className="font-bold">{post.category}</span>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <Link href={"/blogs"} className="w-full flex justify-center">
-          <button className="text-[#f2994a] mt-96 underline text-2xl font-bold text-center">
-            View blogs
-          </button>
-          <span className="text-[#f2994a] text-2xl mt-96 font-bold">⟶</span>
-        </Link>
+        <div className="w-full flex justify-center mt-5">
+          <Link href="/blogs">
+            <p className="text-[#f2994a] underline text-2xl font-bold">
+              View blogs ⟶
+            </p>
+          </Link>
+        </div>
       </section>
       <section className="mt-4 relative bg-[#f5f5f5] px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">

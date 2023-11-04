@@ -2,14 +2,18 @@
 "use client";
 
 import { useState } from "react";
+import { AuthContext } from "../context/Auth";
+import { useContext } from "react";
 
 const Login = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
+  const [email, setEmail] = useState('');
+  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } = useContext(AuthContext);
 
-  const [email, setEmail] = useState('')
   const onSubmitLogin = (e) => {
+    e.preventDefault();
     e.target.value();
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
@@ -31,6 +35,9 @@ const Login = () => {
     console.log("Remember me clicked");
   };
   const forgotPassword = () => {
+    setIsForgotPasswordOpen(true);
+    setIsOpen(false);
+    setIsRegistrationOpen(false);
     console.log("Forgot Password clicked");
   };
   const googleLogin = () => {
@@ -66,7 +73,7 @@ const Login = () => {
             <form onSubmit={onSubmitLogin}>
               <div className="m-0 mb-6">
                 <label htmlFor="email">Email ID</label><br />
-                <input type="text" name="email" className="w-full h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" name="email" value={email} className="w-full h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="m-0 mb-6">
                 <label htmlFor="password">Password</label>
@@ -95,9 +102,9 @@ const Login = () => {
                   <label htmlFor="remember"> Remember me</label>
                 </div>
                 <div className="mb-6 ml-64">
-                  <a href="ForgotPassword" onClick={forgotPassword} className="text-[#f2994a]" title="Forgot password?">
+                  <button onClick={forgotPassword} className="text-[#f2994a]" title="Forgot password?">
                     Forgot password?
-                  </a>
+                  </button>
                 </div>
               </div>
               <button className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg" onClick={Login}>Login now</button>

@@ -25,12 +25,12 @@ const Blogs = () => {
       <section className="flex">
         <div className="items-center space-y-1">
           <div>
-            < div className=" mt-10 justify-left border-slate-250 border-2 rounded-lg w-[1070px] m-[50px] ml-15 ">
+            < div className=" mt-10 justify-left border-slate-25 border-2 rounded-lg w-[1000px] m-[50px] ml-15 ">
               <div className="flex">
                 <div>
                   <img src="/assets/images/blogs/water.png"
                     alt="image"
-                    className="h-[272.037px] w-[832.295px]" />
+                    className="h-[275.037px] w-[832.295px]" />
                 </div>
                 <div className="h-[272.037px]">
                   <h1 className="font-bold text-2xl mt-5 ml-5 mr-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
@@ -47,12 +47,12 @@ const Blogs = () => {
                 </div>
               </div>
             </div>
-            <div className="ml-25 w-[1100px] h-[202px]">
+            <div className="ml-25 w-[1100px] h-[202px] sm:container mx-auto">
               <div className="flex">
-                <div className="flex-shrink-0 w-[500px] h-[442px] m-[20px] ml-[50px] border-slate-250 border-2 rounded-lg ">
+                <div className="flex-shrink-0 w-[450px] h-[442px] m-[20px] ml-[50px] border-slate-250 border-2 rounded-lg ">
                   <img src="/assets/images/blogs/equipments.png"
                     alt="blog_banner"
-                    className="w-[500px] object-cover h-[215px] flex-shrink-0 rounded-lg" />
+                    className="w-[450px] object-cover h-[215px] flex-shrink-0 rounded-lg" />
                   <h1 className="font-bold mt-5 ml-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
                   <p className="font-normal mt-2 ml-5">Lorem ipsum dolor sit amet,
                     consectetur iscing elit, sed
@@ -65,10 +65,10 @@ const Blogs = () => {
                     <span className="font-bold mt-5 ml-[230px]">Fitness</span>
                   </div>
                 </div>
-                <div className="flex-shrink-0 w-[500px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
+                <div className="flex-shrink-0 w-[450px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
                   <img src="/assets/images/blogs/workout.png"
                     alt="blog_banner"
-                    className="w-[500px] object-cover h-[215px] flex-shrink rounded-lg" />
+                    className="w-[450px] object-cover h-[215px] flex-shrink rounded-lg" />
                   <h1 className="font-bold mt-5 ml-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
                   <p className="font-normal t-2 ml-5">Lorem ipsum dolor sit amet,
                     consectetur iscing elit, sed
@@ -83,12 +83,12 @@ const Blogs = () => {
                 </div>
               </div>
             </div>
-            <div className="w-[1100px] h-[202px]">
+            <div className="w-[1000px] h-[202px]">
               <div className="flex mt-[300px]">
-                <div className="flex-shrink-0 w-[500px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
+                <div className="flex-shrink-0 w-[450px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
                   <img src="/assets/images/blogs/blogs.png"
                     alt="blog_banner"
-                    className="w-[500px] object-cover h-[215px] flex-shrink rounded-lg" />
+                    className="w-[450px] object-cover h-[215px] flex-shrink rounded-lg" />
                   <h1 className="font-bold mt-5 ml-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
                   <p className="font-normal mt-2 ml-5">Lorem ipsum dolor sit amet,
                     consectetur iscing elit, sed
@@ -101,10 +101,10 @@ const Blogs = () => {
                     <span className="font-bold  mt-5 ml-[230px]">Fitness</span>
                   </div>
                 </div>
-                <div className="flex-shrink-0 w-[500px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
+                <div className="flex-shrink-0 w-[450px] h-[442px] ml-[50px] m-[20px] border-slate-250 border-2 rounded-lg ">
                   <img src="/assets/images/blogs/blog_img.png"
                     alt="blog_banner"
-                    className=" w-[500px] object-cover h-[215px] flex-shrink rounded-lg " />
+                    className=" w-[450px] object-cover h-[215px] flex-shrink rounded-lg " />
                   <h1 className="font-bold mt-5 ml-5">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
                   <p className="font-normal mt-2 ml-5">Lorem ipsum dolor sit amet,
                     consectetur iscing elit, sed
@@ -121,7 +121,7 @@ const Blogs = () => {
             </div>
           </div>
           <div className="m-[100px">
-            <button className="w-[70px] text-black border-slate-250 border-2 mt-[330px] ml-[480px]">Pre&lt;&lt;</button>
+            <button className="w-[70px] text-black border-slate-250 border-2 mt-[330px] ml-[480px]">&lt;&lt;Pre</button>
             <button className="w-[70px] text-black border-slate-250 border-2">Page 1</button>
             <button className="w-[70px] text-[#f2994a] border-slate-250 border-2">Next&gt;&gt;</button>
           </div>

@@ -3,6 +3,7 @@
 import { AuthContext, AuthType } from "@/context/Auth";
 import Login from "@/components/Login";
 import Register from "@/components/Register";
+import ForgotPassword from "@/components/ForgotPassword";
 import { useContext } from "react";
 import Menu from "@/components/Menu";
 
@@ -11,7 +12,7 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen, isRegistrationOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, isRegistrationOpen, isForgotPasswordOpen } = useContext<AuthType>(AuthContext);
 
   return (
     <>
@@ -26,7 +27,13 @@ export default function HomeLayout({
           <Register />
         </div>
       )}
+      {isForgotPasswordOpen && (
+        <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
+          <ForgotPassword />
+        </div>
+      )}
       <div className="relative top-14 sm:top-16 ">{children}</div>
+      
     </>
   );
 }

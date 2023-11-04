@@ -1,13 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+
+import { useState, useContext } from "react";
+import { AuthContext } from "../context/Auth";
 
 const Register = () => {
     const [invalidmsg, setInvalidmsg] = useState("");
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [email, setEmail] = useState('')
     const [name, setName] = useState('')
+    const { setIsRegistrationOpen, setIsOpen, setIsForgotPasswordOpen } = useContext(AuthContext);
+
     const onSubmitSignUp = (e) => {
         e.target.value();
         // <span>Email is required</span>
@@ -27,11 +31,17 @@ const Register = () => {
     const handleCloseClick = () => {
         console.log("Close button clicked");
     }
+    const signIn = () => {
+        console.log("SignIn clicked");
+        setIsOpen(true);
+        setIsForgotPasswordOpen(false);
+        setIsRegistrationOpen(false);
+    };
     const googleSignUp = () => {
         console.log("Google Login clicked");
     };
     const signUp = () => {
-        console.log("Signup clicked");
+        console.log("Sign up clicked");
     };
 
     return (
@@ -40,20 +50,20 @@ const Register = () => {
                 X
             </button>
             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <div className="flex w-screen justify-evenly">
-                    <div>
-                        <h4 className="mt-20">Welcome to shape me up</h4>
-                        <h2 className="text-black text-2xl font-bold mb-5 mt-5">Create an account</h2>
+                <div className="flex ">
+                    <div className="flex-shrink-0">
+                        <h4 className="mt-10 ml-10 text-2xl">Welcome to shape me up</h4>
+                        <h2 className="text-black text-2xl font-bold mb-5 ml-10 mt-5">Create an account</h2>
                         <form onSubmit={onSubmitSignUp}>
-                            <div className="m-0 mb-6">
+                            <div className="m-0 ml-10 mb-6">
                                 <label htmlFor="email">Email ID</label><br />
-                                <input type="text" name="email" value={email} className="w-full h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
+                                <input type="text" name="email" value={email} className="w-[520px] h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
                             </div>
-                            <div className="m-0 mb-6">
+                            <div className="m-0 ml-10 mb-6">
                                 <label htmlFor="name">Name</label><br />
-                                <input type="text" name="Name" value={name} className="w-full h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setName(e.target.value)} />
+                                <input type="text" name="Name" value={name} className="w-[520px] h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setName(e.target.value)} />
                             </div>
-                            <div className="m-0 mb-6">
+                            <div className="m-0 ml-10 mb-6">
                                 <label htmlFor="password">Password</label>
                                 <div className="flex items-center">
                                     <input
@@ -69,7 +79,7 @@ const Register = () => {
                                 </div>
                                 {/* <span className="text-danger mb-2 ">{invalidmsg}</span> */}
                             </div>
-                            <div className="m-0 mb-6">
+                            <div className="m-0 ml-10 mb-6">
                                 <label htmlFor="password">Confirn Password</label>
                                 <div className="flex items-center">
                                     <input
@@ -85,8 +95,8 @@ const Register = () => {
                                 </div>
                                 <span className="text-danger mb-2 ">{invalidmsg}</span>
                             </div>
-                            <button className=" mt-5 p-2 pl-36 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg" onClick={signUp}>Sign up</button>
-                            <button className=" mt-5 pt-4 flex w-full h-15 bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg" onClick={googleSignUp}>
+                            <button className=" mt-5 ml-10 p-2 pl-[220px] flex w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg" onClick={signUp}>Sign up</button>
+                            <button className=" mt-5 ml-10 pt-4 pl-[100px] flex w-[520px] h-15 bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg" onClick={googleSignUp}>
                                 <img
                                     src="/assets/images/social_media/google.png"
                                     alt="Google"
@@ -94,15 +104,13 @@ const Register = () => {
                                 />
                                 Or signup with google
                             </button>
-                            <div className="mt-5">
+                            <div className="mt-5 ml-10 text-xl">
                                 Already have an account?
-                                <a href="/login" onClick={signUp} className="text-[#f2994a]" title="Login here">
-                                    Login here
-                                </a>
+                                <button onClick={signIn} className="text-[#f2994a] text-xl" title="Login here">Login Here</button>
                             </div>
                         </form>
                     </div>
-                    <div className="bg-['']">
+                    <div className="bg-[''] ml-[300px]">
                         <img
                             src="/assets/images/shapemeup_logo.png"
                             loading="lazy"
