@@ -6,13 +6,13 @@ import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
 
 const Login = () => {
-
   const [invalidmsg, setInvalidmsg] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
-  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } = useContext(AuthContext);
+  const [email, setEmail] = useState("");
+  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } =
+    useContext(AuthContext);
 
-  const [email, setEmail] = useState('')
   const onSubmitLogin = (e) => {
     e.preventDefault();
     e.target.value();
@@ -27,11 +27,11 @@ const Login = () => {
       return false;
     }
     setInvalidmsg("");
-    return true
+    return true;
   };
   const handleCloseClick = () => {
     console.log("Close button clicked");
-  }
+  };
   const rememberMe = () => {
     console.log("Remember me clicked");
   };
@@ -39,6 +39,7 @@ const Login = () => {
     setIsForgotPasswordOpen(true);
     setIsOpen(false);
     setIsRegistrationOpen(false);
+    console.log("Forgot Password clicked");
   };
   const googleLogin = () => {
     console.log("Google Login clicked");
@@ -49,7 +50,11 @@ const Login = () => {
 
   return (
     <div className="w-[calc(100vw-200px)] h-5/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
-      <button onClick={handleCloseClick} className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8" id="closeButton">
+      <button
+        onClick={handleCloseClick}
+        className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8"
+        id="closeButton"
+      >
         X
       </button>
       <div className="bg-white px-4 pb-4 pt-5 sm:p-2 sm:pb-6">
@@ -69,11 +74,20 @@ const Login = () => {
           </div>
           <div>
             <h4 className="mt-20">Welcome back</h4>
-            <h2 className="text-black text-2xl font-bold mb-10 mt-10">Login to your account</h2>
+            <h2 className="text-black text-2xl font-bold mb-10 mt-10">
+              Login to your account
+            </h2>
             <form onSubmit={onSubmitLogin}>
               <div className="m-0 mb-6">
-                <label htmlFor="email">Email ID</label><br />
-                <input type="text" name="email" value={email} className="w-full h-12 border-slate-250 border-2 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
+                <label htmlFor="email">Email ID</label>
+                <br />
+                <input
+                  type="text"
+                  name="email"
+                  value={email}
+                  className="w-full h-12 border-slate-250 border-2 rounded-lg"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
               <div className="m-0 mb-6">
                 <label htmlFor="password">Password</label>
@@ -83,7 +97,12 @@ const Login = () => {
                     name="password"
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
-                  <img src={showPassword ? "/assets/images/login/view_password.png" : "/assets/images/login/hide_password.png"}
+                  <img
+                    src={
+                      showPassword
+                        ? "/assets/images/login/view_password.png"
+                        : "/assets/images/login/hide_password.png"
+                    }
                     alt={showPassword ? "Hide Password" : "View Password"}
                     className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg"
                     onClick={password}
@@ -102,13 +121,25 @@ const Login = () => {
                   <label htmlFor="remember"> Remember me</label>
                 </div>
                 <div className="mb-6 ml-64">
-                  <button onClick={forgotPassword} className="text-[#f2994a]" title="Forgot password?">
+                  <button
+                    onClick={forgotPassword}
+                    className="text-[#f2994a]"
+                    title="Forgot password?"
+                  >
                     Forgot password?
                   </button>
                 </div>
               </div>
-              <button className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg" onClick={Login}>Login now</button>
-              <button className=" mt-5 pt-4 flex w-full h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg" onClick={googleLogin}>
+              <button
+                className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+                onClick={Login}
+              >
+                Login now
+              </button>
+              <button
+                className=" mt-5 pt-4 flex w-full h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg"
+                onClick={googleLogin}
+              >
                 <img
                   src="/assets/images/social_media/google.png"
                   alt="Google"
@@ -118,7 +149,12 @@ const Login = () => {
               </button>
               <div className="mt-5">
                 Dont have an account?
-                <a href="/" onClick={signup} className="text-[#f2994a]" title="Join free today">
+                <a
+                  href="/"
+                  onClick={signup}
+                  className="text-[#f2994a]"
+                  title="Join free today"
+                >
                   Join free today
                 </a>
               </div>

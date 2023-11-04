@@ -42,7 +42,8 @@ const menus: IMenu[] = [
 ];
 
 const Menu = () => {
-  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } =
+    useContext<AuthType>(AuthContext);
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -65,18 +66,18 @@ const Menu = () => {
 
         <div className="sm:flex hidden items-center justify-between w-11/12 ml-10 h-full">
           {menus.map((menu, index) => (
-            <Link key={menu.path} href={menu.path}
-              onClick={() => { setActiveIndex(index) }}
+            <Link
+              key={menu.path}
+              href={menu.path}
+              onClick={() => {
+                setActiveIndex(index);
+              }}
               className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
             >
               <span>{menu.label}</span>
             </Link>
           ))}
-          <div
-            onClick={() => setIsRegistrationOpen(true)}
-          >
-            Register
-          </div>
+          <div onClick={() => setIsRegistrationOpen(true)}>Register</div>
           <div
             className="bg-[#f2994a] px-10 h-full flex items-center text-white"
             onClick={() => setIsOpen(true)}
@@ -85,7 +86,7 @@ const Menu = () => {
           </div>
         </div>
       </nav>
-    </section >
+    </section>
   );
 };
 

@@ -33,6 +33,7 @@ export default function HomeLayout({
         </div>
       )}
       <div className="relative top-14 sm:top-16 ">{children}</div>
+      
     </>
   );
 }
