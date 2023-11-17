@@ -1,9 +1,11 @@
 import { Document, HydratedDocument, Model } from "mongoose";
 
 export interface IUser extends Document {
+  _id:string;
   name: string;
   email: string;
   password?: string;
+  confirmPassword?: string;
   gender?: string;
   phoneCode?: string;
   phoneNumber?: number;

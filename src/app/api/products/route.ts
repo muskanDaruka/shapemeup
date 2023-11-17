@@ -1,47 +1,47 @@
 import connectToMongoDb from "@/lib/mongodb";
-import User from "@/models/user.model";
-import { IUser } from "@/types/user.type";
+import Products from "@/models/products.model";
+import { IProducts } from "@/types/products.type";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
     const id = req.nextUrl.searchParams.get("id");
     try {
         await connectToMongoDb();
-        let user;
+        let products;
         if (id) {
-            user = await User.findById(id);
+            products = await Products.findById(id);
         } else {
-            user = await User.find();
+            products = await Products.find();
         }
         return NextResponse.json({
             status: "Success",
-            message: "User list retrieved successfully",
-            data: user,
+            message: "Products list retrieved successfully",
+            data: products,
         });
     } catch (error) {
         return NextResponse.json({
             status: "Failed",
-            message: "Error in getting the user list",
+            message: "Error in getting the products list",
             error: error,
         });
     }
 }
 
 export async function POST(req: NextRequest) {
-    const userData = await req.json();
+    const productsData = await req.json();
     try {
         await connectToMongoDb();
-        const newUser = new User({ ...userData });
-        newUser.save();
+        const newProducts = new Products({ ...productsData });
+        newProducts.save();
         return NextResponse.json({
             status: "Success",
-            message: "Users added successfully",
-            data: newUser,
+            message: "Products created successfully",
+            data: newProducts,
         });
     } catch (error) {
         return NextResponse.json({
             status: "Failed",
-            message: "Error in creating a new User",
+            message: "Error in creating a new Products",
             error: error,
         });
     }
@@ -51,17 +51,17 @@ export async function DELETE(req: NextRequest) {
     const id = req.nextUrl.searchParams.get("id");
     try {
         await connectToMongoDb();
-        const user = await User.findByIdAndDelete(id);
-        console.log("22222", user);
+        const products = await Products.findByIdAndDelete(id);
+        console.log("22222", products);
         return NextResponse.json({
             status: "Success",
-            message: "User Removed successfully",
-            data: user,
+            message: "Products Removed successfully",
+            data: products,
         });
     } catch (error) {
         return NextResponse.json({
             status: "Failed",
-            message: "Error in deleting user",
+            message: "Error in deleting products",
             error: error,
         });
     }
@@ -69,9 +69,9 @@ export async function DELETE(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
     try {
-        await updateUser({ id }); // Pass the user ID here
-        console.log("User updated successfully");
+        await updateProducts({ id }); // Pass the products ID here
+        console.log("Products updated successfully");
       } catch (error) {
-        console.error("Error updating user: ", error);
+        console.error("Error updating products: ", error);
       }
 }

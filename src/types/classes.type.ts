@@ -17,15 +17,16 @@ export interface IClassLive {
   classSummary: string;
 }
 
-export interface IClass extends Document {
+export interface IClass{
+  _id?: string;
   name: string;
   photoUrl: string;
   description: string;
   assignedCoach: string;
   releaseDate: Date;
   type: string;
-  days: number;
-  duration: number;
+  days: number | null;
+  duration: number | null;
   durationType: string;
   videoUrl: string;
   videos: IClassVideo[];

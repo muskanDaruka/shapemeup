@@ -2,30 +2,32 @@
 import Pagination from "@/components/Pagination";
 import React,{useState, useEffect} from "react";
 import Link from "next/link";
-import { useAllProducts, useDeleteProducts, useUpdateProducts} from "@/hooks/products.hooks";
-import { IProducts} from "@/types/products.type";
-import ProductsCards from "@/components/ProductsCards";
+import { useAllCoach, useDeleteCoach, useUpdateCoach} from "@/hooks/coach.hooks";
+import { ICoach } from "@/types/coach.type";
+import CoachCards from "@/components/CoachCards";
 
 
 interface Props { 
-    name: String,
-    category: String,
-    imageUrl: String,
-    description: String,
+  image: string;
+  name: string;
+  clients: string;
+  yearsOfExp: number;
+  certifications: string;
+    
 }
 
-const ProductsPage = () => {
-  const { data: productsData, isLoading, isError } = useAllProducts();
-  const { mutate: deleteProducts } = useDeleteProducts();
-  const {mutate: updateProducts} = useUpdateProducts();
-  const products: IProducts[] = productsData?.data?.data || []  ;
+const CoachesPage = () => {
+  const { data: coachData, isLoading, isError } = useAllCoach();
+  const { mutate: deleteCoach } = useDeleteCoach();
+  const {mutate: updateCoach} = useUpdateCoach();
+  const coach: ICoach[] = coachData?.data?.data || []  ;
  
-  const onDeleteProducts = async (id: string) => {
-    await deleteProducts(id);
+  const onDeleteCoach = async (id: string) => {
+    await deleteCoach(id);
     
   };
-  const onUpdateProducts = async (products: IProducts) => {
-    await updateProducts(products);
+  const onUpdateCoach = async (coach: ICoach) => {
+    await updateCoach(coach);
     
   };
   
@@ -35,7 +37,7 @@ const ProductsPage = () => {
         <div className="w-full h-full bg-[#F7F8FC]">
             <div className="p-5 md:p-10 flex flex-col items-center">
                 <div className="w-full flex items-center justify-between">
-                    <h4>Products</h4>
+                    <h4>Coaches</h4>
                     <div className="flex items-center justify-end gap-5">
                         <div>
                             <input
@@ -58,8 +60,8 @@ const ProductsPage = () => {
                     </div>
                 </div>
                 <div className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8">
-                    {Array.isArray(products) && products.map((products) => (
-                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} onUpdateProducts={onUpdateProducts}/>
+                    {Array.isArray(coach) && coach.map((coach) => (
+                        <CoachCards {...coach} key={coach._id} onDeleteCoach={onDeleteCoach} onUpdateCoach={onUpdateCoach}/>
                     ))}
                 </div>
                 <div className="w-full flex justify-end">
@@ -70,4 +72,4 @@ const ProductsPage = () => {
     );
 };
 
-export default ProductsPage;    
+export default CoachesPage;    

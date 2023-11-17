@@ -17,7 +17,7 @@ const adminMenus: IAdminMenu[] = [
   {
     imageUrl: "/assets/images/icons/coach.png",
     label: "Coaches",
-    path: "/admin/coaches",
+    path: "/admin/coach",
   },
   {
     imageUrl: "/assets/images/icons/class.png",
@@ -27,7 +27,7 @@ const adminMenus: IAdminMenu[] = [
   {
     imageUrl: "/assets/images/icons/user.png",
     label: "Users",
-    path: "/admin/users",
+    path: "/admin/user",
   },
   {
     imageUrl: "/assets/images/icons/coach_request.png",
@@ -68,7 +68,7 @@ const AdminMenu = () => {
             onClick={() => { setActiveIndex(index) }}
             className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
           >
-            <div className={`flex ${index === activeIndex ? "text-[#f2994a]" : ""}`}>
+            <div className={`flex ${index === activeIndex ? "text-[#f2994a]" : ""}`} >
               <span className={`p-[5px] m-5 mt-8 ${index === activeIndex ? "text-[#f2994a]" : ""}`}><img src={adminMenu.imageUrl} alt="Icon" /></span>
               <div className={`text-white p-[10px] text-xl m-5 ${index === activeIndex ? "text-[#f2994a]" : ""}`}>{adminMenu.label}</div>
             </div>

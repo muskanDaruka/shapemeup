@@ -22,6 +22,7 @@ const NewBlogPage = () => {
   const { data: blogData } = useBlogById(id);
   const { mutate: addBlog } = useCreateBlog();
   const [blog, setBlog] = useState<IBlog>({
+    _id: "",
     blogImgUrl: "",
     name: "",
     summary: "",
@@ -136,7 +137,7 @@ const NewBlogPage = () => {
           </div>
           <div>
             <label htmlFor="tags">
-              <input type="text" name="tags" id="tags"/>
+              <input type="text" name="tags" id="tags" />
             </label>
           </div>
           <div className="grid gap-2 w-full">

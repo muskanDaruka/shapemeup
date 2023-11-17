@@ -1,10 +1,11 @@
 import { Document } from "mongoose";
 
-export interface ICoach extends Document {
+export interface ICoach{
+  _id?: string;
   name: string;
   photoUrl: string;
-  yearsOfExp: number;
+  yearsOfExp: number | null;
   bio: string;
-  clients: number;
-  certifications?: number;
+  clients: number | null;
+  certifications?: number | null;
 }

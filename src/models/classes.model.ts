@@ -1,4 +1,4 @@
-import { IClass, IClassLive, IClassVideo } from "@/types/class.type";
+import { IClass, IClassLive, IClassVideo } from "@/types/classes.type";
 import mongoose, { Schema, model, models } from "mongoose";
 
 const videosSchema = new Schema<IClassVideo>({
@@ -24,7 +24,9 @@ const liveClassSchema = new Schema<IClassLive>({
 const LiveClass =
   models?.liveClasses ?? model<IClassLive>("liveCLasses", liveClassSchema);
 
-export const classSchema = new Schema<IClass>({
+type ClassesType = IClass & Document;
+
+export const classesSchema = new Schema<ClassesType>({
   name: String,
   photoUrl: String,
   description: String,
@@ -49,8 +51,10 @@ export const classSchema = new Schema<IClass>({
       ref: LiveClass,
     },
   ],
-});
+},
+{ timestamps: true } 
+);
 
-const Class = models?.classes ?? model<IClassLive>("classes", classSchema);
+const Classes = models?.classes ?? model<ClassesType>("classes", classesSchema);
 
-export default Class;
+export default Classes;

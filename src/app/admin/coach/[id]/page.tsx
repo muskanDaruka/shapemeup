@@ -10,30 +10,32 @@ import {
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
 import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
-import { IProducts } from "../../../../types/products.type"
+import { ICoach } from "../../../../types/coach.type"
 import Link from "next/link";
-import { useProductsById, useCreateProducts } from "@/hooks/products.hooks";
+import { useCoachById, useCreateCoach } from "@/hooks/coach.hooks";
 import { useParams, useRouter } from "next/navigation";
 
-const NewProductsPage = () => {
+const NewCoachPage = () => {
     const navigation = useRouter();
     const { id }: { id: string } = useParams();
-    const { data: productsData } = useProductsById(id);
-    const { mutate: addProducts } = useCreateProducts();
-
-    const [products, setProducts] = useState<IProducts>({
-        imageUrl: "",
+    const { data: coachData } = useCoachById(id);
+    const { mutate: addCoach} = useCreateCoach();
+   
+    const [coach, setCoach] = useState<ICoach>({
         name: "",
-        category: "",
-        description: "",
-      });
+        photoUrl: "",
+        yearsOfExp: null,
+        bio: "",
+        clients: null,
+        certifications: null,
+     });
 
-    useEffect(() => {
-        console.log(productsData);
-        if (productsData?.data?.data) {
-            setProducts(productsData?.data?.data);
+      useEffect(() => {   
+        console.log(coachData);
+        if (coachData?.data?.data) {
+            setCoach(coachData?.data?.data);
         }
-    }, [productsData]);
+    }, [coachData]); 
 
     const editor = useBlockNote({
         onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -42,10 +44,10 @@ const NewProductsPage = () => {
                 editor.topLevelBlocks
             );
             console.log(markdown);
-            setProducts((prev) => ({
+            setCoach((prev) => ({
                 ...prev,
-                description: markdown,
-            } as typeof prev));
+                bio: markdown,
+            }as typeof prev));
         },
         domAttributes: {
             editor: {
@@ -55,52 +57,54 @@ const NewProductsPage = () => {
         },
         uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
     });
-
-    const onHandleChange = (e: any) => {
+    
+    
+    
+    const onHandleChange = (e:any) => {
         const {
             target: { name, value },
         } = e;
-        setProducts((prev) => ({
+        setCoach((prev) => ({
             ...prev,
             [name]: value,
-        } as typeof prev));
+        }as typeof prev));
     };
 
-    const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    const onHandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            if (products._id) {
+            if (coach._id) {
                 console.log("Updated")
-                await updateProducts(products);
+                await updateCoach(coach);
             } else {
-                await addProducts(products);
+                await addCoach(coach);
             }
-            navigation.push("/admin/products"); // Use push instead of back to navigate to the updated page
+            navigation.push("/admin/coach"); // Use push instead of back to navigate to the updated page
         } catch (error) {
-            console.error("Error updating products: ", error);
+            console.error("Error updating coach: ", error);
         }
     };
 
     return (
         <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
             <div className="w-20">
-                <Link href={"/admin/products"}>
+                <Link href={"/admin/coach"}>
                     <Image src={leftArrow} alt="Back" width={24} height={24} />
                 </Link>
             </div>
             <form onSubmit={onHandleSubmit} className="flex-1 w-full">
                 <div className="flex flex-col gap-5">
-                    <h5>Add Products details</h5>
+                    <h5>Add Coach details</h5>
                     <div className="flex items-end justify-between gap-3">
-                    <div className="grid gap-2 w-full">
-                            <label htmlFor="image">Upload products image</label>
+                        <div className="grid gap-2 w-full">
+                            <label htmlFor="image">Upload coach photo</label>
                             <input
                                 type="text"
                                 id="image"
                                 className="rounded-md px-3 h-10 w-full border border-gray-300"
-                                name="imageUrl"
+                                name="photoUrl"
                                 onChange={onHandleChange}
-                                value={products.imageUrl}
+                                value={coach.photoUrl}
                             />
                         </div>
                         <button
@@ -118,33 +122,53 @@ const NewProductsPage = () => {
                             name="name"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={products.name}
+                            value={coach.name}
                         />
                     </div>
-
                     <div className="grid gap-2 w-full">
-                        <label htmlFor="time">Category</label>
-                        <input
-                            type="text"
-                            id="category"
-                            name="category"
-                            className="rounded-md px-3 h-10 w-full border border-gray-300"
-                            onChange={onHandleChange}
-                            value={products.category}
-                        />
-                    </div>
-
-                    <div className="grid gap-2 w-full">
-                        <label htmlFor="bio ">Description</label>
+                        <label htmlFor="bio ">Bio</label>
                         <textarea
-                            id="description"
-                            name="description"
+                            id="bio"
+                            name="bio"
                             className="rounded-md px-3 h-40 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={products.description}
+                            value={coach.bio}
                         />
                     </div>
-    
+                    
+                    <div className="grid gap-2 w-full">
+                        <label htmlFor="time">Years of experience</label>
+                        <input
+                            type="text"
+                            id="yearsOfExp"
+                            name="yearsOfExp"
+                            className="rounded-md px-3 h-10 w-full border border-gray-300"
+                            onChange={onHandleChange}
+                            value={coach.yearsOfExp}
+                        />
+                    </div>
+                    <div className="grid gap-2 w-full">
+                        <label htmlFor="time">Clients</label>
+                        <input
+                            type="text"
+                            id="clients"
+                            name="clients"
+                            className="rounded-md px-3 h-10 w-full border border-gray-300"
+                            onChange={onHandleChange}
+                            value={coach.clients}
+                        />
+                    </div>
+                    <div className="grid gap-2 w-full">
+                        <label htmlFor="time">Certifications</label>
+                        <input
+                            type="text"
+                            id="certifications"
+                            name="certifications"
+                            className="rounded-md px-3 h-10 w-full border border-gray-300"
+                            onChange={onHandleChange}
+                            value={coach.certifications}
+                        />
+                    </div>
                     <div className="w-full flex justify-end">
                         <button
                             type="submit"
@@ -158,4 +182,4 @@ const NewProductsPage = () => {
         </div>
     );
 };
-export default NewProductsPage;
+export default NewCoachPage;

@@ -3,32 +3,26 @@
 
 import { FC } from "react";
 import Image from "next/image";
-import React, { useState } from "react";
 import editIcon from "../images/icons/edit.svg";
 import deleteIcon from "../images/icons/delete.svg";
-import { IExercise } from "@/types/exercise.type";
+import { IProducts } from "@/types/products.type";
 import Link from "next/link";
-import { useUpdateExercise } from "@/hooks/exercise.hooks";
 
-type Props = IExercise & {
-
-    onDeleteExercise: (id: string) => void;
+type Props = IProducts & {
+    onDeleteProducts: (id: string) => void;
+    onUpdateProducts: (products: IProducts) => void;
 };
 
-const ExerciseCards: FC<Props> = ({
-    imageUrl,
+const ProductsCards: FC<Props> = ({
+    _id,
     name,
     category,
-    time,
-    difficulty,
-    _id,
-
-    onDeleteExercise,
+    imageUrl,
+    description,
+    onDeleteProducts,
+    onUpdateProducts,
 }) => {
-    const { mutate: updateExercise } = useUpdateExercise();
-    const handleEditClick = async () => {
-        await updateExercise(_id as string);
-    }
+
     return (
         <div className="w-full md:w-[48%] rounded-md overflow-hidden">
             <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
@@ -40,22 +34,14 @@ const ExerciseCards: FC<Props> = ({
                     />
                 </div>
                 <div className="p-5 flex-1 flex flex-col items-start justify-between">
-
                     <h5>{name}</h5>
-
 
                     <h6>
                         Category: <small>{category}</small>
                     </h6>
-                    <h6>
-                        Time: <small>{time}</small>
-                    </h6>
-                    <h6>
-                        Difficulty: <small>{difficulty}</small>
-                    </h6>
 
                     <div className="flex items-center justify-start gap-5">
-                        <Link href={`/admin/exercise/${_id}`}>
+                        <Link href={`/admin/products/${_id}`}>
                             <Image
                                 src={editIcon}
                                 alt="Edit"
@@ -63,24 +49,29 @@ const ExerciseCards: FC<Props> = ({
                                 height={36}
                                 aria-label="button"
                                 role="button"
-                                onClick={handleEditClick}
+                                onClick={() => onUpdateProducts({
+                                    _id,
+                                    name,
+                                    category,
+                                    imageUrl,
+                                    description,
+                                })}
                             />
                         </Link>
                         <Image
                             src={deleteIcon}
-                            alt="delete"
+                            alt="Edit"
                             width={36}
                             height={36}
                             aria-label="button"
                             role="button"
-                            onClick={() => onDeleteExercise(_id as string)}
+                            onClick={() => onDeleteProducts(_id as string)}
                         />
                     </div>
-
                 </div>
             </div>
         </div>
     );
 };
 
-export default ExerciseCards;
+export default ProductsCards;
