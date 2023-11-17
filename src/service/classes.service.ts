@@ -26,7 +26,7 @@ class ClassesService {
      * Delete a classes
      * @param id: string
      */
-    async deleteExercise(id: string) {
+    async deleteClasses(id: string) {
         return await axios.delete(`/api/classes?id=${id}`);
     }
 
@@ -34,7 +34,7 @@ class ClassesService {
      * Edit the classes by id
      * @param classes IClass
      */
-    async editExercise(classes: IClass) {
+    async editClasses(classes: IClass) {
         return await axios.put(`/api/classes`);
     }
 
