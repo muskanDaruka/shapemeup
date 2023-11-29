@@ -91,14 +91,12 @@ const BlogPage = () => {
           </div>
         </div>
 
-        <div className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8 ml-0">
+        <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
           {Array.isArray(blogs) && blogs.map((blog) => (
-            <Link href={`/admin/blogs/blogsView/${blog._id}`}>
-              <BlogCards {...blog} key={blog._id} onDeleteBlog={onDeleteBlog} />
-            </Link>
+            <BlogCards {...blog} key={blog._id} onDeleteBlog={onDeleteBlog} />
           ))}
         </div>
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-end ml-8">
           <Pagination />
         </div>
       </div>

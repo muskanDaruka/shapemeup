@@ -15,15 +15,15 @@ type Props = IClass & {
 };
 
 const ClassCards: FC<Props> = ({
-    name,
-    photoUrl,
-    releaseDate,
-    type,
-    days,
-    duration,
-    _id,
-    onDeleteClasses,
-    onUpdateClasses,
+  name,
+  photoUrl,
+  releaseDate,
+  type,
+  days,
+  duration,
+  _id,
+  onDeleteClasses,
+  onUpdateClasses,
 }) => {
 
   return (
@@ -62,13 +62,13 @@ const ClassCards: FC<Props> = ({
                 aria-label="button"
                 role="button"
                 onClick={() => onUpdateClasses({
-                    name,
-                    photoUrl,
-                    releaseDate,
-                    type,
-                    days,
-                    duration,
-                    _id,
+                  name,
+                  photoUrl,
+                  releaseDate,
+                  type,
+                  days,
+                  duration,
+                  _id,
                 })}
               />
             </Link>

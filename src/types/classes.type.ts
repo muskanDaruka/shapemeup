@@ -17,13 +17,13 @@ export interface IClassLive {
   classSummary: string;
 }
 
-export interface IClass{
+export interface IClass {
   _id?: string;
   name: string;
   photoUrl: string;
   description: string;
   assignedCoach: string;
-  releaseDate: Date;
+  releaseDate: Date | null;
   type: string;
   days: number | null;
   duration: number | null;

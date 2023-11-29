@@ -5,11 +5,12 @@ import Link from "next/link";
 import { useAllClasses, useDeleteClasses, useUpdateClasses } from "@/hooks/classes.hooks";
 import { IClass } from "@/types/classes.type";
 import ClassCards from "@/components/ClassCards";
+import { classesSchema } from "@/models/classes.model";
 
 
 interface Props {
     photoUrl: string;
-    releaseDate: Date,
+    releaseDate: null,
     type: String,
     days: Number,
     duration: Number,
@@ -59,12 +60,12 @@ const ClassesPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8">
+                <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
                     {Array.isArray(classes) && classes.map((classes) => (
                         <ClassCards {...classes} key={classes._id} onDeleteClasses={onDeleteClasses} onUpdateClasses={onUpdateClasses} />
                     ))}
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-end ml-8">
                     <Pagination />
                 </div>
             </div>

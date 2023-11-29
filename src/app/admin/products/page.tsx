@@ -1,13 +1,13 @@
 "use client"
 import Pagination from "@/components/Pagination";
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useAllProducts, useDeleteProducts, useUpdateProducts} from "@/hooks/products.hooks";
-import { IProducts} from "@/types/products.type";
+import { useAllProducts, useDeleteProducts, useUpdateProducts } from "@/hooks/products.hooks";
+import { IProducts } from "@/types/products.type";
 import ProductsCards from "@/components/ProductsCards";
 
 
-interface Props { 
+interface Props {
     name: String,
     category: String,
     imageUrl: String,
@@ -15,22 +15,22 @@ interface Props {
 }
 
 const ProductsPage = () => {
-  const { data: productsData, isLoading, isError } = useAllProducts();
-  const { mutate: deleteProducts } = useDeleteProducts();
-  const {mutate: updateProducts} = useUpdateProducts();
-  const products: IProducts[] = productsData?.data?.data || []  ;
- 
-  const onDeleteProducts = async (id: string) => {
-    await deleteProducts(id);
-    
-  };
-  const onUpdateProducts = async (products: IProducts) => {
-    await updateProducts(products);
-    
-  };
-  
-  if (isLoading) return <div>Loading...</div>;
-  
+    const { data: productsData, isLoading, isError } = useAllProducts();
+    const { mutate: deleteProducts } = useDeleteProducts();
+    const { mutate: updateProducts } = useUpdateProducts();
+    const products: IProducts[] = productsData?.data?.data || [];
+
+    const onDeleteProducts = async (id: string) => {
+        await deleteProducts(id);
+
+    };
+    const onUpdateProducts = async (products: IProducts) => {
+        await updateProducts(products);
+
+    };
+
+    if (isLoading) return <div>Loading...</div>;
+
     return (
         <div className="w-full h-full bg-[#F7F8FC]">
             <div className="p-5 md:p-10 flex flex-col items-center">
@@ -52,17 +52,17 @@ const ProductsPage = () => {
                                 type="button"
                                 className="bg-[#F2994A] px-4 text-white h-10 rounded-md"
                             >
-                                <Link href={"/admin/coach/new"}>Add New</Link>
+                                <Link href={"/admin/products/new"}>Add New</Link>
                             </button>
                         </div>
                     </div>
                 </div>
-                <div className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8">
+                <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
                     {Array.isArray(products) && products.map((products) => (
-                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} onUpdateProducts={onUpdateProducts}/>
+                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} onUpdateProducts={onUpdateProducts} />
                     ))}
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-end ml-8">
                     <Pagination />
                 </div>
             </div>

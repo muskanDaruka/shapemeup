@@ -47,8 +47,18 @@ const Menu = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="h-14 sm:h-16 bg-gray-50 fixed w-full z-10">
+    <section className="h-14 sm:h-16 sm:bg-gray-50 bg-[#34383d] fixed w-full z-10">
       <nav className="flex flex-row items-center justify-between sm:justify-center h-14 sm:h-16">
+        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
+          <div>
+            <img src="/assets/images/icons/Menu.png" alt="Menu" />
+          </div>
+        </div>
+        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
+          <div>
+            <img src="/assets/images/icons/white-search.png" alt="Search" />
+          </div>
+        </div>
         <div className="h-full bg-[#34383d] box-content">
           <Link
             href={"/"}
@@ -56,12 +66,6 @@ const Menu = () => {
           >
             <img src="/assets/images/shapemeup_logo.png" alt="shapemeup_logo" />
           </Link>
-        </div>
-
-        <div className="sm:hidden bg-[#f2994a] w-14 h-full flex items-center justify-center text-white">
-          <div>
-            <img src="/assets/images/icons/menu.png" alt="Menu" />
-          </div>
         </div>
 
         <div className="sm:flex hidden items-center justify-between w-11/12 ml-10 h-full">
@@ -78,12 +82,12 @@ const Menu = () => {
             </Link>
           ))}
           <div onClick={() => setIsRegistrationOpen(true)}>Register</div>
-          <div
-            className="bg-[#f2994a] px-10 h-full flex items-center text-white"
-            onClick={() => setIsOpen(true)}
-          >
+          <div className="px-10 h-full flex items-center text-white sm:bg-[#f2994a]" onClick={() => setIsOpen(true)}>
             Login
           </div>
+        </div>
+        <div className="sm:hidden bg-[#34383d] px-10 h-full flex items-center text-white" onClick={() => setIsOpen(true)}>
+          Login
         </div>
       </nav>
     </section>

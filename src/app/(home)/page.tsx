@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import Hero from "@/components/Hero";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
@@ -6,6 +7,10 @@ import Link from "next/link";
 import { IcardImages, Images } from "@/types/image.type";
 import CardSection from "@/components/CardSection";
 import MobileApp from "@/components/MobileApp";
+import { useAllBlogs } from "@/hooks/blogs.hooks";
+import BlogUserCards from "@/components/BlogUserCard";
+import ExerciseUserCard from "@/components/ExerciseUserCard";
+import { useAllExercise } from "@/hooks/exercise.hooks";
 
 const images: string[] = ["shapeme", "diet", "gym"];
 const cardImages: IcardImages[] = [
@@ -67,68 +72,38 @@ const heroImages: Images[] = [
     buttonText: "Check out our Workouts",
   },
 ];
-const blogPosts = [
-  {
-    imageSrc: "/assets/images/blogs/equipments.png",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
-    date: "21 October 2023",
-    category: "Fitness",
-    readMoreLink: "#",
-  },
-  {
-    imageSrc: "/assets/images/blogs/workout.png",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
-    date: "21 October 2023",
-    category: "Fitness",
-    readMoreLink: "#",
-  },
-  {
-    imageSrc: "/assets/images/blogs/blogs.png",
-    title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-    content: "Lorem ipsum dolor sit amet, consectetur iscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis",
-    date: "21 October 2023",
-    category: "Fitness",
-    readMoreLink: "#",
-  },
-];
+
 export default function Home() {
+  const { data: blogData } = useAllBlogs();
+  const blogs = blogData?.data?.data || [];
+  const { data: exerciseData } = useAllExercise();
+  const exercises = exerciseData?.data?.data || [];
+
+  if (exercises.length === 0) {
+    return null;
+  }
+  if (blogs.length === 0) {
+    return null;
+  }
   return (
     <>
       <Hero data={heroImages} />
       <HeroCard />
-      <section className="mt-4 relative">
-        <p className="text-center font-bold text-4xl my-4">
-          Making healthy living affordable, approachable, and attainable is our
-          goal.
+      <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">Get acess to thousands of workouts</h3>
+      <h4 className="w-full flex justify-center bg-[#f5f5f5]">
+        <p className="text-center font-normal text-lg w-10/12 sm:w-6/12">
+          Get the entire studio experience at home with hundreds of classes for body, mind, and spirit, whether you're a complete beginner or want to pick up your routine.
         </p>
-        <div className="flex sm:flex-row flex-col items-center justify-between gap-5 px-5">
-          {images.map((image) => (
-            <div key={image} className="relative flex-1 ">
-              <img
-                src={`/assets/images/home/${image}.png`}
-                alt={image}
-                className="object-cover rounded-md"
-              />
-            </div>
-          ))}
-        </div>
-        <h4 className="flex justify-center w-full my-5">
-          <p className="text-lg font-normal text-center w-9/12">
-            A ground-breaking new solution for staying healthy, Shape Me Up is
-            an online fitness training platform. We attempt to go above and
-            beyond with highly skilled instructors and customized training
-            programs. Everyone who wishes to develop healthy habits are cheered
-            by Shape me up!
-          </p>
-        </h4>
-      </section>
-      <CardSection
-        data={cardImages}
-        title="Get access to thousands of workouts"
-        description="Get the entire studio experience at home with hundreds of classes for body, mind and spirit, whether you're a complete beginner or want to pick up your routine."
-      />
+      </h4>
+      <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
+        {exercises.slice(0, 3).map((exercise, index) => (
+          <div key={index}>
+            <Link href={`/exercises/${exercise._id}`}>
+              <ExerciseUserCard key={exercise.id} exercise={exercise} />
+            </Link>
+          </div>
+        ))}
+      </div>
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
         <div className="relative flex-1">
           <div className="relative flex flex-col items-start justify-between">
@@ -190,31 +165,12 @@ export default function Home() {
           the latest news and trends on healthy living.
         </h4>
         <div className="mx-auto w-full sm:w-[1100px]">
-          <div className="flex flex-col space-y-8 sm:space-y-0 sm:flex-row sm:space-x-4">
-            {blogPosts.map((post, index) => (
-              <div
-                key={index}
-                className="w-full sm:w-[410px] h-[520px] border-slate-250 border-2 rounded-lg"
-              >
-                <img
-                  src={post.imageSrc}
-                  alt="blog_banner"
-                  className="w-full h-[230px] object-cover rounded-t-lg"
-                />
-                <div className="p-5">
-                  <h1 className="font-bold mb-2">{post.title}</h1>
-                  <p className="font-normal mb-4">{post.content}</p>
-                  <a
-                    href={post.readMoreLink}
-                    className="text-[#f2994a] hover:underline inline-block mb-2"
-                  >
-                    Read More
-                  </a>
-                  <div className="flex justify-between">
-                    <span className="text-black font-bold">{post.date}</span>
-                    <span className="font-bold">{post.category}</span>
-                  </div>
-                </div>
+          <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[50px]">
+            {blogs.slice(1, 4).map((blog, index) => (
+              <div key={index} className={`mb-4 flex ${index % 2 === 0 ? 'w-full sm:w-1/2' : 'w-full md:w-1/2 md:ml-4 sm:ml-2'} `}>
+                <Link href={`/blogss/${blog._id}`}>
+                  <BlogUserCards key={blog.id} blog={blog} useInImg useInName useInSummary useInRead useInDate useInCategory />
+                </Link>
               </div>
             ))}
           </div>
@@ -237,12 +193,12 @@ export default function Home() {
           {productImages.map((cardImage) => (
             <div
               key={cardImage.image}
-              className="rounded-md overflow-hidden relative"
+              className="rounded-md overflow-hidden relative mb-4 sm:mb-0 sm:mr-4"
             >
               <img
                 src={`/assets/images/products/${cardImage.image}.png`}
                 alt={cardImage.image}
-                className="object-cover rounded-md"
+                className="object-cover rounded-md w-full h-40 sm:h-auto"
               />
               <div className="absolute z-[1] h-full flex items-center justify-center text-white top-0 text-center w-full px-2">
                 <h4 className="font-bold text-3xl opacity-80">
@@ -260,7 +216,32 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
+      <section className="mt-4 relative">
+        <p className="text-center font-bold text-4xl my-4">
+          Making healthy living affordable, approachable, and attainable is our
+          goal.
+        </p>
+        <div className="flex sm:flex-row flex-col items-center justify-between gap-5 px-5 md:ml-24">
+          {images.map((image) => (
+            <div key={image} className="relative flex-1 ">
+              <img
+                src={`/assets/images/home/${image}.png`}
+                alt={image}
+                className="object-cover rounded-md"
+              />
+            </div>
+          ))}
+        </div>
+        <h4 className="flex justify-center w-full my-5">
+          <p className="text-lg font-normal text-center w-9/12">
+            A ground-breaking new solution for staying healthy, Shape Me Up is
+            an online fitness training platform. We attempt to go above and
+            beyond with highly skilled instructors and customized training
+            programs. Everyone who wishes to develop healthy habits are cheered
+            by Shape me up!
+          </p>
+        </h4>
+      </section>
       <MobileApp />
       <Footer />
     </>

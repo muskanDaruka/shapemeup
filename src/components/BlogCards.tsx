@@ -20,7 +20,7 @@ const BlogCards: FC<Props> = ({
   onDeleteBlog,
 }) => {
   return (
-    <div className="w-full md:w-[80%] rounded-md overflow-hidden">
+    <div className="w-full md:w-[48%] rounded-md overflow-hidden">
       <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
         <div className="overflow-hidden w-5/12">
           <img

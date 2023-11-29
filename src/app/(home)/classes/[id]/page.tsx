@@ -2,11 +2,15 @@
 "use client"
 import HorizontalList from "@/components/HorizontalList";
 import Footer from "@/components/Footer";
-import React, { useState } from "react";
+import React, { FC } from "react";
 // import ClassUserCard from "@/components/ClassUserCard";
 // import { IClass } from "@/types/classes.type";
-// import { useAllClasses } from "@/hooks/classes.hooks";
-
+import { useAllClasses } from "@/hooks/classes.hooks";
+interface ClassViewProps {
+  params: {
+    id: string;
+  };
+}
 const list = [
   "Weight loss",
   "Walk fitness",
@@ -31,7 +35,18 @@ const classImages = [
     description: "December 2023 Weight Loss Course",
   },
 ];
-const Classes = () => {
+const ClassView: FC<ClassViewProps> = ({ params }) => {
+
+  const { data: classesData, isLoading, isError } = useAllClasses();
+  const classess = classesData?.data?.data || [];
+  const pageClassesData = classess.filter(function (element) {
+    return element._id === params.id
+  })
+  console.log("pageClassesData", pageClassesData)
+  console.log("classess", classess)
+  if (classess.length === 0) {
+    return null;
+  }
 
   return (
     <div>
@@ -159,4 +174,4 @@ const Classes = () => {
   );
 };
 
-export default Classes;
+export default ClassView;

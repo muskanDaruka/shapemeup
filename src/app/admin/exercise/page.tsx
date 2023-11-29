@@ -62,12 +62,12 @@ const ExercisesPage = () => {
                         </div>
                     </div>
                 </div>
-                <div className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8">
+                <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
                     {Array.isArray(exercise) && exercise.map((exercise) => (
                         <ExerciseCards {...exercise} key={exercise._id} onDeleteExercise={onDeleteExercise} onUpdateExercise={onUpdateExercise} />
                     ))}
                 </div>
-                <div className="w-full flex justify-end">
+                <div className="w-full flex justify-end ml-8">
                     <Pagination />
                 </div>
             </div>

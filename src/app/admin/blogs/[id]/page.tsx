@@ -144,6 +144,7 @@ const NewBlogPage = () => {
             <label htmlFor="contents">Blog Contents</label>
             <BlockNoteView editor={editor} theme={"light"} />
           </div>
+
           <div className="w-full flex justify-end">
             <button
               type="submit"
@@ -153,8 +154,8 @@ const NewBlogPage = () => {
             </button>
           </div>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 export default NewBlogPage;

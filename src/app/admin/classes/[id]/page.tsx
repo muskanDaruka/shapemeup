@@ -19,27 +19,27 @@ const NewClassesPage = () => {
     const navigation = useRouter();
     const { id }: { id: string } = useParams();
     const { data: classesData } = useClassesById(id);
-    const { mutate: addClasses} = useCreateClasses();
+    const { mutate: addClasses } = useCreateClasses();
     const [classes, setClasses] = useState<IClass>({
         name: "",
         photoUrl: "",
         description: "",
         assignedCoach: "",
-        releaseDate: Date,
+        releaseDate: null,
         type: "",
         days: null,
         duration: null,
         videoUrl: "",
         about: "",
         benefits: "",
-     });
+    });
 
-      useEffect(() => {   
+    useEffect(() => {
         console.log(classesData);
         if (classesData?.data?.data) {
             setClasses(classesData?.data?.data);
         }
-    }, [classesData]); 
+    }, [classesData]);
 
     const editor = useBlockNote({
         onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -51,7 +51,7 @@ const NewClassesPage = () => {
             setClasses((prev) => ({
                 ...prev,
                 about: markdown,
-            }as typeof prev));
+            } as typeof prev));
         },
         domAttributes: {
             editor: {
@@ -61,8 +61,8 @@ const NewClassesPage = () => {
         },
         uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
     });
-      
-    const onHandleChange = (e:any) => {
+
+    const onHandleChange = (e: any) => {
         const {
             target: { name, value },
         } = e;
@@ -81,7 +81,7 @@ const NewClassesPage = () => {
         }
     };
 
-    const onHandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             if (classes._id) {
@@ -168,7 +168,7 @@ const NewClassesPage = () => {
                             value={classes.releaseDate}
                         />
                     </div>
-                    
+
                     <div className="grid gap-2 w-full">
                         <label htmlFor="type">Type</label>
                         <input
@@ -230,7 +230,7 @@ const NewClassesPage = () => {
                         <label htmlFor="about">About this course</label>
                         <BlockNoteView editor={editor} theme={"light"} />
                     </div>
-                    
+
                     <div className="grid gap-2 w-full">
                         <label htmlFor="benefits">Benefits</label>
                         <textarea
