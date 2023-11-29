@@ -71,11 +71,11 @@ const ExerciseView: FC<ExerciseViewProps> = ({ params }) => {
                 <div className="p-4 font-bold lg:ml-[660px]">Difficulty: {pageExerciseData[0].difficulty}  </div>
             </div>
             <section className="relative">
-                <div className="flex" >
-                    <video controls className="w-[500px] h-[400px] m-8">
+                <div className="flex flex-col md:flex-row" >
+                    <video controls className="w-full md:w-1/3 h-[400px] md:h-[500px] sm:m-8">
                         <source src={pageExerciseData[0].videoUrl} type="video/mp4" />
                     </video>
-                    <div>
+                    <div className="md:w-1/2">
                         <h3 className="font-bold text-xl text-center m-8">Instructions</h3>
                         <p className="text-xl ml-8" >{pageExerciseData[0].instructions}</p>
                         <p className="text-xl ml-8" >{pageExerciseData[0].instructions}</p>
@@ -84,9 +84,9 @@ const ExerciseView: FC<ExerciseViewProps> = ({ params }) => {
                 <div>
                     <p className="text-xl m-8">{pageExerciseData[0].instructions}</p>
                     <p className="text-xl m-8">{pageExerciseData[0].instructions}</p>
-                    <p className="m-8 text-xl font-bold">
+                    <p className="m-8 font-bold">
                         For more information click:
-                        <span className="m-2 text-[#f2994a]">
+                        <span className="block md:inline text-[#f2994a]">
                             https://www.acefitness.org/education-and-resources/lifestyle/exercise-library/14/bird-dog/
                         </span>
                     </p>

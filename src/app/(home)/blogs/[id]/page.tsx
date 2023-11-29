@@ -118,7 +118,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
             <section className="flex flex-col md:flex-row">
                 <div className="items-center space-y-1">
                     <div className="w-full md:w-[1200px] mx-auto">
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -126,7 +126,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis
                         </p>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -145,7 +145,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             <p className="ml-8 font-normal">H2 tag8</p>
                         </div>
                         <h1 className="m-8 text-2xl font-bold">{pageData[0].name}</h1>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -153,7 +153,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis
                         </p>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -161,7 +161,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis
                         </p>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -177,12 +177,12 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             />
                         </center>
                         <h1 className="m-8 text-2xl font-bold">{pageData[0].name}</h1>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
                         </p>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -190,7 +190,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis
                         </p>
-                        <p className="m-8 font-normal">
+                        <p className="m-8">
                             Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
                             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                             enim ad minim veniam, quis{pageData[0].contents}
@@ -291,10 +291,10 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                 <h1 className="text-center font-bold text-4xl my-5">Related Blogs</h1>
                 <div className="flex flex-col sm:flex-row items-center justify-center">
                     <button onClick={() => prevSlide()}>&lt;</button>
-                    <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[120px]">
+                    <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center sm:ml-[120px]">
                         {blogs.slice(0, 3).map((blog, index) => (
-                            <div key={index} className={`mb-4 flex w-full${index % 2 === 0 ? ' sm:w-1/2' : ' md:w-1/2 md:ml-4 sm:ml-0'} ${index > 0 ? 'hidden sm:flex' : ''}`}>
-                                <Link href={`/blogss/${blog._id}`}>
+                            <div key={index} className={`mb-4 w-full${index % 2 === 0 ? ' sm:w-1/2' : ' md:w-1/2 md:ml-4 sm:ml-0'} ${index > 0 ? 'hidden sm:flex' : ''}`}>
+                                <Link href={`/blogs/${blog._id}`}>
                                     <BlogUserCards key={blog.id} blog={blog} useInImg useInSummary />
                                 </Link>
                             </div>
