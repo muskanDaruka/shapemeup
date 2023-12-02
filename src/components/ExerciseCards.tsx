@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useUpdateExercise } from "@/hooks/exercise.hooks";
 
 type Props = IExercise & {
-  
+
     onDeleteExercise: (id: string) => void;
 };
 
@@ -22,13 +22,13 @@ const ExerciseCards: FC<Props> = ({
     time,
     difficulty,
     _id,
-    
+
     onDeleteExercise,
 }) => {
     const { mutate: updateExercise } = useUpdateExercise();
-   const handleEditClick = async () => {
+    const handleEditClick = async () => {
         await updateExercise(_id as string);
-   }
+    }
     return (
         <div className="w-full md:w-[48%] rounded-md overflow-hidden">
             <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
@@ -40,9 +40,9 @@ const ExerciseCards: FC<Props> = ({
                     />
                 </div>
                 <div className="p-5 flex-1 flex flex-col items-start justify-between">
-                  
-                        <h5>{name}</h5>
-            
+
+                    <h5>{name}</h5>
+
 
                     <h6>
                         Category: <small>{category}</small>
@@ -53,7 +53,7 @@ const ExerciseCards: FC<Props> = ({
                     <h6>
                         Difficulty: <small>{difficulty}</small>
                     </h6>
-                    
+
                     <div className="flex items-center justify-start gap-5">
                         <Link href={`/admin/exercise/${_id}`}>
                             <Image
@@ -76,7 +76,7 @@ const ExerciseCards: FC<Props> = ({
                             onClick={() => onDeleteExercise(_id as string)}
                         />
                     </div>
-                    
+
                 </div>
             </div>
         </div>

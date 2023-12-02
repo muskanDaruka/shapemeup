@@ -3,7 +3,6 @@
 
 import { FC } from "react";
 import Image from "next/image";
-
 import editIcon from "../images/icons/edit.svg";
 import deleteIcon from "../images/icons/delete.svg";
 import { IBlog } from "@/types/blog.type";
@@ -32,7 +31,6 @@ const BlogCards: FC<Props> = ({
         </div>
         <div className="p-5 flex-1 flex flex-col items-start justify-between">
           <h5>{name}</h5>
-
           <h6>
             Category: <small>{category}</small>
           </h6>

@@ -9,4 +9,12 @@ export interface IBlog {
   contents: string;
   postedOn?: Date;
   trendingTopic?: string;
+  metaTitle: string;
+  description: string;
+  keywords: string;
+  blogSlugUrl: string;
+  faqQues: string;
+  faqAns: string;
+  ctaBlogImg: string;
+  ctaBlogImgUrl: string;
 }

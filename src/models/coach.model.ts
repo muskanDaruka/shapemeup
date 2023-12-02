@@ -1,7 +1,9 @@
 import { ICoach } from "@/types/coach.type";
 import { Schema, model, models } from "mongoose";
 
-export const coachSchema = new Schema<ICoach>({
+type CoachType = ICoach & Document;
+
+export const coachSchema = new Schema<CoachType>({
   name: String,
   photoUrl: String,
   yearsOfExp: Number,
@@ -10,6 +12,6 @@ export const coachSchema = new Schema<ICoach>({
   certifications: Number,
 });
 
-const Coach = models?.coaches ?? model<ICoach>("Coaches", coachSchema);
+const Coach = models?.coach ?? model<CoachType>("coach", coachSchema);
 
 export default Coach;

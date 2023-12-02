@@ -31,12 +31,7 @@ const Register = () => {
   const handleCloseClick = () => {
     console.log("Close button clicked");
   };
-  const signIn = () => {
-    console.log("SignIn clicked");
-    setIsOpen(true);
-    setIsForgotPasswordOpen(false);
-    setIsRegistrationOpen(false);
-  };
+  
   const googleSignUp = () => {
     console.log("Google Login clicked");
   };
@@ -156,13 +151,6 @@ const Register = () => {
                   title="Login here"
                 >
                   Login Here
-                </button>
-                <button
-                  onClick={signIn}
-                  className="text-[#f2994a] text-xl"
-                  title="Login here"
-                >
-                  Login here
                 </button>
               </div>
             </form>

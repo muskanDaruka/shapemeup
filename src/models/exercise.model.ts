@@ -1,7 +1,9 @@
 import { IExercise } from "@/types/exercise.type";
 import { Schema, model, models } from "mongoose";
 
-const exerciseSchema = new Schema<IExercise>({
+type ExerciseType = IExercise & Document;
+
+const exerciseSchema = new Schema<ExerciseType>({
   name: String,
   category: String,
   time: Number,
@@ -15,6 +17,6 @@ const exerciseSchema = new Schema<IExercise>({
 });
 
 const Exercise =
-  models?.exercises ?? model<IExercise>("exercises", exerciseSchema);
+  models?.exercises ?? model<ExerciseType>("exercises", exerciseSchema);
 
 export default Exercise;

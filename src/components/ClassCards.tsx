@@ -1,0 +1,91 @@
+/* eslint-disable @next/next/no-img-element */
+"use client";
+
+import { FC } from "react";
+import Image from "next/image";
+
+import editIcon from "../images/icons/edit.svg";
+import deleteIcon from "../images/icons/delete.svg";
+import { IClass } from "@/types/classes.type";
+import Link from "next/link";
+
+type Props = IClass & {
+  onDeleteClasses: (id: string) => void;
+  onUpdateClasses: (coach: IClass) => void;
+};
+
+const ClassCards: FC<Props> = ({
+  name,
+  photoUrl,
+  releaseDate,
+  type,
+  days,
+  duration,
+  _id,
+  onDeleteClasses,
+  onUpdateClasses,
+}) => {
+
+  return (
+    <div className="w-full md:w-[48%] rounded-md overflow-hidden">
+      <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
+        <div className="overflow-hidden w-5/12">
+          <img
+            src={photoUrl}
+            alt={photoUrl}
+            className="bg-cover w-full h-full"
+          />
+        </div>
+        <div className="p-5 flex-1 flex flex-col items-start justify-between">
+          <h5>{name}</h5>
+
+          <h6>
+            Release date: <small>{releaseDate}</small>
+          </h6>
+          <h6>
+            Type: <small>{type}</small>
+          </h6>
+          <h6>
+            Number of days: <small>{days}</small>
+          </h6>
+          <h6>
+            Duration: <small>{duration}</small>
+          </h6>
+
+          <div className="flex items-center justify-start gap-5">
+            <Link href={`/admin/classes/${_id}`}>
+              <Image
+                src={editIcon}
+                alt="Edit"
+                width={36}
+                height={36}
+                aria-label="button"
+                role="button"
+                onClick={() => onUpdateClasses({
+                  name,
+                  photoUrl,
+                  releaseDate,
+                  type,
+                  days,
+                  duration,
+                  _id,
+                })}
+              />
+            </Link>
+            <Image
+              src={deleteIcon}
+              alt="Edit"
+              width={36}
+              height={36}
+              aria-label="button"
+              role="button"
+              onClick={() => onDeleteClasses(_id as string)}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ClassCards;

@@ -6,7 +6,6 @@ import {
     uploadToTmpFilesDotOrg_DEV_ONLY,
     BlockNoteEditor,
 } from "@blocknote/core";
-
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
 import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
@@ -24,7 +23,7 @@ const NewExercisePage = () => {
     const [exercise, setExercise] = useState<IExercise>({
         name: "",
         category: "",
-        time: 0,
+        time: null,
         durationType: "",
         difficulty: "",
         imageUrl: "",
@@ -209,7 +208,7 @@ const NewExercisePage = () => {
                         <BlockNoteView editor={editor} theme={"light"} />
                     </div>
                     <div className="grid gap-2 w-full">
-                        <label htmlFor="category">External links</label>
+                        <label htmlFor="externalLinks">External links</label>
                         <input
                             type="text"
                             id="externalLinks"

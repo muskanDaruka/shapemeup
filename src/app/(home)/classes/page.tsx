@@ -1,7 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+"use client"
 import HorizontalList from "@/components/HorizontalList";
 import Footer from "@/components/Footer";
 import React, { useState } from "react";
+// import ClassUserCard from "@/components/ClassUserCard";
+// import { IClass } from "@/types/classes.type";
+// import { useAllClasses } from "@/hooks/classes.hooks";
 
 const list = [
   "Weight loss",
@@ -28,11 +32,12 @@ const classImages = [
   },
 ];
 const Classes = () => {
+
   return (
     <div>
       <section className="relative">
-        <div className="relative flex bg-gradient-to-r from-[#f0f5ff] via-[#f0f5ff] to-[#c2d4f7]">
-          <div className="mx-5 my-5 font-bold">
+        <div className="relative flex flex-col lg:flex-row bg-gradient-to-r from-[#f0f5ff] via-[#f0f5ff] to-[#c2d4f7]">
+          <div className="mx-5 my-5 font-bold lg:block order-1 lg:order-2">
             <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8">
               April 2022 Weight Loss class
             </h2>
@@ -68,7 +73,7 @@ const Classes = () => {
               Enroll
             </button>
           </div>
-          <div>
+          <div className="lg:block order-1 lg:order-2">
             <img
               src="/assets/images/classes/class_banner.png"
               alt="class"
@@ -77,94 +82,32 @@ const Classes = () => {
           </div>
         </div>
       </section>
-      <section className="text-4xl m-24">
-        <h2 className="font-bold">
+      <section className="text-2xl md:text-4xl m-8 md:m-24">
+        <h2 className="font-bold text-center">
           <center>Classes for you</center>
         </h2>
         <br />
         <HorizontalList data={list} />
-        <div className="flex relative">
+        <div className="flex flex-col items-center md:flex-row relative">
           {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span> */}
-          <div className="ml-[140px] w-[1100px] h-[202px] relative">
-            <div className="flex">
+          <div className="md:ml-auto md:mr-auto w-full md:w-[1100px] relative">
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
               {classImages.map((items, index) => (
                 <div
                   key={index}
-                  className="flex-shrink-0 w-[394px] h-[400px] m-[50px] ml-5 relative"
+                  className="w-full md:w-[394px] h-[400px] md:m-0 mb-4 relative justify-center"
                 >
                   <img
                     src={items.imageSrc}
                     alt="classes"
-                    className="w-full object-cover-fit h-full flex-shrink rounded-lg"
+                    className="w-full h-full object-cover rounded-lg"
                   />
-                  <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
+                  <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
                     <center>
-                      <span className="text-white text-[15px]  font-normal">
+                      <span className="text-white text-[15px] font-normal">
                         {items.date}
                       </span>
-                      <hr />
-                      <p className="text-white text-[20px] font-bold">
-                        {items.description}
-                      </p>
-                    </center>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute right-0">⟶</span> */}
-        </div>
-        <div className="flex relative mt-[200px]">
-          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span> */}
-          <div className="ml-[140px] w-[1100px] h-[202px] relative">
-            <div className="flex">
-              {classImages.map((items, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[394px] h-[400px] m-[50px] ml-5 relative"
-                >
-                  <img
-                    src={items.imageSrc}
-                    alt="classes"
-                    className="w-full object-cover-fit h-full flex-shrink rounded-lg"
-                  />
-                  <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
-                    <center>
-                      <span className="text-white text-[15px]  font-normal">
-                        {items.date}
-                      </span>
-                      <hr />
-                      <p className="text-white text-[20px] font-bold">
-                        {items.description}
-                      </p>
-                    </center>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute right-0">⟶</span> */}
-        </div>
-        <div className="flex relative mt-[200px]">
-          {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-right absolute left-0">⟵</span> */}
-          <div className="ml-[140px] w-[1100px] h-[202px] relative">
-            <div className="flex">
-              {classImages.map((items, index) => (
-                <div
-                  key={index}
-                  className="flex-shrink-0 w-[394px] h-[400px] m-[50px] ml-5 relative"
-                >
-                  <img
-                    src={items.imageSrc}
-                    alt="classes"
-                    className="w-full object-cover-fit h-full flex-shrink rounded-lg"
-                  />
-                  <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
-                    <center>
-                      <span className="text-white text-[15px]  font-normal">
-                        {items.date}
-                      </span>
-                      <hr />
+                      <hr className="md:hidden" />
                       <p className="text-white text-[20px] font-bold">
                         {items.description}
                       </p>
@@ -177,7 +120,7 @@ const Classes = () => {
           {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute right-0">⟶</span> */}
         </div>
       </section>
-      <section className="mt-[300px]">
+      <section className="md:mt-2">
         <div className="bg-gradient-to-r from-gray-300 via-gray-300 to-gray-300 h-full w-full">
           <h1 className="text-black text-4xl font-bold m-8 ">
             <center>Use our app to access courses anywhere.</center>

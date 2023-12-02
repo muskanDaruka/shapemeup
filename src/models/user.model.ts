@@ -1,9 +1,9 @@
 import { Schema, model, models } from "mongoose";
 import bcrypt from "bcryptjs";
-
 import { IUser, IUserMethods, UserModel } from "@/types/user.type";
 
-const userSchema = new Schema<IUser, UserModel, IUserMethods>(
+type UserType = IUser & Document;
+const userSchema = new Schema<UserType, UserModel, IUserMethods>(
   {
     email: {
       type: String,
@@ -34,6 +34,6 @@ userSchema.statics.findByEmail = function (email: string) {
   return this?.findOne({ email });
 };
 
-const User = models.users ?? model<IUser, UserModel>("users", userSchema);
+const User = models.users ?? model<UserType, UserModel>("users", userSchema);
 
 export default User;
