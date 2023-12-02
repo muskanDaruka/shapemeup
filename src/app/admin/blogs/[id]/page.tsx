@@ -28,6 +28,14 @@ const NewBlogPage = () => {
     summary: "",
     category: "",
     contents: "",
+    metaTitle: "",
+    description: "",
+    keywords: "",
+    blogSlugUrl: "",
+    faqQues: "",
+    faqAns: "",
+    ctaBlogImg: "",
+    ctaBlogImgUrl: ""
   });
 
   useEffect(() => {
@@ -144,7 +152,115 @@ const NewBlogPage = () => {
             <label htmlFor="contents">Blog Contents</label>
             <BlockNoteView editor={editor} theme={"light"} />
           </div>
-
+          <div className="grid gap-2 w-full" >
+            <label htmlFor="name" > Meta title </label>
+            < input
+              type="text"
+              id="metaTitle"
+              name="metaTitle"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={blog.metaTitle}
+            />
+          </div>
+          < div className="grid gap-2 w-full" >
+            <label htmlFor="name" > Meta description </label>
+            < input
+              type="text"
+              id="description"
+              name="description"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={blog.description}
+            />
+          </div>
+          < div className="grid gap-2 w-full" >
+            <label htmlFor="name" > Meta Keywords </label>
+            < input
+              type="text"
+              id="keywords"
+              name="keywords"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={blog.keywords}
+            />
+          </div>
+          < div className="grid gap-2 w-full" >
+            <label htmlFor="name" > Blog Slug Url </label>
+            < input
+              type="text"
+              id="blogSlugUrl"
+              name="blogSlugUrl"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={blog.blogSlugUrl}
+            />
+          </div>
+          <div className="flex items-end justify-between gap-3" >
+            <div className="grid gap-2 w-full" >
+              <label htmlFor="image" > Input Field to FAQs </label>
+              < input
+                type="text"
+                id="faqQues"
+                className="rounded-md px-3 h-10 w-full border border-gray-300"
+                name="blogImgUrl"
+                onChange={onHandleChange}
+                value={blog.faqQues}
+              />
+              < input
+                type="text"
+                id="faqAns"
+                className="rounded-md px-3 h-10 w-full border border-gray-300"
+                name="faqAns"
+                onChange={onHandleChange}
+                value={blog.faqAns}
+              />
+            </div>
+            <button
+              type="button"
+              className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+            >
+              {/* TODO: Plus Icon */}Add
+            </button>
+          </div>
+          < div className="flex items-end justify-between gap-3" >
+            <div className="grid gap-2 w-full" >
+              <label htmlFor="image" > CTA blog image </label>
+              < input
+                type="text"
+                id="image"
+                className="rounded-md px-3 h-10 w-full border border-gray-300"
+                name="ctaBlogImg"
+                onChange={onHandleChange}
+                value={blog.ctaBlogImg}
+              />
+            </div>
+            < button
+              type="button"
+              className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+            >
+              {/* TODO: Plus Icon */}Browse
+            </button>
+          </div>
+          < div className="flex items-end justify-between gap-3" >
+            <div className="grid gap-2 w-full" >
+              <label htmlFor="image" > CTA blog image Url </label>
+              < input
+                type="text"
+                id="image"
+                className="rounded-md px-3 h-10 w-full border border-gray-300"
+                name="ctaBlogImgUrl"
+                onChange={onHandleChange}
+                value={blog.ctaBlogImgUrl}
+              />
+            </div>
+            <button
+              type="button"
+              className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+            >
+              {/* TODO: Plus Icon */}Browse
+            </button>
+          </div>
           <div className="w-full flex justify-end">
             <button
               type="submit"

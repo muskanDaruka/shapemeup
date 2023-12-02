@@ -65,14 +65,14 @@ const ExerciseView: FC<ExerciseViewProps> = ({ params }) => {
                     </div>
                 </div>
             </section >
-            <div className="flex bg-[#F2994A] text-white w-full">
+            <div className="flex bg-white text-[#F2994A] w-full md:bg-[#F2994A] md:text-white">
                 <div className="p-4 font-bold">Category : {pageExerciseData[0].category}</div>
                 <div className="p-4 font-bold lg:ml-[660px]">Time: {pageExerciseData[0].time}  </div>
                 <div className="p-4 font-bold lg:ml-[660px]">Difficulty: {pageExerciseData[0].difficulty}  </div>
             </div>
             <section className="relative">
                 <div className="flex flex-col md:flex-row" >
-                    <video controls className="w-full md:w-1/3 h-[400px] md:h-[500px] sm:m-8">
+                    <video controls className="w-full md:w-1/3 h-[400px] md:h-[500px] sm:m-4 md:m-8">
                         <source src={pageExerciseData[0].videoUrl} type="video/mp4" />
                     </video>
                     <div className="md:w-1/2">

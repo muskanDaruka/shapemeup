@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import FAQ from "@/components/FAQ";
 import { IcardImages, Images } from "@/types/image.type";
 import CardSection from "@/components/CardSection";
 import MobileApp from "@/components/MobileApp";
@@ -243,6 +244,7 @@ export default function Home() {
         </h4>
       </section>
       <MobileApp />
+      <FAQ />
       <Footer />
     </>
   );
