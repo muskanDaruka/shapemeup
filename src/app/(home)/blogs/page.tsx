@@ -115,10 +115,10 @@ const Blogs = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row w-full md:ml-2 sm:container items-center justify-center text-center mx-auto ">
+            <div className="w-full md:ml-6 sm:container mx-auto  ">
               {blogs.map((blog, index) => (
                 index % 2 === 1 && (
-                  <div key={index / 2} className="mb-4 sm:mb-0">
+                  <div key={index / 2} className="flex flex-col md:flex-row mb-4 sm:mb-0  md:space-x-4">
                     <BlogUserCards key={blog.id} blog={blog} useInImg useInName useInSummary useInRead useInDate useInCategory />
                     {blogs[index + 1] && (
                       <BlogUserCards key={blogs[index + 1].id} blog={blogs[index + 1]} useInImg useInName useInSummary useInRead useInDate useInCategory />

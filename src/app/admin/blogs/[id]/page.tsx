@@ -198,12 +198,12 @@ const NewBlogPage = () => {
           </div>
           <div className="flex items-end justify-between gap-3" >
             <div className="grid gap-2 w-full" >
-              <label htmlFor="image" > Input Field to FAQs </label>
+              <label htmlFor="ques" > Input Field to FAQs </label>
               < input
                 type="text"
                 id="faqQues"
                 className="rounded-md px-3 h-10 w-full border border-gray-300"
-                name="blogImgUrl"
+                name="faqQues"
                 onChange={onHandleChange}
                 value={blog.faqQues}
               />
