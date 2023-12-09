@@ -2,7 +2,7 @@
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HorizontalList from "@/components/HorizontalList";
-import { Images } from "@/types/type";
+import { Images } from "@/types/image.type";
 import { useAllProducts } from "@/hooks/products.hooks";
 import ProductUserCard from "@/components/ProductUserCard";
 import Link from "next/link";

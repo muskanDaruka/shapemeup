@@ -4,6 +4,7 @@
 import { FC } from "react";
 import { useAllBlogs } from "@/hooks/blogs.hooks";
 import Link from "next/link";
+
 interface BlogUserCardsProps {
   blog: {
     id: number;
