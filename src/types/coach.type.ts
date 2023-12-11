@@ -1,7 +1,8 @@
 import { Document } from "mongoose";
 
-export interface ICoach{
-  _id?: string;
+export interface ICoach {
+  _id: string;
+  id?: number;
   name: string;
   photoUrl: string;
   yearsOfExp: number | null;

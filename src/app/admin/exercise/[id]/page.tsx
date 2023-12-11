@@ -18,9 +18,10 @@ const NewExercisePage = () => {
     const navigation = useRouter();
     const { id }: { id: string } = useParams();
     const { data: exerciseData } = useExerciseById(id);
-    const { mutate: addExercise} = useCreateExercise();
-   
+    const { mutate: addExercise } = useCreateExercise();
+
     const [exercise, setExercise] = useState<IExercise>({
+        _id: "",
         name: "",
         category: "",
         time: null,
@@ -31,14 +32,14 @@ const NewExercisePage = () => {
         description: "",
         instructions: "",
         externalLinks: "",
-      });
+    });
 
-      useEffect(() => {   
+    useEffect(() => {
         console.log(exerciseData);
         if (exerciseData?.data?.data) {
             setExercise(exerciseData?.data?.data);
         }
-    }, [exerciseData]); 
+    }, [exerciseData]);
 
     const editor = useBlockNote({
         onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -50,7 +51,7 @@ const NewExercisePage = () => {
             setExercise((prev) => ({
                 ...prev,
                 instructions: markdown,
-            }as typeof prev));
+            } as typeof prev));
         },
         domAttributes: {
             editor: {
@@ -60,32 +61,34 @@ const NewExercisePage = () => {
         },
         uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
     });
-    
-    
-    
-    const onHandleChange = (e:any) => {
+
+
+
+    const onHandleChange = (e: any) => {
         const {
             target: { name, value },
         } = e;
         setExercise((prev) => ({
             ...prev,
             [name]: value,
-        }as typeof prev));
+        } as typeof prev));
     };
 
-    const onHandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            if (exercise._id) {
-                console.log("Updated")
-                await updateExercise(exercise);
-            } else {
-                await addExercise(exercise);
-            }
-            navigation.push("/admin/exercise"); // Use push instead of back to navigate to the updated page
-        } catch (error) {
-            console.error("Error updating exercise: ", error);
-        }
+        // try {
+        //     if (exercise._id) {
+        //         console.log("Updated")
+        //         await updateExercise(exercise);
+        //     } else {
+        //         await addExercise(exercise);
+        //     }
+        //     navigation.push("/admin/exercise"); // Use push instead of back to navigate to the updated page
+        // } catch (error) {
+        //     console.error("Error updating exercise: ", error);
+        // }
+        addExercise(exercise);
+        navigation.back();
     };
 
     return (
@@ -170,15 +173,15 @@ const NewExercisePage = () => {
                     </div>
                     <div className="flex items-end justify-between gap-3">
                         <div className="grid gap-2 w-full">
-                        <label htmlFor="time">time</label>
-                        <input
-                            type="text"
-                            id="time"
-                            name="time"
-                            className="rounded-md px-3 h-10 w-full border border-gray-300"
-                            onChange={onHandleChange}
-                            value={exercise.time}
-                        />
+                            <label htmlFor="time">time</label>
+                            <input
+                                type="text"
+                                id="time"
+                                name="time"
+                                className="rounded-md px-3 h-10 w-full border border-gray-300"
+                                onChange={onHandleChange}
+                                value={exercise.time}
+                            />
                         </div>
                         <button
                             type="button"

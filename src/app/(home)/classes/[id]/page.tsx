@@ -39,9 +39,9 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
 
   const { data: classesData, isLoading, isError } = useAllClasses();
   const classess = classesData?.data?.data || [];
-  const pageClassesData = classess.filter(function (element) {
-    return element._id === params.id
-  })
+  const pageClassesData = classess.filter(
+    (element: { _id: string }) => element._id === params.id
+  );
   console.log("pageClassesData", pageClassesData)
   console.log("classess", classess)
   if (classess.length === 0) {

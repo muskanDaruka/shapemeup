@@ -20,9 +20,9 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
     const { data: productData, isLoading, isError } = useAllProducts();
     const products = productData?.data?.data || [];
 
-    const pageProductData = products.filter(function (element) {
-        return element._id === params.id
-    })
+    const pageProductData = products.filter(
+        (element: { _id: string }) => element._id === params.id
+    );
     console.log("pageProductData", pageProductData)
     console.log("products", products)
     if (products.length === 0) {
@@ -73,7 +73,7 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
             <section className="md:m-10">
                 <h1 className="text-black text-4xl mb-[20px] font-bold">Related products</h1>
                 <div className="flex flex-col md:flex-row w-full md:ml-2 sm:container items-center justify-center text-center mx-auto ">
-                    {products.map((product, index) => (
+                    {products.map((product: IProducts, index: number) => (
                         index % 2 === 1 && index < 3 && (
                             <div key={index / 2} className="mb-4 sm:mb-0 md:flex gap-10">
                                 <ProductUserCard key={product.id} product={product} />

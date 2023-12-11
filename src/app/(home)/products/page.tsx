@@ -6,6 +6,8 @@ import { Images } from "@/types/image.type";
 import { useAllProducts } from "@/hooks/products.hooks";
 import ProductUserCard from "@/components/ProductUserCard";
 import Link from "next/link";
+import Image from 'next/image';
+import { IProducts } from "@/types/products.type";
 
 const list = ["Protein suppliments", "Fitness clothing", "Fitness equipments"]
 const heroImages: Images[] = [
@@ -68,7 +70,12 @@ const Products = () => {
                 key={index}
                 className="w-full md:w-[394px] h-[400px] md:m-0 mb-4 relative justify-center"
               >
-                <img src={item.imageSrc} alt="blog_banner" className="w-full h-full object-cover rounded-lg" />
+                <Image
+                  src={item.imageSrc} alt="blog_banner"
+                  width={1440}
+                  height={528}
+                  className="w-full h-full object-cover rounded-lg"
+                />
                 <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
                   <h1 className="font-bold text-xl text-white z-10">{item.title}</h1>
                 </div>
@@ -81,9 +88,11 @@ const Products = () => {
       <br />
       <section className="relative">
         <div className="relative">
-          <img
+          <Image
             src="/assets/images/products/product_run.png"
             alt="image"
+            width={1440}
+            height={528}
             className="relative w-screen object-cover h-auto min-h-[490px]"
           />
           <div className="absolute flex flex-col items-center justify-center w-full top-0 h-full gap-10">
@@ -100,7 +109,7 @@ const Products = () => {
         {/* <div className="flex relative"> */}
         {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold absolute right-0">⟶</span> */}
         <div className="flex flex-col md:flex-row w-full sm:container items-center justify-center text-center mx-auto mr-10">
-          {products.slice(0, 3).map((product, index) => (
+          {products.slice(0, 3).map((product: IProducts, index: number) => (
             <div key={index} className={`mb-4 flex w-full md:w-1/2 ${index % 2 === 0 ? 'md:ml-auto' : ' md:ml-4 sm:ml-2  '}`}>
               <Link href={`/products/${product._id}`}>
                 <ProductUserCard key={product.id} product={product} />

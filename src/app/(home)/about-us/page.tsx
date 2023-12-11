@@ -3,6 +3,7 @@ import { IcardImages, Images } from "@/types/image.type";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
 import FAQ from "@/components/FAQ";
+import Image from 'next/image';
 
 const images: string[] = ["shapeme", "diet", "gym"];
 const images2: string[] = ["banner_img", "about_img", "about img"];
@@ -25,9 +26,11 @@ const AboutUs = () => {
         <div className="flex sm:flex-row flex-col items-center justify-evenly gap-5 px-5">
           {images.map((image) => (
             <div key={image} className="relative flex ">
-              <img
+              <Image
                 src={`/assets/images/home/${image}.png`}
                 alt={image}
+                width={480}
+                height={351.604}
                 className=" object-cover w-250 h-96 rounded-md..."
               />
             </div>
@@ -45,9 +48,11 @@ const AboutUs = () => {
         <div className="flex sm:flex-row flex-col items-center justify-evenly gap-5 px-5">
           {images2.map((image) => (
             <div key={image} className="relative flex">
-              <img
+              <Image
                 src={`/assets/images/about/${image}.png`}
                 alt={image}
+                width={480}
+                height={351.604}
                 className="object-cover w-250 h-96 rounded-md..."
               />
             </div>

@@ -110,7 +110,11 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
             </section>
             <div className="flex  bg-white text-[#F2994A] w-full md:bg-[#F2994A] md:text-white">
                 <div className="flex items-center">
-                    <img src="/assets/images/coach_list/coach_04.png" className="h-12 w-12 md:w-12 rounded-full m-3" />
+                    <img
+                        src="/assets/images/coach_list/coach_04.png"
+                        alt="image"
+                        className="h-12 w-12 md:w-12 rounded-full m-3"
+                    />
                     <h3 className="font-bold p-2 md:p-4">Author Name</h3>
                 </div>
                 <div className="p-4 m-2 font-bold lg:ml-[1350px] ml-40">{pageData[0].category}</div>
@@ -207,7 +211,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                             To Know more, Sed ut perspiciatis unde omnis iste natus. Dial{' '}
                             <span className="text-[#f2994a]">0129-4040404</span> or click on{' '}
                             <span className="text-[#f2994a]">
-                                ‘Nemo enim ipsam voluptatem quia voluptas sit (CTA)'
+                                &lsquo;Nemo enim ipsam voluptatem quia voluptas sit (CTA)&rsquo;
                             </span>
                             .
                         </p>
@@ -295,7 +299,7 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
                         {blogs.slice(0, 3).map((blog, index) => (
                             <div key={index} className={`mb-4 w-full${index % 2 === 0 ? ' sm:w-1/2' : ' md:w-1/2 md:ml-4 sm:ml-0'} ${index > 0 ? 'hidden sm:flex' : ''}`}>
                                 <Link href={`/blogs/${blog._id}`}>
-                                    <BlogUserCards key={blog.id} blog={blog} useInImg useInSummary />
+                                    <BlogUserCards key={blog.id} blog={blog} useInImg useInSummary useInName={false} useInRead={false} useInDate={false} useInCategory={false} />
                                 </Link>
                             </div>
                         ))}
