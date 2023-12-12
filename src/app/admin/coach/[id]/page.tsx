@@ -19,23 +19,24 @@ const NewCoachPage = () => {
     const navigation = useRouter();
     const { id }: { id: string } = useParams();
     const { data: coachData } = useCoachById(id);
-    const { mutate: addCoach} = useCreateCoach();
-   
+    const { mutate: addCoach } = useCreateCoach();
+
     const [coach, setCoach] = useState<ICoach>({
+        _id: "",
         name: "",
         photoUrl: "",
         yearsOfExp: null,
         bio: "",
         clients: null,
         certifications: null,
-     });
+    });
 
-      useEffect(() => {   
+    useEffect(() => {
         console.log(coachData);
         if (coachData?.data?.data) {
             setCoach(coachData?.data?.data);
         }
-    }, [coachData]); 
+    }, [coachData]);
 
     const editor = useBlockNote({
         onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -47,7 +48,7 @@ const NewCoachPage = () => {
             setCoach((prev) => ({
                 ...prev,
                 bio: markdown,
-            }as typeof prev));
+            } as typeof prev));
         },
         domAttributes: {
             editor: {
@@ -57,32 +58,34 @@ const NewCoachPage = () => {
         },
         uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
     });
-    
-    
-    
-    const onHandleChange = (e:any) => {
+
+
+
+    const onHandleChange = (e: any) => {
         const {
             target: { name, value },
         } = e;
         setCoach((prev) => ({
             ...prev,
             [name]: value,
-        }as typeof prev));
+        } as typeof prev));
     };
 
-    const onHandleSubmit = async(e: FormEvent<HTMLFormElement>) => {
+    const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            if (coach._id) {
-                console.log("Updated")
-                await updateCoach(coach);
-            } else {
-                await addCoach(coach);
-            }
-            navigation.push("/admin/coach"); // Use push instead of back to navigate to the updated page
-        } catch (error) {
-            console.error("Error updating coach: ", error);
-        }
+        // try {
+        //     if (coach._id) {
+        //         console.log("Updated")
+        //         await updateCoach(coach);
+        //     } else {
+        //         await addCoach(coach);
+        //     }
+        //     navigation.push("/admin/coach"); // Use push instead of back to navigate to the updated page
+        // } catch (error) {
+        //     console.error("Error updating coach: ", error);
+        // }
+        addCoach(coach);
+        navigation.back();
     };
 
     return (
@@ -135,7 +138,7 @@ const NewCoachPage = () => {
                             value={coach.bio}
                         />
                     </div>
-                    
+
                     <div className="grid gap-2 w-full">
                         <label htmlFor="time">Years of experience</label>
                         <input
@@ -144,7 +147,7 @@ const NewCoachPage = () => {
                             name="yearsOfExp"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={coach.yearsOfExp}
+                            value={coach.yearsOfExp ?? ''}
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -155,7 +158,7 @@ const NewCoachPage = () => {
                             name="clients"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={coach.clients}
+                            value={coach.clients !== null ? coach.clients : ''}
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -166,7 +169,7 @@ const NewCoachPage = () => {
                             name="certifications"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={coach.certifications}
+                            value={coach.certifications !== null ? coach.certifications : ''}
                         />
                     </div>
                     <div className="w-full flex justify-end">

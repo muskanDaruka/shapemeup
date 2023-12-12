@@ -22,11 +22,12 @@ const NewProductsPage = () => {
     const { mutate: addProducts } = useCreateProducts();
 
     const [products, setProducts] = useState<IProducts>({
+        _id: "",
         imageUrl: "",
         name: "",
         category: "",
         description: "",
-      });
+    });
 
     useEffect(() => {
         console.log(productsData);
@@ -68,17 +69,19 @@ const NewProductsPage = () => {
 
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            if (products._id) {
-                console.log("Updated")
-                await updateProducts(products);
-            } else {
-                await addProducts(products);
-            }
-            navigation.push("/admin/products"); // Use push instead of back to navigate to the updated page
-        } catch (error) {
-            console.error("Error updating products: ", error);
-        }
+        // try {
+        //     if (products._id) {
+        //         console.log("Updated")
+        //         await updateProducts(products);
+        //     } else {
+        //         await addProducts(products);
+        //     }
+        //     navigation.push("/admin/products"); // Use push instead of back to navigate to the updated page
+        // } catch (error) {
+        //     console.error("Error updating products: ", error);
+        // }
+        addProducts(products);
+        navigation.back();
     };
 
     return (
@@ -92,7 +95,7 @@ const NewProductsPage = () => {
                 <div className="flex flex-col gap-5">
                     <h5>Add Products details</h5>
                     <div className="flex items-end justify-between gap-3">
-                    <div className="grid gap-2 w-full">
+                        <div className="grid gap-2 w-full">
                             <label htmlFor="image">Upload products image</label>
                             <input
                                 type="text"
@@ -144,7 +147,7 @@ const NewProductsPage = () => {
                             value={products.description}
                         />
                     </div>
-    
+
                     <div className="w-full flex justify-end">
                         <button
                             type="submit"

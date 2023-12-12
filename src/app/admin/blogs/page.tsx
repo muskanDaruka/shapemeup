@@ -67,9 +67,9 @@ const BlogPage = () => {
     <div className="w-full h-full bg-[#F7F8FC]">
 
       <div className="p-5 md:p-10 flex flex-col items-center">
-        <div className="w-full flex items-center justify-between">
-          <h4>Blogs</h4>
-          <div className="flex items-center justify-end gap-5">
+        <div className="w-full flex flex-col md:flex-row items-center justify-between">
+          <h4 className="mb-4 md:mb-0">Blogs</h4>
+          <div className="flex items-center justify-end gap-5 md:ml-auto">
             <div>
               <input
                 type="text"
@@ -83,7 +83,7 @@ const BlogPage = () => {
               {/* TODO: Plus Icon */}
               <button
                 type="button"
-                className="bg-[#F2994A] px-4 text-white h-10 rounded-md"
+                className="bg-[#F2994A] px-4 text-white h-10 rounded-md "
               >
                 <Link href={"/admin/blogs/new"}>Add New</Link>
               </button>

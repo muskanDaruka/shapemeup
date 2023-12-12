@@ -21,6 +21,7 @@ const NewClassesPage = () => {
     const { data: classesData } = useClassesById(id);
     const { mutate: addClasses } = useCreateClasses();
     const [classes, setClasses] = useState<IClass>({
+        _id: "",
         name: "",
         photoUrl: "",
         description: "",
@@ -32,6 +33,8 @@ const NewClassesPage = () => {
         videoUrl: "",
         about: "",
         benefits: "",
+        durationType: "",
+        videos: []
     });
 
     useEffect(() => {
@@ -70,7 +73,7 @@ const NewClassesPage = () => {
             // Handle the releaseDate input separately
             setClasses((prev) => ({
                 ...prev,
-                releaseDate: new Date(value), // Create a new Date object from the input value
+                releaseDate: value ? new Date(value) : null, // Create a new Date object from the input value
             } as typeof prev));
         } else {
             // For other input fields, update state as usual
@@ -83,17 +86,19 @@ const NewClassesPage = () => {
 
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            if (classes._id) {
-                console.log("Updated")
-                await updateClasses(classes);
-            } else {
-                await addClasses(classes);
-            }
-            navigation.push("/admin/classes"); // Use push instead of back to navigate to the updated page
-        } catch (error) {
-            console.error("Error updating classes: ", error);
-        }
+        // try {
+        //     if (classes._id) {
+        //         console.log("Updated")
+        //         await updateClasses(classes);
+        //     } else {
+        //         await addClasses(classes);
+        //     }
+        //     navigation.push("/admin/classes"); // Use push instead of back to navigate to the updated page
+        // } catch (error) {
+        //     console.error("Error updating classes: ", error);
+        // }
+        addClasses(classes);
+        navigation.back();
     };
 
     return (
@@ -165,7 +170,7 @@ const NewClassesPage = () => {
                             name="date"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.releaseDate}
+                            value={classes.releaseDate ? classes.releaseDate.toISOString().split('T')[0] : ''}
                         />
                     </div>
 
@@ -188,7 +193,7 @@ const NewClassesPage = () => {
                             name="days"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.days}
+                            value={classes.days !== null ? classes.days.toString() : ''}
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -199,7 +204,7 @@ const NewClassesPage = () => {
                             name="duration"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.duration}
+                            value={classes.duration !== null ? classes.duration.toString() : ''}
                         />
                     </div>
                     <div className="flex items-end justify-between gap-3">

@@ -61,7 +61,13 @@ const AdminMenu = () => {
           href={"/"}
           className="h-full w-full"
         >
-          <img src="/assets/images/shapemeup_logo.png" alt="shapemeup_logo" className="p-[30px] ml-10" />
+          <Image
+            src="/assets/images/shapemeup_logo.png"
+            alt="shapemeup_logo"
+            width={200}
+            height={50}
+            className="p-[30px] ml-10"
+          />
         </Link>
         {adminMenus.map((adminMenu, index) => (
           <Link key={adminMenu.path} href={adminMenu.path}
@@ -69,7 +75,8 @@ const AdminMenu = () => {
             className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
           >
             <div className={`flex ${index === activeIndex ? "text-[#f2994a]" : ""}`} >
-              <span className={`p-[5px] m-5 mt-8 ${index === activeIndex ? "text-[#f2994a]" : ""}`}><img src={adminMenu.imageUrl} alt="Icon" /></span>
+              <span className={`p-[5px] m-5 mt-8 ${index === activeIndex ? "text-[#f2994a]" : ""}`}><Image src={adminMenu.imageUrl} alt="Icon" width={24}
+                height={24} /></span>
               <div className={`text-white p-[10px] text-xl m-5 ${index === activeIndex ? "text-[#f2994a]" : ""}`}>{adminMenu.label}</div>
             </div>
           </Link>

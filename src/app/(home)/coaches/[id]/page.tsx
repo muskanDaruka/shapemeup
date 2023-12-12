@@ -37,9 +37,9 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
     const { data: coachData, isLoading, isError } = useAllCoach();
     const coachs = coachData?.data?.data || [];
 
-    const pageCoachData = coachs.filter(function (element) {
-        return element._id === params.id
-    })
+    const pageCoachData = coachs.filter(
+        (element: { _id: string }) => element._id === params.id
+    );
     console.log("pageCoachData", pageCoachData)
     console.log("coachs", coachs)
     if (coachs.length === 0) {
@@ -145,7 +145,11 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                 <div className="flex flex-col md:flex-row gap-5 justify-center">
                     <div className="w-full md:w-[400px] h-[280px] border-slate-250 border-2 rounded-lg shadow-xl mb-5 md:mb-0">
                         <div className="flex">
-                            <img src="/assets/images/coaches/customer_review.png" className="h-20 md:w-20 rounded-full m-5" />
+                            <img
+                                src="/assets/images/coaches/customer_review.png"
+                                alt="profile-Image"
+                                className="h-20 md:w-20 rounded-full m-5"
+                            />
                             <h3 className="text-xl font-bold m-2 p-5">Firstname Lastname</h3>
                         </div>
                         <p className="font-medium text-lg m-2">
@@ -156,7 +160,11 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                     </div>
                     <div className="w-full md:w-[400px] h-[280px] border-slate-250 border-2 rounded-lg shadow-xl">
                         <div className="flex">
-                            <img src="/assets/images/coaches/customer_review.png" className="h-20 md:w-20 rounded-full m-5" />
+                            <img
+                                src="/assets/images/coaches/customer_review.png"
+                                alt="profile-Image"
+                                className="h-20 md:w-20 rounded-full m-5"
+                            />
                             <h3 className="text-xl font-bold m-2 p-5">Firstname Lastname</h3>
                         </div>
                         <p className="font-medium text-lg m-2">
@@ -167,7 +175,11 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                     </div>
                     <div className="w-full md:w-[400px] h-[280px] border-slate-250 border-2 rounded-lg shadow-xl">
                         <div className="flex">
-                            <img src="/assets/images/coaches/customer_review.png" className="h-20 md:w-20 rounded-full m-5" />
+                            <img
+                                src="/assets/images/coaches/customer_review.png"
+                                alt="profile-image"
+                                className="h-20 md:w-20 rounded-full m-5"
+                            />
                             <h3 className="text-xl font-bold m-2 p-5">Firstname Lastname</h3>
                         </div>
                         <p className="font-medium text-lg m-2">
@@ -178,7 +190,11 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                     </div>
                     <div className="w-full md:w-[400px] h-[280px] border-slate-250 border-2 rounded-lg shadow-xl">
                         <div className="flex">
-                            <img src="/assets/images/coaches/customer_review.png" className="h-20 md:w-20 rounded-full m-5" />
+                            <img
+                                src="/assets/images/coaches/customer_review.png"
+                                alt="profile-image"
+                                className="h-20 md:w-20 rounded-full m-5"
+                            />
                             <h3 className="text-xl font-bold m-2 p-5">Firstname Lastname</h3>
                         </div>
                         <p className="font-medium text-lg m-2">

@@ -68,11 +68,11 @@ const Blogs = () => {
             <h2 className="text-white text-5xl font-bold ">Our Blogs</h2>
             <h3 className="text-white text-2xl font-normal w-583 h-168">
               <center>
-                "Fitness freaks, this one is for you. Today we are going to talk
-                about the best way to work out - and it's not what you think. In
+                &quot;Fitness freaks, this one is for you. Today we are going to talk
+                about the best way to work out - and it&apos;s not what you think. In
                 fact, the traditional methods of working out may be doing more
-                harm than good. So if you're looking to get fit fast, keep
-                reading!"
+                harm than good. So if you&apos;re looking to get fit fast, keep
+                reading!&quot;
               </center>
             </h3>
           </div>
@@ -116,7 +116,7 @@ const Blogs = () => {
               </div>
             </div>
             <div className="w-full md:ml-6 sm:container mx-auto  ">
-              {blogs.map((blog, index) => (
+              {blogs.map((blog: IBlog, index: number) => (
                 index % 2 === 1 && (
                   <div key={index / 2} className="flex flex-col md:flex-row mb-4 sm:mb-0  md:space-x-4">
                     <BlogUserCards key={blog.id} blog={blog} useInImg useInName useInSummary useInRead useInDate useInCategory />
