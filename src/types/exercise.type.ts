@@ -1,10 +1,11 @@
 import { Document } from "mongoose";
 
 export interface IExercise extends Document {
-  id?:string;
+  id?: string;
+  _id?: string;
   name: string;
   category: string;
-  time: number | null ;
+  time: number | null;
   durationType: string;
   difficulty: string;
   imageUrl: string;

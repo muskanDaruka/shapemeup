@@ -12,6 +12,7 @@ import Link from "next/link";
 type Props = ICoach & {
   onDeleteCoach: (id: string) => void;
   onUpdateCoach: (coach: ICoach) => void;
+  className: string;
 };
 
 const CoachCards: FC<Props> = ({
@@ -25,7 +26,6 @@ const CoachCards: FC<Props> = ({
   onDeleteCoach,
   onUpdateCoach,
 }) => {
-
   return (
     <div className="w-full md:w-[48%] rounded-md overflow-hidden">
       <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
@@ -58,15 +58,17 @@ const CoachCards: FC<Props> = ({
                 height={36}
                 aria-label="button"
                 role="button"
-                onClick={() => onUpdateCoach({
-                  photoUrl,
-                  name,
-                  clients,
-                  yearsOfExp,
-                  certifications,
-                  bio,
-                  _id,
-                })}
+                onClick={() =>
+                  onUpdateCoach({
+                    photoUrl,
+                    name,
+                    clients,
+                    yearsOfExp,
+                    certifications,
+                    bio,
+                    _id,
+                  })
+                }
               />
             </Link>
             <Image
