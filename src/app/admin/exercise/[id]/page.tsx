@@ -123,7 +123,7 @@ const NewExercisePage = () => {
                 className="rounded-md px-3 h-10 w-full border border-gray-300"
                 name="videoUrl"
                 onChange={onHandleChange}
-                value={exercise.videoUrl}
+                value={exercise.videoUrl || ''}
               />
             </div>
             <button

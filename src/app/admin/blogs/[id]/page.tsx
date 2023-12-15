@@ -78,6 +78,7 @@ const NewBlogPage = () => {
   const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      console.log(id)
       if (id !== "new") {
         console.log("Updated:", blog);
         await updateBlog(blog);
@@ -94,6 +95,7 @@ const NewBlogPage = () => {
   };
 
   return (
+
     <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
       <div className="w-20">
         <Link href={"/admin/blogs"}>
@@ -283,6 +285,7 @@ const NewBlogPage = () => {
         </div>
       </form >
     </div >
+
   );
 };
 export default NewBlogPage;

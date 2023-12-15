@@ -71,7 +71,10 @@ export async function PUT(req: NextRequest) {
   const blog: IBlog = await req.json();
   try {
     await connectToMongoDb();
-    const updatedBlog = await Blog.findByIdAndUpdate({ _id: blog?._id }, blog);
+    const updatedBlog = await Blog.findByIdAndUpdate({ _id: blog?._id }, blog, {
+      new: true,
+      upsert: true // Make this update into an upsert
+    });
     console.log("22222", blog);
     return NextResponse.json({
       status: "Success",
@@ -86,3 +89,5 @@ export async function PUT(req: NextRequest) {
     });
   }
 }
+
+

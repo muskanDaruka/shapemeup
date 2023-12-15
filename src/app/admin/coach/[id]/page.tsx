@@ -78,9 +78,7 @@ const NewCoachPage = () => {
                 console.log("Updated:", coach);
                 await updateCoach(coach);
             } else {
-
                 console.log("coach", coach)
-                debugger;
                 await addCoach(coach);
 
             }

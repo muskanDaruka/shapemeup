@@ -71,7 +71,7 @@ export async function PUT(req: NextRequest) {
     try {
         await updateUser({ id }); // Pass the user ID here
         console.log("User updated successfully");
-      } catch (error) {
+    } catch (error) {
         console.error("Error updating user: ", error);
-      }
+    }
 }

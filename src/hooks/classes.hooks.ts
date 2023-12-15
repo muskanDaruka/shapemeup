@@ -31,7 +31,7 @@ export const useDeleteClasses = () => {
 
 export const useUpdateClasses = (classes: IClass) => {
   return useMutation({
-    mutationFn: classesService.editClasses,
+    mutationFn: (classes: IClass) => classesService.editClasses(classes),
   });
 };
 

@@ -1,5 +1,5 @@
 import { IClass, IClassLive, IClassVideo } from "@/types/classes.type";
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const videosSchema = new Schema<IClassVideo>({
   videoThumbnail: String,

@@ -73,8 +73,10 @@ export async function PUT(req: NextRequest) {
         await connectToMongoDb();
         const updatedCoach = await Coach.findByIdAndUpdate(
             { _id: coach?._id },
-            coach
-        );
+            coach, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
         console.log("22222", coach);
         return NextResponse.json({
             status: "Success",

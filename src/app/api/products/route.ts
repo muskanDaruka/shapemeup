@@ -73,8 +73,10 @@ export async function PUT(req: NextRequest) {
         await connectToMongoDb();
         const updatedProducts = await Products.findByIdAndUpdate(
             { _id: products?._id },
-            products
-        );
+            products, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
         console.log("22222", products);
         return NextResponse.json({
             status: "Success",

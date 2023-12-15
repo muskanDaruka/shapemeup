@@ -96,6 +96,7 @@ const BlogPage = () => {
             <BlogCards {...blog} key={blog._id} onDeleteBlog={onDeleteBlog} />
           ))}
         </div>
+
         <div className="w-full flex justify-end ml-8">
           <Pagination />
         </div>

@@ -31,7 +31,7 @@ export const useDeleteProducts = () => {
 
 export const useUpdateProducts = (products: IProducts) => {
     return useMutation({
-        mutationFn: productsService.editProducts,
+        mutationFn: (products: IProducts) => productsService.editProducts(products),
     });
 };
 

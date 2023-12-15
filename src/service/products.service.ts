@@ -11,7 +11,7 @@ class ProductsService {
     async getAllProducts() {
         console.log("Hello")
         return await axios.get("/api/products");
-        
+
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductsService {
      * @param products IProducts
      */
     async editProducts(products: IProducts) {
-        return await axios.put(`/api/products`);
+        return await axios.put(`/api/products`, products);
     }
 
     /**

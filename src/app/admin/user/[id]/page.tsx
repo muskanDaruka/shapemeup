@@ -5,7 +5,7 @@ import leftArrow from "./../../../../images/icons/leftArrow.svg";
 import { FormEvent, useEffect, useState } from "react";
 import { IUser } from "../../../../types/user.type"
 import Link from "next/link";
-import { useUserById, useCreateUser } from "@/hooks/user.hooks";
+import { useUserById, useCreateUser, useUpdateUser } from "@/hooks/user.hooks";
 import { useParams, useRouter } from "next/navigation";
 
 const NewUserPage = () => {
@@ -13,6 +13,7 @@ const NewUserPage = () => {
     const { id }: { id: string } = useParams();
     const { data: userData } = useUserById(id);
     const { mutate: addUser } = useCreateUser();
+    const { mutate: updateUser } = useUpdateUser({} as IUser);
     const [user, setUser] = useState<IUser>({
         _id: "",
         firstName: "",
@@ -20,7 +21,7 @@ const NewUserPage = () => {
         email: "",
         password: "",
         confirmPassword: "",
-    });
+    } as IUser);
 
     useEffect(() => {
         console.log(userData);
