@@ -3,18 +3,17 @@
 
 import { FC } from "react";
 import Image from "next/image";
-
+import React, { useState } from "react";
 import editIcon from "../images/icons/edit.svg";
 import deleteIcon from "../images/icons/delete.svg";
 import { ICoach } from "@/types/coach.type";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useUpdateCoach } from "@/hooks/coach.hooks";
 
 type Props = ICoach & {
   onDeleteCoach: (id: string) => void;
-  onUpdateCoach: (coach: ICoach) => void;
-  className: string;
 };
-
 const CoachCards: FC<Props> = ({
   photoUrl,
   name,
@@ -24,8 +23,20 @@ const CoachCards: FC<Props> = ({
   bio,
   _id,
   onDeleteCoach,
-  onUpdateCoach,
 }) => {
+  const navigation = useRouter();
+  const { mutate: updateCoach } = useUpdateCoach({
+    photoUrl,
+    name,
+    clients,
+    yearsOfExp,
+    certifications,
+    bio,
+    _id,
+  });
+  const handleEditClick = async () => {
+    navigation.push(`/admin/coach/${_id}`);
+  };
   return (
     <div className="w-full md:w-[48%] rounded-md overflow-hidden">
       <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
@@ -58,17 +69,7 @@ const CoachCards: FC<Props> = ({
                 height={36}
                 aria-label="button"
                 role="button"
-                onClick={() =>
-                  onUpdateCoach({
-                    photoUrl,
-                    name,
-                    clients,
-                    yearsOfExp,
-                    certifications,
-                    bio,
-                    _id,
-                  })
-                }
+                onClick={handleEditClick}
               />
             </Link>
             <Image

@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 
 export interface ICoach {
   _id: string;
-  id?: number;
+  id?: string;
   name: string;
   photoUrl: string;
   yearsOfExp: number | null;

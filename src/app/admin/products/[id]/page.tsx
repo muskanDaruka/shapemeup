@@ -12,7 +12,7 @@ import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { IProducts } from "../../../../types/products.type"
 import Link from "next/link";
-import { useProductsById, useCreateProducts } from "@/hooks/products.hooks";
+import { useProductsById, useCreateProducts, useUpdateProducts } from "@/hooks/products.hooks";
 import { useParams, useRouter } from "next/navigation";
 
 const NewProductsPage = () => {
@@ -20,14 +20,14 @@ const NewProductsPage = () => {
     const { id }: { id: string } = useParams();
     const { data: productsData } = useProductsById(id);
     const { mutate: addProducts } = useCreateProducts();
-
+    const { mutate: updateProducts } = useUpdateProducts({} as IProducts);
     const [products, setProducts] = useState<IProducts>({
         _id: "",
         imageUrl: "",
         name: "",
         category: "",
-        description: "",
-    });
+        description: ""
+    } as IProducts);
 
     useEffect(() => {
         console.log(productsData);
@@ -69,19 +69,18 @@ const NewProductsPage = () => {
 
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // try {
-        //     if (products._id) {
-        //         console.log("Updated")
-        //         await updateProducts(products);
-        //     } else {
-        //         await addProducts(products);
-        //     }
-        //     navigation.push("/admin/products"); // Use push instead of back to navigate to the updated page
-        // } catch (error) {
-        //     console.error("Error updating products: ", error);
-        // }
-        addProducts(products);
-        navigation.back();
+        try {
+            if (id !== "new") {
+                console.log("Updated:", products)
+                await updateProducts(products);
+            } else {
+                await addProducts(products);
+            }
+            navigation.push("/admin/products"); // Use push instead of back to navigate to the updated page
+        } catch (error) {
+            console.error("Error updating products: ", error);
+        }
+
     };
 
     return (

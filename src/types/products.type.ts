@@ -1,7 +1,8 @@
 import { Document } from "mongoose";
 
 export interface IProducts extends Document {
-  _id?:string;
+  _id: string;
+  id?: string;
   name: string;
   category: string;
   imageUrl: string;

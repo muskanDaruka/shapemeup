@@ -32,6 +32,7 @@ export const useDeleteBlog = () => {
 export const useUpdateBlog = (blog: IBlog) => {
   return useMutation({
     mutationFn: blogService.editBlog,
+
   });
 };
 

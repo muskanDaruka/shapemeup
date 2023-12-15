@@ -2,7 +2,7 @@ import { Document } from "mongoose";
 
 export interface IBlog {
   _id: string;
-  id?: number;
+  id?: string;
   blogImgUrl: string;
   name: string;
   summary: string;

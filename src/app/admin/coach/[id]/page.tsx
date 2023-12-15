@@ -12,7 +12,7 @@ import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { ICoach } from "../../../../types/coach.type"
 import Link from "next/link";
-import { useCoachById, useCreateCoach } from "@/hooks/coach.hooks";
+import { useCoachById, useCreateCoach, useUpdateCoach } from "@/hooks/coach.hooks";
 import { useParams, useRouter } from "next/navigation";
 
 const NewCoachPage = () => {
@@ -20,7 +20,7 @@ const NewCoachPage = () => {
     const { id }: { id: string } = useParams();
     const { data: coachData } = useCoachById(id);
     const { mutate: addCoach } = useCreateCoach();
-
+    const { mutate: updateCoach } = useUpdateCoach({} as ICoach);
     const [coach, setCoach] = useState<ICoach>({
         _id: "",
         name: "",
@@ -73,19 +73,23 @@ const NewCoachPage = () => {
 
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // try {
-        //     if (coach._id) {
-        //         console.log("Updated")
-        //         await updateCoach(coach);
-        //     } else {
-        //         await addCoach(coach);
-        //     }
-        //     navigation.push("/admin/coach"); // Use push instead of back to navigate to the updated page
-        // } catch (error) {
-        //     console.error("Error updating coach: ", error);
-        // }
-        addCoach(coach);
-        navigation.back();
+        try {
+            if (id !== "new") {
+                console.log("Updated:", coach);
+                await updateCoach(coach);
+            } else {
+
+                console.log("coach", coach)
+                debugger;
+                await addCoach(coach);
+
+            }
+
+            navigation.push("/admin/coach"); // Use push instead of back to navigate to the updated page
+        } catch (error) {
+            console.error("Error updating coach: ", error);
+        }
+
     };
 
     return (

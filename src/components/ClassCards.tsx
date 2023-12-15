@@ -8,10 +8,12 @@ import editIcon from "../images/icons/edit.svg";
 import deleteIcon from "../images/icons/delete.svg";
 import { IClass } from "@/types/classes.type";
 import Link from "next/link";
+import { useUpdateClasses } from "@/hooks/classes.hooks";
+import { useParams, useRouter } from "next/navigation";
 
 type Props = IClass & {
   onDeleteClasses: (id: string) => void;
-  onUpdateClasses: (coach: IClass) => void;
+
 };
 
 const ClassCards: FC<Props> = ({
@@ -23,8 +25,29 @@ const ClassCards: FC<Props> = ({
   duration,
   _id,
   onDeleteClasses,
-  onUpdateClasses,
+
 }) => {
+  const navigation = useRouter();
+  const { mutate: updateClasses } = useUpdateClasses({
+    _id,
+    name,
+    photoUrl,
+    description: "",
+    assignedCoach: "",
+    releaseDate,
+    type,
+    days,
+    duration,
+    durationType: "",
+    videoUrl: "",
+    videos: [],
+    about: "",
+    benefits: "",
+
+  });
+  const handleEditClick = async () => {
+    navigation.push(`/admin/classes/${_id}`);
+  };
 
   return (
     <div className="w-full md:w-[48%] rounded-md overflow-hidden">
@@ -40,7 +63,7 @@ const ClassCards: FC<Props> = ({
           <h5>{name}</h5>
 
           <h6>
-            Release date: <small>{releaseDate}</small>
+            Release date: <small>{releaseDate !== null && releaseDate !== undefined ? releaseDate.toString() : 'N/A'}</small>
           </h6>
           <h6>
             Type: <small>{type}</small>
@@ -61,15 +84,7 @@ const ClassCards: FC<Props> = ({
                 height={36}
                 aria-label="button"
                 role="button"
-                onClick={() => onUpdateClasses({
-                  name,
-                  photoUrl,
-                  releaseDate,
-                  type,
-                  days,
-                  duration,
-                  _id,
-                })}
+                onClick={handleEditClick}
               />
             </Link>
             <Image

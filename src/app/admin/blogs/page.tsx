@@ -56,7 +56,6 @@ const BlogPage = () => {
   const { data: blogData, isLoading, isError } = useAllBlogs();
   const { mutate: deleteBlog } = useDeleteBlog();
   const blogs: IBlog[] = blogData?.data?.data;
-
   const onDeleteBlog = async (id: string) => {
     await deleteBlog(id);
   };
@@ -64,6 +63,7 @@ const BlogPage = () => {
   if (isLoading) return <div>Loading...</div>;
 
   return (
+
     <div className="w-full h-full bg-[#F7F8FC]">
 
       <div className="p-5 md:p-10 flex flex-col items-center">
@@ -101,6 +101,7 @@ const BlogPage = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

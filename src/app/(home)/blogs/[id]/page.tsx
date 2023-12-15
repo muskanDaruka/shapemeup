@@ -9,7 +9,7 @@ import FAQ from "@/components/FAQ";
 import BlogUserCards from "@/components/BlogUserCard";
 
 interface BlogEntry extends IBlog {
-  id: number;
+  id: string;
   _id: string;
   blogImgUrl: string;
   name: string;
@@ -327,9 +327,8 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
             {blogs.slice(0, 3).map((blog, index) => (
               <div
                 key={index}
-                className={`mb-4 w-full${
-                  index % 2 === 0 ? " sm:w-1/2" : " md:w-1/2 md:ml-4 sm:ml-0"
-                } ${index > 0 ? "hidden sm:flex" : ""}`}
+                className={`mb-4 w-full${index % 2 === 0 ? " sm:w-1/2" : " md:w-1/2 md:ml-4 sm:ml-0"
+                  } ${index > 0 ? "hidden sm:flex" : ""}`}
               >
                 <Link href={`/blogs/${blog._id}`}>
                   <BlogUserCards
