@@ -68,10 +68,26 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+    const classes: IClass = await req.json();
     try {
-        await updateClasses({ id }); // Pass the classes ID here
-        console.log("Classes updated successfully");
-      } catch (error) {
-        console.error("Error updating classes: ", error);
-      }
+        await connectToMongoDb();
+        const updatedClasses = await Classes.findByIdAndUpdate(
+            { _id: classes?._id },
+            classes, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
+        console.log("22222", classes);
+        return NextResponse.json({
+            status: "Success",
+            message: "Classes updated successfully",
+            data: updatedClasses,
+        });
+    } catch (error) {
+        return NextResponse.json({
+            status: "Failed",
+            message: "Error in updating classes",
+            error: error,
+        });
+    }
 }

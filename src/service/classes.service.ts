@@ -34,7 +34,7 @@ class ClassesService {
    * @param classes IClass
    */
   async editClasses(classes: IClass) {
-    return await axios.put(`/api/classes`);
+    return await axios.put(`/api/classes`, classes);
   }
 
   /**

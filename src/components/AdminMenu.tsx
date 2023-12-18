@@ -55,7 +55,7 @@ const adminMenus: IAdminMenu[] = [
 const AdminMenu = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <section className="h-full w-full bg-[#363740] object-fit">
+    <section className="h-full w-full bg-[#363740] object-fit h-fixed">
       <div className="h-full bg-[#34383d] w-11/12 ml-5 h-full">
         <Link
           href={"/"}

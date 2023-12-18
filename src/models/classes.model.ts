@@ -1,5 +1,5 @@
 import { IClass, IClassLive, IClassVideo } from "@/types/classes.type";
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const videosSchema = new Schema<IClassVideo>({
   videoThumbnail: String,
@@ -22,7 +22,7 @@ const liveClassSchema = new Schema<IClassLive>({
 });
 
 const LiveClass =
-  models?.liveClasses ?? model<IClassLive>("liveCLasses", liveClassSchema);
+  models?.liveClasses ? model<IClassLive>("liveCLasses", liveClassSchema) : undefined;
 
 type ClassesType = IClass & Document;
 
@@ -52,7 +52,7 @@ export const classesSchema = new Schema<ClassesType>({
     },
   ],
 },
-{ timestamps: true } 
+  { timestamps: true }
 );
 
 const Classes = models?.classes ?? model<ClassesType>("classes", classesSchema);

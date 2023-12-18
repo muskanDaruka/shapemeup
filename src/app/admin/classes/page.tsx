@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   useAllClasses,
   useDeleteClasses,
-  useUpdateClasses,
+  // useUpdateClasses,
 } from "@/hooks/classes.hooks";
 import { IClass } from "@/types/classes.type";
 import ClassCards from "@/components/ClassCards";
@@ -22,15 +22,15 @@ interface Props {
 const ClassesPage = () => {
   const { data: classesData, isLoading, isError } = useAllClasses();
   const { mutate: deleteClasses } = useDeleteClasses();
-  const { mutate: updateClasses } = useUpdateClasses({} as IClass);
-  const classes: IClass[] = classesData?.data?.data || [];
+  // const { mutate: updateClasses } = useUpdateClasses({} as IClass);
+  const classes: IClass[] = classesData?.data?.data;
 
   const onDeleteClasses = async (id: string) => {
     await deleteClasses(id);
   };
-  const onUpdateClasses = async (classes: IClass) => {
-    await updateClasses(classes);
-  };
+  // const onUpdateClasses = async (classes: IClass) => {
+  //   await updateClasses(classes);
+  // };
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -67,7 +67,7 @@ const ClassesPage = () => {
                 {...classes}
                 key={classes._id}
                 onDeleteClasses={onDeleteClasses}
-                onUpdateClasses={onUpdateClasses}
+              // onUpdateClasses={onUpdateClasses}
               />
             ))}
         </div>

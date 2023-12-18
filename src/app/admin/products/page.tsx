@@ -2,7 +2,7 @@
 import Pagination from "@/components/Pagination";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useAllProducts, useDeleteProducts, useUpdateProducts } from "@/hooks/products.hooks";
+import { useAllProducts, useDeleteProducts } from "@/hooks/products.hooks";
 import { IProducts } from "@/types/products.type";
 import ProductsCards from "@/components/ProductsCards";
 
@@ -17,17 +17,17 @@ interface Props {
 const ProductsPage = () => {
     const { data: productsData, isLoading, isError } = useAllProducts();
     const { mutate: deleteProducts } = useDeleteProducts();
-    const { mutate: updateProducts } = useUpdateProducts();
+    // const { mutate: updateProducts } = useUpdateProducts();
     const products: IProducts[] = productsData?.data?.data || [];
 
     const onDeleteProducts = async (id: string) => {
         await deleteProducts(id);
 
     };
-    const onUpdateProducts = async (products: IProducts) => {
-        await updateProducts(products);
+    // const onUpdateProducts = async (products: IProducts) => {
+    //     await updateProducts(products);
 
-    };
+    // };
 
     if (isLoading) return <div>Loading...</div>;
 
@@ -59,7 +59,7 @@ const ProductsPage = () => {
                 </div>
                 <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
                     {Array.isArray(products) && products.map((products) => (
-                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} onUpdateProducts={onUpdateProducts} />
+                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} />
                     ))}
                 </div>
                 <div className="w-full flex justify-end ml-8">

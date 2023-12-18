@@ -5,7 +5,7 @@ import Link from "next/link";
 import {
   useAllCoach,
   useDeleteCoach,
-  useUpdateCoach,
+  // useUpdateCoach,
 } from "@/hooks/coach.hooks";
 import { ICoach } from "@/types/coach.type";
 import CoachCards from "@/components/CoachCards";
@@ -21,18 +21,20 @@ interface Props {
 const CoachesPage = () => {
   const { data: coachData, isLoading, isError } = useAllCoach();
   const { mutate: deleteCoach } = useDeleteCoach();
-  const { mutate: updateCoach } = useUpdateCoach({} as ICoach);
+  // const { mutate: updateCoach } = useUpdateCoach({} as ICoach);
   const coach: ICoach[] = coachData?.data?.data || [];
 
   const onDeleteCoach = async (id: string) => {
     await deleteCoach(id);
   };
-  const onUpdateCoach = async (coach: ICoach) => {
-    await updateCoach(coach);
-  };
+  // const onUpdateCoach = async (coach: ICoach) => {
+  //   await updateCoach(coach);
+  // };
 
   if (isLoading) return <div>Loading...</div>;
-
+  if (isError) {
+    return <div>Error loading exercises. Please try again later.</div>;
+  }
   return (
     <div className="w-full h-full bg-[#F7F8FC]">
       <div className="p-5 md:p-10 flex flex-col items-center">
@@ -66,7 +68,7 @@ const CoachesPage = () => {
                 {...coach}
                 key={coach._id}
                 onDeleteCoach={onDeleteCoach}
-                onUpdateCoach={onUpdateCoach}
+                // onUpdateCoach={onUpdateCoach}
                 className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8"
               />
             ))}

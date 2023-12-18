@@ -32,17 +32,24 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
     return (
         <div>
             <div className="w-20">
-                <Link href={"/admin/exercise"}>
-                    <Image src={leftArrow} alt="Back" width={24} height={24} />
+                <Link href={`/products`}>
+                    <div className="flex lg:flex-row">
+                        <h2 className="font-bold text-[#f2994a]  mt-5  ml-[20px] lg:text-left mb-2">
+                            &lt;
+                        </h2>
+                        <h2 className="font-bold text-[#f2994a] mt-5 ml-2 lg:text-left mb-2">
+                            Back
+                        </h2>
+                    </div>
                 </Link>
             </div>
             <section>
-                <div className="flex">
+                <div className="flex flex-col md:flex-row">
 
                     <img
                         src={pageProductData[0].imageUrl}
                         alt="product"
-                        className="h-[272.037px] md:h-auto md:w-[823px] rounded-lg object-fit"
+                        className="h-[272.037px] md:h-auto md:w-[823px] rounded-lg object-fit ml-0 sm:ml-5"
                     />
 
                     <div>

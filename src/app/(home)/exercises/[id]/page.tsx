@@ -34,7 +34,7 @@ const ExerciseView: FC<ExerciseViewProps> = ({ params }) => {
     return (
         <div>
             <section className="relative">
-                <Link href={`/blogs`}>
+                <Link href={`/exercises`}>
                     <div className="flex lg:flex-row">
                         <h2 className="font-bold text-[#f2994a] mt-5  ml-[20px] lg:text-left">&lt;</h2>
                         <h2 className="font-bold text-[#f2994a] mt-5 ml-2 lg:text-left">Back</h2>

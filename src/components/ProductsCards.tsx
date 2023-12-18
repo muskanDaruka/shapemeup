@@ -3,14 +3,17 @@
 
 import { FC } from "react";
 import Image from "next/image";
+import React, { useState } from "react";
 import editIcon from "../images/icons/edit.svg";
 import deleteIcon from "../images/icons/delete.svg";
 import { IProducts } from "@/types/products.type";
 import Link from "next/link";
+import { useUpdateProducts } from "@/hooks/products.hooks";
+import { useParams, useRouter } from "next/navigation";
 
 type Props = IProducts & {
     onDeleteProducts: (id: string) => void;
-    onUpdateProducts: (products: IProducts) => void;
+
 };
 
 const ProductsCards: FC<Props> = ({
@@ -20,9 +23,18 @@ const ProductsCards: FC<Props> = ({
     imageUrl,
     description,
     onDeleteProducts,
-    onUpdateProducts,
 }) => {
-
+    const navigation = useRouter();
+    const { mutate: updateProducts } = useUpdateProducts({
+        id: _id,
+        name,
+        category,
+        imageUrl,
+        description,
+    } as IProducts);
+    const handleEditClick = async () => {
+        navigation.push(`/admin/products/${_id}`);
+    };
     return (
         <div className="w-full md:w-[48%] rounded-md overflow-hidden">
             <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
@@ -49,13 +61,7 @@ const ProductsCards: FC<Props> = ({
                                 height={36}
                                 aria-label="button"
                                 role="button"
-                                onClick={() => onUpdateProducts({
-                                    _id,
-                                    name,
-                                    category,
-                                    imageUrl,
-                                    description,
-                                })}
+                                onClick={handleEditClick}
                             />
                         </Link>
                         <Image

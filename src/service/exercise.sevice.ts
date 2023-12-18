@@ -34,7 +34,7 @@ class ExerciseService {
    * @param exercise IExercise
    */
   async editExercise(exercise: IExercise) {
-    return await axios.put(`/api/exercise`);
+    return await axios.put(`/api/exercise`, exercise);
   }
 
   /**

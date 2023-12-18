@@ -31,7 +31,7 @@ export const useDeleteExercise = () => {
 
 export const useUpdateExercise = (exercise: IExercise) => {
   return useMutation({
-    mutationFn: exerciseService.editExercise,
+    mutationFn: (exercise: IExercise) => exerciseService.editExercise(exercise),
   });
 };
 

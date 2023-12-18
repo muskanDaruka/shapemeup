@@ -33,7 +33,8 @@ class BlogService {
    * @param blog IBlog
    */
   async editBlog(blog: IBlog) {
-    return await axios.put(`/api/blogs`);
+    console.log(blog)
+    return await axios.put(`/api/blogs`, blog);
   }
 
   /**

@@ -6,14 +6,12 @@ import {
   uploadToTmpFilesDotOrg_DEV_ONLY,
   BlockNoteEditor,
 } from "@blocknote/core";
-
 import leftArrow from "../../../../images/icons/leftArrow.svg";
-
 import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { IBlog } from "@/types/blog.type";
 import Link from "next/link";
-import { useBlogById, useCreateBlog } from "@/hooks/blogs.hooks";
+import { useBlogById, useCreateBlog, useUpdateBlog } from "@/hooks/blogs.hooks";
 import { useParams, useRouter } from "next/navigation";
 
 const NewBlogPage = () => {
@@ -21,6 +19,7 @@ const NewBlogPage = () => {
   const { id }: { id: string } = useParams();
   const { data: blogData } = useBlogById(id);
   const { mutate: addBlog } = useCreateBlog();
+  const { mutate: updateBlog } = useUpdateBlog({} as IBlog);
   const [blog, setBlog] = useState<IBlog>({
     _id: "",
     blogImgUrl: "",
@@ -76,13 +75,27 @@ const NewBlogPage = () => {
     }));
   };
 
-  const onHandleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addBlog(blog);
-    navigation.back();
+    try {
+      console.log(id)
+      if (id !== "new") {
+        console.log("Updated:", blog);
+        await updateBlog(blog);
+      } else {
+        console.log("blog", blog)
+        await addBlog(blog);
+
+      }
+
+      navigation.push("/admin/blogs"); // Use push instead of back to navigate to the updated page
+    } catch (error) {
+      console.error("Error updating blog: ", error);
+    }
   };
 
   return (
+
     <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
       <div className="w-20">
         <Link href={"/admin/blogs"}>
@@ -272,6 +285,7 @@ const NewBlogPage = () => {
         </div>
       </form >
     </div >
+
   );
 };
 export default NewBlogPage;

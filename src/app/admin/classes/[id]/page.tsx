@@ -12,14 +12,16 @@ import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { IClass } from "../../../../types/classes.type"
 import Link from "next/link";
-import { useClassesById, useCreateClasses } from "@/hooks/classes.hooks";
+import { useClassesById, useCreateClasses, useUpdateClasses } from "@/hooks/classes.hooks";
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 
 const NewClassesPage = () => {
     const navigation = useRouter();
     const { id }: { id: string } = useParams();
-    const { data: classesData } = useClassesById(id);
+    const { data: classData } = useClassesById(id);
     const { mutate: addClasses } = useCreateClasses();
+    const { mutate: updateClasses } = useUpdateClasses({} as IClass);
     const [classes, setClasses] = useState<IClass>({
         _id: "",
         name: "",
@@ -35,14 +37,15 @@ const NewClassesPage = () => {
         benefits: "",
         durationType: "",
         videos: []
-    });
+    } as IClass);
 
     useEffect(() => {
-        console.log(classesData);
-        if (classesData?.data?.data) {
-            setClasses(classesData?.data?.data);
+        console.log(classData);
+        if (classData?.data?.data) {
+            setClasses(classData?.data?.data);
         }
-    }, [classesData]);
+
+    }, [classData]);
 
     const editor = useBlockNote({
         onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -70,13 +73,11 @@ const NewClassesPage = () => {
             target: { name, value },
         } = e;
         if (name === "date") {
-            // Handle the releaseDate input separately
             setClasses((prev) => ({
                 ...prev,
                 releaseDate: value ? new Date(value) : null, // Create a new Date object from the input value
             } as typeof prev));
         } else {
-            // For other input fields, update state as usual
             setClasses((prev) => ({
                 ...prev,
                 [name]: value,
@@ -86,19 +87,18 @@ const NewClassesPage = () => {
 
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // try {
-        //     if (classes._id) {
-        //         console.log("Updated")
-        //         await updateClasses(classes);
-        //     } else {
-        //         await addClasses(classes);
-        //     }
-        //     navigation.push("/admin/classes"); // Use push instead of back to navigate to the updated page
-        // } catch (error) {
-        //     console.error("Error updating classes: ", error);
-        // }
-        addClasses(classes);
-        navigation.back();
+        try {
+            if (id !== "new") {
+                console.log("Updated")
+                await updateClasses(classes);
+            } else {
+                await addClasses(classes);
+            }
+            navigation.push("/admin/classes"); // Use push instead of back to navigate to the updated page
+        } catch (error) {
+            console.error("Error updating classes: ", error);
+        }
+
     };
 
     return (
@@ -193,7 +193,7 @@ const NewClassesPage = () => {
                             name="days"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.days !== null ? classes.days.toString() : ''}
+                            value={classes && classes.days !== null && classes.days !== undefined ? classes.days.toString() : ''}
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -204,7 +204,7 @@ const NewClassesPage = () => {
                             name="duration"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.duration !== null ? classes.duration.toString() : ''}
+                            value={classes.duration !== null && classes.duration !== undefined ? classes.duration.toString() : ''}
                         />
                     </div>
                     <div className="flex items-end justify-between gap-3">

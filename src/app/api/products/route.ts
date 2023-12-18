@@ -68,10 +68,26 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+    const products: IProducts = await req.json();
     try {
-        await updateProducts({ id }); // Pass the products ID here
-        console.log("Products updated successfully");
-      } catch (error) {
-        console.error("Error updating products: ", error);
-      }
+        await connectToMongoDb();
+        const updatedProducts = await Products.findByIdAndUpdate(
+            { _id: products?._id },
+            products, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
+        console.log("22222", products);
+        return NextResponse.json({
+            status: "Success",
+            message: "Products updated successfully",
+            data: updatedProducts,
+        });
+    } catch (error) {
+        return NextResponse.json({
+            status: "Failed",
+            message: "Error in updating products",
+            error: error,
+        });
+    }
 }

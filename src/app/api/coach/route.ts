@@ -68,10 +68,26 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
+    const coach: ICoach = await req.json();
     try {
-        await updateCoach({ id }); // Pass the coach ID here
-        console.log("Coach updated successfully");
-      } catch (error) {
-        console.error("Error updating coach: ", error);
-      }
+        await connectToMongoDb();
+        const updatedCoach = await Coach.findByIdAndUpdate(
+            { _id: coach?._id },
+            coach, {
+            new: true,
+            upsert: true // Make this update into an upsert
+        });
+        console.log("22222", coach);
+        return NextResponse.json({
+            status: "Success",
+            message: "Coach updated successfully",
+            data: updatedCoach,
+        });
+    } catch (error) {
+        return NextResponse.json({
+            status: "Failed",
+            message: "Error in updating coach",
+            error: error,
+        });
+    }
 }

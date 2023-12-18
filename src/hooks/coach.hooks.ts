@@ -31,7 +31,8 @@ export const useDeleteCoach = () => {
 
 export const useUpdateCoach = (coach: ICoach) => {
     return useMutation({
-        mutationFn: coachService.editCoach,
+        mutationFn: (coach: ICoach) => coachService.editCoach(coach),
+
     });
 };
 

@@ -21,9 +21,10 @@ import { useParams, useRouter } from "next/navigation";
 const NewExercisePage = () => {
   const navigation = useRouter();
   const { id }: { id: string } = useParams();
-  const getExerciseByID = useExerciseById;
+  const { data: exerciseData } = useExerciseById(id);
   const { mutate: addExercise } = useCreateExercise();
   const { mutate: updateExercise } = useUpdateExercise({} as IExercise);
+  // const queryClient = useQueryClient();
 
   const [exercise, setExercise] = useState<IExercise>({
     _id: "",
@@ -40,13 +41,11 @@ const NewExercisePage = () => {
   } as IExercise);
 
   useEffect(() => {
-    if (id !== "new") {
-      const exerciseData = getExerciseByID(id);
-      if (exerciseData?.data?.data) {
-        setExercise(exerciseData?.data?.data);
-      }
+    console.log(exerciseData);
+    if (exerciseData?.data?.data) {
+      setExercise(exerciseData?.data?.data);
     }
-  }, [id, getExerciseByID]);
+  }, [exerciseData]);
 
   const editor = useBlockNote({
     onEditorContentChange: async (editor: BlockNoteEditor) => {
@@ -57,10 +56,10 @@ const NewExercisePage = () => {
       console.log(markdown);
       setExercise(
         (prev) =>
-          ({
-            ...prev,
-            instructions: markdown,
-          } as typeof prev)
+        ({
+          ...prev,
+          instructions: markdown,
+        } as typeof prev)
       );
     },
     domAttributes: {
@@ -78,22 +77,27 @@ const NewExercisePage = () => {
     } = e;
     setExercise(
       (prev) =>
-        ({
-          ...prev,
-          [name]: value,
-        } as typeof prev)
+      ({
+        ...prev,
+        [name]: value,
+      } as typeof prev)
     );
   };
 
   const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       if (id !== "new") {
-        console.log("Updated");
+        console.log("Updated:", exercise);
         await updateExercise(exercise);
       } else {
+
+        console.log("exercise", exercise)
         await addExercise(exercise);
+
       }
+
       navigation.push("/admin/exercise"); // Use push instead of back to navigate to the updated page
     } catch (error) {
       console.error("Error updating exercise: ", error);
@@ -119,7 +123,7 @@ const NewExercisePage = () => {
                 className="rounded-md px-3 h-10 w-full border border-gray-300"
                 name="videoUrl"
                 onChange={onHandleChange}
-                value={exercise.videoUrl}
+                value={exercise.videoUrl || ''}
               />
             </div>
             <button

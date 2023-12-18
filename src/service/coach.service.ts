@@ -11,7 +11,7 @@ class CoachService {
     async getAllCoach() {
         console.log("Hello")
         return await axios.get("/api/coach");
-        
+
     }
 
     /**
@@ -35,7 +35,7 @@ class CoachService {
      * @param coach ICoach
      */
     async editCoach(coach: ICoach) {
-        return await axios.put(`/api/coach`);
+        return await axios.put(`/api/coach`, coach);
     }
 
     /**

@@ -38,14 +38,7 @@ const UserCards: FC<Props> = ({
                             height={36}
                             aria-label="button"
                             role="button"
-                            onClick={() => onUpdateUser({
-                                name,
-                                firstName,
-                                lastName,
-                                email,
-                                password,
-                                _id,
-                            })}
+                            onClick={() => onUpdateUser}
                         />
                     </Link>
                     <Image
