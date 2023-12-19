@@ -28,7 +28,7 @@ const NewClassesPage = () => {
         photoUrl: "",
         description: "",
         assignedCoach: "",
-        releaseDate: null,
+        releaseDate: undefined,
         type: "",
         days: null,
         duration: null,
@@ -170,7 +170,11 @@ const NewClassesPage = () => {
                             name="date"
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={classes.releaseDate ? classes.releaseDate.toISOString().split('T')[0] : ''}
+                            value={
+                                classes.releaseDate instanceof Date
+                                    ? classes.releaseDate.toISOString().split('T')[0]
+                                    : ''
+                            }
                         />
                     </div>
 
