@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
     await connectToMongoDb();
 
-    const user = await User.findByEmail(email);
+    const user = (User as any).findByEmail(email);
     console.log("Hello");
     if (!user) {
         return NextResponse.json({

@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
 
   await connectToMongoDb();
 
-  const user = await User.findByEmail(email);
+  const user = (User as any).findByEmail(email);
   if (!user) {
     return NextResponse.json({
       message: "User does not exist with this mail",

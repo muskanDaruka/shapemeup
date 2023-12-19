@@ -19,26 +19,26 @@ const ClassUserCard: FC<ClassUserCardsProps> = ({ classes }) => {
     return (
         <section>
             <div className="flex flex-col items-center justify-evenly lg:gap-10 sm:flex-row">
-                <div
-                    className="rounded-md overflow-hidden relative"
-                >
-                    <img
-                        src={classes?.photoUrl}
-                        alt="classes"
-                        className="w-full h-64 md:h-full object-cover rounded-lg"
-                    />
-                    <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
-                        <center>
-                            <span className="text-white text-sm md:text-base font-normal">
-                                {classes?.releaseDate.toLocaleDateString()}
-                            </span>
-                            <hr className="my-2" />
-                            <p className="text-white text-base md:text-xl font-bold">
-                                {classes?.description}
-                            </p>
-                        </center>
+                {classes.map((classItem) => (
+                    <div className="rounded-md overflow-hidden relative" key={classItem._id}>
+                        <img
+                            src={classItem.photoUrl}
+                            alt="classes"
+                            className="w-full h-64 md:h-full object-cover rounded-lg"
+                        />
+                        <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
+                            <center>
+                                <span className="text-white text-sm md:text-base font-normal">
+                                    {classItem.releaseDate.toLocaleDateString()}
+                                </span>
+                                <hr className="my-2" />
+                                <p className="text-white text-base md:text-xl font-bold">
+                                    {classItem.description}
+                                </p>
+                            </center>
+                        </div>
                     </div>
-                </div>
+                ))}
 
             </div>
 

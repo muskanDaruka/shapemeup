@@ -1,6 +1,6 @@
 "use client"
 import Pagination from "@/components/Pagination";
-import React, { useState, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import Link from "next/link";
 import { useAllProducts, useDeleteProducts } from "@/hooks/products.hooks";
 import { IProducts } from "@/types/products.type";
@@ -14,7 +14,8 @@ interface Props {
     description: String,
 }
 
-const ProductsPage = () => {
+
+const ProductsPage: FC = () => {
     const { data: productsData, isLoading, isError } = useAllProducts();
     const { mutate: deleteProducts } = useDeleteProducts();
     // const { mutate: updateProducts } = useUpdateProducts();
@@ -58,8 +59,8 @@ const ProductsPage = () => {
                     </div>
                 </div>
                 <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
-                    {Array.isArray(products) && products.map((products) => (
-                        <ProductsCards {...products} key={products._id} onDeleteProducts={onDeleteProducts} />
+                    {Array.isArray(products) && products.map((product) => (
+                        <ProductsCards {...product} key={product._id} onDeleteProducts={onDeleteProducts} />
                     ))}
                 </div>
                 <div className="w-full flex justify-end ml-8">

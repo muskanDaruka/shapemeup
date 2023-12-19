@@ -3,6 +3,7 @@
 import HorizontalList from "@/components/HorizontalList";
 import Footer from "@/components/Footer";
 import React, { FC } from "react";
+import Link from "next/link";
 // import ClassUserCard from "@/components/ClassUserCard";
 // import { IClass } from "@/types/classes.type";
 import { useAllClasses } from "@/hooks/classes.hooks";
@@ -51,6 +52,12 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
   return (
     <div>
       <section className="relative">
+        <Link href={`/classes`}>
+          <div className="flex lg:flex-row">
+            <h2 className="font-bold text-[#f2994a] mt-5  ml-[20px] lg:text-left">&lt;</h2>
+            <h2 className="font-bold text-[#f2994a] mt-5 ml-2 lg:text-left">Back</h2>
+          </div>
+        </Link>
         <div className="relative flex flex-col lg:flex-row bg-gradient-to-r from-[#f0f5ff] via-[#f0f5ff] to-[#c2d4f7]">
           <div className="mx-5 my-5 font-bold lg:block order-1 lg:order-2">
             <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8">

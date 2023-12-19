@@ -13,9 +13,9 @@ const Login = () => {
   const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } =
     useContext(AuthContext);
 
-  const onSubmitLogin = (e) => {
+  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    e.target.value();
+    // e.target.value();
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };

@@ -8,25 +8,30 @@ import deleteIcon from "../images/icons/delete.svg";
 import { IUser } from "@/types/user.type";
 import Link from "next/link";
 
-type Props = IUser & {
+type Props = {
+    _id: string;
+    name: string;
+    email: string;
+    password?: string;
     onDeleteUser: (id: string) => void;
-    onUpdateUser: (users: IUser) => void;
+    // onUpdateUser: (users: IUser) => void;
 };
 
 const UserCards: FC<Props> = ({
     _id,
     name,
-    firstName,
-    lastName,
     email,
     password,
     onDeleteUser,
-    onUpdateUser,
+    // onUpdateUser,
 }) => {
+
+    const [firstName, lastName] = name.split(" ");
+
     return (
         <div className="h-14 w-full sm:h-16 bg-gray-40 m-5 z-10">
             <div className="p-5 flex space-x-[100px]">
-                <p>{name = `${firstName} ${lastName}`}</p>
+                <p>{`${firstName} ${lastName}`}</p>
                 <p>{email}</p>
                 <p>{password}</p>
                 <div className="flex gap-5 ml-[700px]">
@@ -38,7 +43,7 @@ const UserCards: FC<Props> = ({
                             height={36}
                             aria-label="button"
                             role="button"
-                            onClick={() => onUpdateUser}
+
                         />
                     </Link>
                     <Image

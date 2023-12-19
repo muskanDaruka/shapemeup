@@ -69,9 +69,21 @@ export async function DELETE(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
     try {
-        await updateUser({ id }); // Pass the user ID here
-        console.log("User updated successfully");
+        const id = "123";
+        const updatedUserData = await req.json();
+        const updatedUser = await User.findByIdAndUpdate(id, updatedUserData, { new: true });
+        console.log("User updated successfully", updatedUser);
+        return NextResponse.json({
+            status: "Success",
+            message: "User updated successfully",
+            data: updatedUser,
+        });
     } catch (error) {
         console.error("Error updating user: ", error);
+        return NextResponse.json({
+            status: "Failed",
+            message: "Error updating user",
+            error: error,
+        });
     }
 }

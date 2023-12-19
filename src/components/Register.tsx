@@ -12,8 +12,9 @@ const Register = () => {
   const { setIsRegistrationOpen, setIsOpen, setIsForgotPasswordOpen } =
     useContext(AuthContext);
 
-  const onSubmitSignUp = (e) => {
-    e.target.value();
+  const onSubmitSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // e.target.value();
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };
@@ -31,7 +32,7 @@ const Register = () => {
   const handleCloseClick = () => {
     console.log("Close button clicked");
   };
-  
+
   const googleSignUp = () => {
     console.log("Google Login clicked");
   };
