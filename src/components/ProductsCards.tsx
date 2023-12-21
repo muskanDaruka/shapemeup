@@ -11,9 +11,18 @@ import Link from "next/link";
 import { useUpdateProducts } from "@/hooks/products.hooks";
 import { useParams, useRouter } from "next/navigation";
 
-type Props = IProducts & {
-    onDeleteProducts: (id: string) => void;
+// type Props = IProducts & {
+//     onDeleteProducts: (id: string) => void;
 
+// };
+
+type Props = {
+    _id: string;
+    name: string;
+    category: string;
+    imageUrl: string;
+    description: string;
+    onDeleteProducts: (id: string) => void;
 };
 
 const ProductsCards: FC<Props> = ({

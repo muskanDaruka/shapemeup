@@ -15,7 +15,7 @@ export const authOptions: NextAuthOptions = {
         };
 
         await connectToMongoDb();
-        const user = await User.findByEmail(email);
+        const user = (User as any).findByEmail(email);
         console.log("111111", user);
         if (user) return new Error("User already existed with this mail");
 

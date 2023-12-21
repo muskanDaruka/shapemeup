@@ -34,7 +34,7 @@ export default function sitemap() {
 
 // const siteUrl = "http://localhost:3000";
 
-// function generateSiteMap(post) {
+// function generateSiteMap(posts) {
 //   return `<?xml version="1.0" encoding="UTF-8"?>
 //    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 //      <!--We manually set the two URLs we know already-->
@@ -60,15 +60,15 @@ export default function sitemap() {
 //        <loc>${siteUrl}/blogs</loc>
 //      </url>
 
-//      ${post
+//      ${posts
 //       .map(({ id }) => {
 //         return `
 //        <url>
-//            <loc>${`${siteUrl}/${id}`}</loc>
+//            <loc>${`${siteUrl}/blogs/${id}`}</loc>
 //        </url>
 //      `;
 //       })
-//       .join('')}
+//       .join('')} 
 //    </urlset>
 //  `;
 // }
@@ -76,17 +76,24 @@ export default function sitemap() {
 // function SiteMap() { }
 
 // export async function getServerSideProps({ res }) {
-//   const request = await fetch(`${siteUrl}/blogs/_id`);
-//   const posts = await request.json();
+//   try {
+//     console.log('Fetching data from API...');
+//     const request = await fetch(`${siteUrl}/api/blogs`);
+//     const posts = await request.json();
+//     console.log('Fetched data:', posts);
 
-//   const sitemap = generateSiteMap(posts);
+//     const sitemap = generateSiteMap(posts);
 
-//   res.setHeader('Content-Type', 'text/xml');
-//   res.write(sitemap);
-//   res.end();
+//     res.setHeader('Content-Type', 'text/xml');
+//     res.write(sitemap);
+//     res.end();
 
-//   return {
-//     props: {},
-//   };
+//     return { props: {} };
+//   } catch (error) {
+//     console.error('Error generating sitemap:', error);
+//     res.status(500).send(`Error generating sitemap: ${error.message}`);
+//     return { props: {} };
+//   }
 // }
+
 // export default SiteMap;

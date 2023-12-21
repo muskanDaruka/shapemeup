@@ -31,7 +31,7 @@ export const useDeleteUser = () => {
 
 export const useUpdateUser = (user: IUser) => {
     return useMutation({
-        mutationFn: userService.editUser,
+        mutationFn: (user: IUser) => userService.editUser(user),
     });
 };
 

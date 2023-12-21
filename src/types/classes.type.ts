@@ -19,11 +19,12 @@ export interface IClassLive {
 
 export interface IClass {
   _id?: string;
+  id?: string;
   name: string;
   photoUrl: string;
   description: string;
   assignedCoach: string;
-  releaseDate: Date | null;
+  releaseDate?: Date | undefined;
   type: string;
   days: number | null;
   duration: number | null;

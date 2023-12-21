@@ -1,13 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { FC } from "react";
-import CardSection from "@/components/CardSection";
 import Footer from "@/components/Footer";
-import { IcardImages, Images } from "@/types/image.type";
 import Link from "next/link";
 import { useAllExercise } from "@/hooks/exercise.hooks";
-import leftArrow from "@/images/icons/leftArrow.svg"
-import Image from "next/image";
 import FAQ from "@/components/FAQ";
 import ExerciseUserCard from "@/components/ExerciseUserCard";
 import { IExercise } from "@/types/exercise.type";

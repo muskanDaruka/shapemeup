@@ -17,7 +17,7 @@ const adminMenus: IAdminMenu[] = [
   {
     imageUrl: "/assets/images/icons/coach.png",
     label: "Coaches",
-    path: "/admin/coach",
+    path: "/admin/coaches",
   },
   {
     imageUrl: "/assets/images/icons/class.png",
@@ -27,12 +27,12 @@ const adminMenus: IAdminMenu[] = [
   {
     imageUrl: "/assets/images/icons/user.png",
     label: "Users",
-    path: "/admin/user",
+    path: "/admin/users",
   },
   {
     imageUrl: "/assets/images/icons/coach_request.png",
     label: "Coach requests",
-    path: "/admin/coachRequest",
+    path: "/admin/coachRequests",
   },
   {
     imageUrl: "/assets/images/icons/products.png",

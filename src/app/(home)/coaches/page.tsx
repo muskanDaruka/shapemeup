@@ -58,9 +58,6 @@ const Coaches = () => {
       </section>
       <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
         <h3 className="text-black text-2xl md:text-4xl font-bold mb-8 text-center">Our Coaches</h3>
-        {/* <div className="flex relative"> */}
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold absolute right-0">⟶</span> */}
-        {/* <div className="mx-auto w-full sm:w-[1100px]"> */}
         <div className="flex flex-col md:flex-row ml-22 w-full sm:container mx-auto items-center justify-center text-center mr-10">
           {coachs.slice(0, 3).map((coach: ICoach, index: number) => (
             <div key={index} className={`mb-4 flex ${index % 2 === 0 ? 'w-full md:w-1/2' : 'w-full md:w-1/2 md:ml-4 sm:ml-2'}`}>
@@ -70,9 +67,6 @@ const Coaches = () => {
             </div>
           ))}
         </div>
-        {/* </div> */}
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute left-0">⟵</span> */}
-        {/* </div> */}
       </section >
       <section className="w-full px-5 py-10 space-y-5 ">
         <div>

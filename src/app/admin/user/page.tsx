@@ -2,32 +2,27 @@
 import Pagination from "@/components/Pagination";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { useAllUser, useDeleteUser, useUpdateUser} from "@/hooks/user.hooks";
+import { useAllUser, useDeleteUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
 import UserCards from "@/components/UserCards";
 
 
 interface Props {
-    name: string;
-    email: string;
-    password: string;
+    name: String;
+    email: String;
+    password: String;
 }
 
 
 const UserPage = () => {
-      const { data: userData, isLoading, isError } = useAllUser();
-      const { mutate: deleteUser } = useDeleteUser();
-      const {mutate: updateUser} = useUpdateUser();
-      const user: IUser[] = userData?.data?.data || []  ;
+    const { data: userData, isLoading, isError } = useAllUser();
+    const { mutate: deleteUser } = useDeleteUser();
+    const users: IUser[] = userData?.data?.data || [];
 
-      const onDeleteUser = async (id: string) => {
+    const onDeleteUser = async (id: string) => {
         await deleteUser(id);
 
-      };
-      const onUpdateUser = async (id: string) => {
-        await updateUser(id);
-
-      };
+    };
 
     return (
         <div className="w-full h-full bg-[#F7F8FC]">
@@ -63,9 +58,18 @@ const UserPage = () => {
                                 <li> Email </li>
                                 <li> Password </li>
                             </ul>
-                        {Array.isArray(user) && user.map((user) => (
-                            <UserCards {...user} key={user._id} onDeleteUser={onDeleteUser} onUpdateUser={onUpdateUser}/>
-                        ))}
+                            {Array.isArray(users) &&
+                                users.map((user) => (
+                                    <UserCards
+                                        {...user}
+                                        key={user._id}
+                                        _id={user._id}
+                                        name={user.name}
+                                        email={user.email}
+                                        password={user.password ?? ""}
+                                        onDeleteUser={onDeleteUser}
+                                    />
+                                ))}
                         </div>
                     </div>
                 </section>

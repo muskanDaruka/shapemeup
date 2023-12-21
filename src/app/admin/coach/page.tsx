@@ -68,8 +68,7 @@ const CoachesPage = () => {
                 {...coach}
                 key={coach._id}
                 onDeleteCoach={onDeleteCoach}
-                // onUpdateCoach={onUpdateCoach}
-                className="w-full flex flex-row flex-wrap items-center justify-between gap-y-5 md:gap-y-14 my-8"
+              // onUpdateCoach={onUpdateCoach}
               />
             ))}
         </div>

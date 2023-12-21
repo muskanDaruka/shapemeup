@@ -2,7 +2,6 @@
 "use client";
 
 import { FC } from "react";
-import { useAllClasses } from "@/hooks/classes.hooks";
 import Link from "next/link";
 interface ClassUserCardsProps {
     classes: {
@@ -10,38 +9,39 @@ interface ClassUserCardsProps {
         name: string;
         photoUrl: string;
         description: string;
-        releaseDate: Date;
-    }[];
+        releaseDate?: Date;
+    };
 }
 const ClassUserCard: FC<ClassUserCardsProps> = ({ classes }) => {
     // const { data: classesData, isLoading, isError } = useAllclassess();
     // console.log("data", classesData?.data.data)
+
     return (
         <section>
             <div className="flex flex-col items-center justify-evenly lg:gap-10 sm:flex-row">
-                <div
-                    className="rounded-md overflow-hidden relative"
-                >
+                <div className="rounded-md overflow-hidden relative" key={classes._id}>
                     <img
-                        src={classes?.photoUrl}
+                        src={classes.photoUrl}
                         alt="classes"
-                        className="w-full h-64 md:h-full object-cover rounded-lg"
+                        className="w-[370px] h-[393px] md:h-[393px] md:w-[370px] object-cover rounded-lg"
                     />
                     <div className="absolute top-20 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
                         <center>
                             <span className="text-white text-sm md:text-base font-normal">
-                                {classes?.releaseDate.toLocaleDateString()}
+                                {
+                                    classes.releaseDate instanceof Date
+                                        ? classes.releaseDate.toISOString().split('T')[0]
+                                        : ''
+                                }
                             </span>
                             <hr className="my-2" />
                             <p className="text-white text-base md:text-xl font-bold">
-                                {classes?.description}
+                                {classes.description}
                             </p>
                         </center>
                     </div>
                 </div>
-
             </div>
-
         </section>
     );
 };
