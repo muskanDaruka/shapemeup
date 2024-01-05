@@ -34,21 +34,22 @@ const userSchema = new Schema<UserType, IUserModel, IUserMethods>(
 //     return bcrypt.compare(password, this?.password);
 //   }
 // );
-userSchema.method("hashPassword", async function hashPassword(this: { password?: string }) {
-  if (this.password) {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-});
-
 userSchema.method(
-  "comparePassword",
-  async function comparePassword(this: { password?: string }, password: string) {
-    return this.password ? bcrypt.compare(password, this.password) : false;
+  "hashPassword",
+  async function hashPassword(this: { password?: string }) {
+    if (this.password) {
+      const salt = await bcrypt.genSalt(10);
+      this.password = await bcrypt.hash(this.password, salt);
+    }
   }
 );
+
+userSchema.methods.comparePassword = async function (password: string) {
+  return await bcrypt.compare(password, this.password);
+};
+
 userSchema.statics.findByEmail = function (this: IUserModel, email: string) {
-  return this?.findOne({ email }) as Promise<UserType | null>;;
+  return this?.findOne({ email }) as Promise<UserType | null>;
 };
 
 const User = models.users ?? model<UserType, UserModel>("users", userSchema);
