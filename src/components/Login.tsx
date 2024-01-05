@@ -1,11 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { MouseEvent, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
+  const navigation = useRouter();
   const [invalidmsg, setInvalidmsg] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
@@ -19,6 +21,7 @@ const Login = () => {
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };
+
   const password = () => {
     setShowPassword(!showPassword);
     // <span>Password is required</span>
@@ -30,7 +33,7 @@ const Login = () => {
     return true;
   };
   const handleCloseClick = () => {
-    console.log("Close button clicked");
+    setIsOpen(false);
   };
   const rememberMe = () => {
     console.log("Remember me clicked");
@@ -44,8 +47,10 @@ const Login = () => {
   const googleLogin = () => {
     console.log("Google Login clicked");
   };
-  const signup = () => {
-    console.log("Signup clicked");
+  const signup = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsRegistrationOpen(true);
+    setIsOpen(false);
   };
 
   return (

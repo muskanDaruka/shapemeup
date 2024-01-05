@@ -12,7 +12,8 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen, isRegistrationOpen, isForgotPasswordOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, isRegistrationOpen, isForgotPasswordOpen } =
+    useContext<AuthType>(AuthContext);
 
   return (
     <>
@@ -32,8 +33,7 @@ export default function HomeLayout({
           <ForgotPassword />
         </div>
       )}
-      <div className="relative top-14 sm:top-16 ">{children}</div>
-      
+      <div className="relative top-14 sm:top-16 h-[1000px]">{children}</div>
     </>
   );
 }

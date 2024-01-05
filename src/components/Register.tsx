@@ -18,6 +18,7 @@ const Register = () => {
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };
+
   const password = () => {
     // <span>Password is required</span>
     setShowPassword(!showPassword);
@@ -30,7 +31,7 @@ const Register = () => {
     return true;
   };
   const handleCloseClick = () => {
-    console.log("Close button clicked");
+    setIsRegistrationOpen(false);
   };
 
   const googleSignUp = () => {
