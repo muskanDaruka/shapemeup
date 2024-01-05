@@ -1,10 +1,10 @@
 import { Document, HydratedDocument, Model } from "mongoose";
 
 export interface IUser extends Document {
-  _id:string;
+  _id: string;
   name: string;
   email: string;
-  password?: string;
+  password: string;
   confirmPassword?: string;
   gender?: string;
   phoneCode?: string;
@@ -19,10 +19,13 @@ export interface IUser extends Document {
   roles: [];
   photoUrl: string;
 }
-
+export interface UserType {
+  email: string;
+  password: string;
+}
 export interface IUserMethods {
   hashPassword(): void;
-  comparePassword(password: string): boolean;
+  comparePassword(password: string): Promise<boolean>;
 }
 
 export interface UserModel extends Model<IUser> {

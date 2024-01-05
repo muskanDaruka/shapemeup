@@ -29,9 +29,9 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
   );
   console.log("pageClassesData", pageClassesData)
   console.log("classess", classess)
-  if (classess.length === 0) {
-    return null;
-  }
+  // if (classess.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div>

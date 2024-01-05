@@ -1,6 +1,6 @@
 "use client";
 
-import { IUser } from "@/types/user.type";
+import { IUser, UserType } from "@/types/user.type";
 import axios from "axios";
 
 class UserService {
@@ -11,14 +11,14 @@ class UserService {
     async getAllUser() {
         console.log("Hello")
         return await axios.get("/api/user");
-        
+
     }
 
     /**
      * Create a user
      * @return
      */
-    async createUser(userData: IUser) {
+    async createUser(userData: UserType) {
         return await axios.post("/api/user", userData);
     }
 

@@ -75,9 +75,9 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
   });
   console.log("pageData", pageData);
   console.log("blogs", blogs);
-  if (blogs.length === 0) {
-    return null;
-  }
+  // if (blogs.length === 0) {
+  //   return null;
+  // }
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? blogs.length - 1 : prev - 1));
   };

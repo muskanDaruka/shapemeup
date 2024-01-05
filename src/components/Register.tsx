@@ -1,23 +1,30 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, useContext } from "react";
+import { useState, useContext, MouseEvent } from "react";
 import { AuthContext } from "../context/Auth";
+import { useCreateUser } from "@/hooks/user.hooks";
+import { Route } from "react-router-dom"
 
 const Register = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const { mutate: createUser } = useCreateUser();
+  const [user, setUser] = useState({
+    email: "",
+    name: "",
+    password: "",
+  });
   const { setIsRegistrationOpen, setIsOpen, setIsForgotPasswordOpen } =
     useContext(AuthContext);
 
-  const onSubmitSignUp = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await createUser(user);
     // e.target.value();
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };
+
   const password = () => {
     // <span>Password is required</span>
     setShowPassword(!showPassword);
@@ -30,7 +37,7 @@ const Register = () => {
     return true;
   };
   const handleCloseClick = () => {
-    console.log("Close button clicked");
+    setIsRegistrationOpen(false);
   };
 
   const googleSignUp = () => {
@@ -42,8 +49,12 @@ const Register = () => {
     setIsForgotPasswordOpen(false);
     setIsRegistrationOpen(false);
   };
-  const signUp = () => {
+  const signUp = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     console.log("Sign up clicked");
+
+    e.preventDefault();
+    setIsRegistrationOpen(false);
+    setIsOpen(true);
   };
 
   return (
@@ -69,9 +80,11 @@ const Register = () => {
                 <input
                   type="text"
                   name="email"
-                  value={email}
+                  value={user?.email}
                   className="w-[520px] h-12 border-slate-250 border-2 rounded-lg"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setUser((prev) => ({ ...prev, email: e.target.value }))
+                  }
                 />
               </div>
               <div className="m-0 ml-10 mb-6">
@@ -80,9 +93,11 @@ const Register = () => {
                 <input
                   type="text"
                   name="Name"
-                  value={name}
+                  value={user?.name}
                   className="w-[520px] h-12 border-slate-250 border-2 rounded-lg"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) =>
+                    setUser((prev) => ({ ...prev, name: e.target.value }))
+                  }
                 />
               </div>
               <div className="m-0 ml-10 mb-6">
@@ -91,6 +106,10 @@ const Register = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    value={user.password}
+                    onChange={(e) =>
+                      setUser((prev) => ({ ...prev, password: e.target.value }))
+                    }
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
                   <img
@@ -128,7 +147,7 @@ const Register = () => {
                 <span className="text-danger mb-2 ">{invalidmsg}</span>
               </div>
               <button
-                className=" mt-5 ml-10 p-2 pl-[220px] flex w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+                className="mt-5 ml-10 p-2 pl-[220px] flex w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
                 onClick={signUp}
               >
                 Sign up

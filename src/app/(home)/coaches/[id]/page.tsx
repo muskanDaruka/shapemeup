@@ -42,9 +42,9 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
     );
     console.log("pageCoachData", pageCoachData)
     console.log("coachs", coachs)
-    if (coachs.length === 0) {
-        return null;
-    }
+    // if (coachs.length === 0) {
+    //     return null;
+    // }
 
     return (
         <div>

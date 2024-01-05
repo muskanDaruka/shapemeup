@@ -82,12 +82,12 @@ export default function Home() {
   const { data: exerciseData } = useAllExercise();
   const exercises = exerciseData?.data?.data || [];
 
-  if (exercises.length === 0) {
-    return null;
-  }
-  if (blogs.length === 0) {
-    return null;
-  }
+  // if (exercises.length === 0) {
+  //   return null;
+  // }
+  // if (blogs.length === 0) {
+  //   return null;
+  // }
   return (
     <>
       <Hero data={heroImages} />

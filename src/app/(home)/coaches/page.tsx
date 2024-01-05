@@ -30,9 +30,9 @@ const Coaches = () => {
   const { data: coachData, isLoading, isError } = useAllCoach();
   const coachs = coachData?.data?.data || [];
 
-  if (coachs.length === 0) {
-    return null;
-  }
+  // if (coachs.length === 0) {
+  //   return null;
+  // }
   return (
     <div>
       <section className="relative">

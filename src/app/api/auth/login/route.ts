@@ -15,7 +15,13 @@ export async function POST(req: NextRequest) {
       statusCode: 401,
     });
   }
-
+  if (!(user instanceof User)) {
+    return NextResponse.json({
+      message: "Invalid user object",
+      status: "Failed",
+      statusCode: 500,
+    });
+  }
   const isPasswordMatch = await user.comparePassword(password);
 
   if (!isPasswordMatch) {

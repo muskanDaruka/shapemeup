@@ -51,9 +51,9 @@ const Blogs = () => {
   const { data: blogData, isLoading, isError } = useAllBlogs();
   const blogs = blogData?.data?.data || [];
 
-  if (blogs.length === 0) {
-    return null;
-  }
+  // if (blogs.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div>

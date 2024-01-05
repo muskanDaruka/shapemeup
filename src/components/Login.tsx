@@ -1,20 +1,26 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
+import { useCreateUser } from "@/hooks/user.hooks";
 
 const Login = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
+  const { mutate: createUser } = useCreateUser();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
-  const [email, setEmail] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } =
     useContext(AuthContext);
 
-  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await createUser(user);
     // e.target.value();
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
@@ -30,7 +36,7 @@ const Login = () => {
     return true;
   };
   const handleCloseClick = () => {
-    console.log("Close button clicked");
+    setIsOpen(false);
   };
   const rememberMe = () => {
     console.log("Remember me clicked");
@@ -44,8 +50,11 @@ const Login = () => {
   const googleLogin = () => {
     console.log("Google Login clicked");
   };
-  const signup = () => {
+  const signup = (e: MouseEvent<HTMLAnchorElement>) => {
     console.log("Signup clicked");
+    e.preventDefault();
+    setIsRegistrationOpen(true);
+    setIsOpen(false);
   };
 
   return (
@@ -84,9 +93,11 @@ const Login = () => {
                 <input
                   type="text"
                   name="email"
-                  value={email}
+                  value={user?.email}
                   className="w-full h-12 border-slate-250 border-2 rounded-lg"
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e) =>
+                    setUser((prev) => ({ ...prev, email: e.target.value }))
+                  }
                 />
               </div>
               <div className="m-0 mb-6">
@@ -95,6 +106,10 @@ const Login = () => {
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
+                    value={user.password}
+                    onChange={(e) =>
+                      setUser((prev) => ({ ...prev, password: e.target.value }))
+                    }
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
                   <img

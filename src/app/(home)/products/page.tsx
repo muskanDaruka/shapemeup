@@ -54,9 +54,9 @@ const Products = () => {
   const { data: productData, isLoading, isError } = useAllProducts();
   const products = productData?.data?.data || [];
 
-  if (products.length === 0) {
-    return null;
-  }
+  // if (products.length === 0) {
+  //   return null;
+  // }
   return (
     <div>
       <Hero data={heroImages} />
