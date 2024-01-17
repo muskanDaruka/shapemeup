@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-"use client"
+"use client";
 import Hero from "@/components/Hero";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
@@ -92,10 +92,14 @@ export default function Home() {
     <>
       <Hero data={heroImages} />
       <HeroCard />
-      <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">Get acess to thousands of workouts</h3>
+      <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">
+        Get acess to thousands of workouts
+      </h3>
       <h4 className="w-full flex justify-center bg-[#f5f5f5]">
         <p className="text-center font-normal text-lg w-10/12 sm:w-6/12">
-          Get the entire studio experience at home with hundreds of classes for body, mind, and spirit, whether you&apos;re a complete beginner or want to pick up your routine.
+          Get the entire studio experience at home with hundreds of classes for
+          body, mind, and spirit, whether you&apos;re a complete beginner or
+          want to pick up your routine.
         </p>
       </h4>
       <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
@@ -170,9 +174,25 @@ export default function Home() {
         <div className="mx-auto w-full sm:w-[1100px]">
           <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[50px]">
             {blogs.slice(1, 4).map((blog: IBlog, index: number) => (
-              <div key={index} className={`mb-4 flex ${index % 2 === 0 ? 'w-full sm:w-1/2' : 'w-full md:w-1/2 md:ml-4 sm:ml-2'} `}>
+              <div
+                key={index}
+                className={`mb-4 flex ${
+                  index % 2 === 0
+                    ? "w-full sm:w-1/2"
+                    : "w-full md:w-1/2 md:ml-4 sm:ml-2"
+                } `}
+              >
                 <Link href={`/blogss/${blog._id}`}>
-                  <BlogUserCards key={blog.id} blog={blog} useInImg useInName useInSummary useInRead useInDate useInCategory />
+                  <BlogUserCards
+                    key={blog.id}
+                    blog={blog}
+                    useInImg
+                    useInName
+                    useInSummary
+                    useInRead
+                    useInDate
+                    useInCategory
+                  />
                 </Link>
               </div>
             ))}

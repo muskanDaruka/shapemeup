@@ -1,12 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, MouseEvent } from "react";
+
+import { MouseEvent, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
+import { useRouter } from "next/navigation";
+
 import { useCreateUser } from "@/hooks/user.hooks";
 
 const Login = () => {
+  const navigation = useRouter();
   const [invalidmsg, setInvalidmsg] = useState("");
   const { mutate: createUser } = useCreateUser();
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -25,6 +29,7 @@ const Login = () => {
     // <span>Email is required</span>
     // <span>Enter a valid email address</span>
   };
+
   const password = () => {
     setShowPassword(!showPassword);
     // <span>Password is required</span>
@@ -51,7 +56,6 @@ const Login = () => {
     console.log("Google Login clicked");
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
-    console.log("Signup clicked");
     e.preventDefault();
     setIsRegistrationOpen(true);
     setIsOpen(false);
