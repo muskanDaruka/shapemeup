@@ -1,23 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/muskandaruka
 import { MouseEvent, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/muskandaruka
 import { useCreateUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
 
 const Login = () => {
-  const navigation = useRouter();
+
   const [invalidmsg, setInvalidmsg] = useState("");
   const { mutate: createUser } = useCreateUser();
   const [error, setError] = useState("");
@@ -32,7 +24,7 @@ const Login = () => {
     useContext(AuthContext);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-<<<<<<< HEAD
+
     try {
       e.preventDefault();
       console.log("Event Object:", e);
@@ -54,15 +46,6 @@ const Login = () => {
       console.error("An error occurred during login:", error);
     }
   }
-=======
-    e.preventDefault();
-    await createUser(user);
-    // e.target.value();
-    // <span>Email is required</span>
-    // <span>Enter a valid email address</span>
-  };
-
->>>>>>> origin/muskandaruka
   const password = () => {
     setShowPassword(!showPassword);
     if (!password || password.length < 6) {
