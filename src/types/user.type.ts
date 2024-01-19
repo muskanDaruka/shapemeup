@@ -19,10 +19,12 @@ export interface IUser extends Document {
   roles: [];
   photoUrl: string;
 }
+
 export interface UserType {
   email: string;
   password: string;
 }
+
 export interface IUserMethods {
   hashPassword(): void;
   comparePassword(password: string): Promise<boolean>;

@@ -41,15 +41,22 @@ userSchema.method(
       const salt = await bcrypt.genSalt(10);
       this.password = await bcrypt.hash(this.password, salt);
     }
+<<<<<<< HEAD
   }
 );
+=======
+
+  }
+);
+
+>>>>>>> origin/muskandaruka
 
 userSchema.methods.comparePassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
 
 userSchema.statics.findByEmail = function (this: IUserModel, email: string) {
-  return this?.findOne({ email }) as Promise<UserType | null>;;
+  return this?.findOne({ email }) as Promise<UserType | null>;
 };
 
 const User = models.users ?? model<UserType, UserModel>("users", userSchema);

@@ -20,8 +20,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-easy-swipe": "^0.0.23",
-    "react-responsive-carousel": "^3.2.23",
-    "swiper": "^11.0.5"
+    "react-responsive-carousel": "^3.2.23"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.5",
