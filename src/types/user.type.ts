@@ -11,7 +11,7 @@ export interface IUser extends Document {
   phoneNumber?: number;
   photoURL?: string;
   isActive: boolean;
-  isAdmin: boolean;
+  isAdmin?: boolean;
   imageUrl: string;
   firstName: string;
   lastName: string;

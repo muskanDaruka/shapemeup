@@ -31,7 +31,16 @@ export async function POST(req: NextRequest) {
     const userData = await req.json();
     try {
         await connectToMongoDb();
+        const isUserExist = await (User as any).findByEmail(userData.email);
+        if (isUserExist) {
+            return NextResponse.json({
+                message: "User already existed with this email",
+                status: "Failed",
+                statusCode: 401,
+            });
+        }
         const newUser = new User({ ...userData });
+        await newUser.hashPassword();
         newUser.save();
         return NextResponse.json({
             status: "Success",

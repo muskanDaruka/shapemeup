@@ -14,6 +14,7 @@ const adminMenus: IAdminMenu[] = [
     label: "Exercise",
     path: "/admin/exercise",
   },
+
   {
     imageUrl: "/assets/images/icons/coach.png",
     label: "Coaches",

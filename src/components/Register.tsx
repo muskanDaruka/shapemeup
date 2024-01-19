@@ -3,10 +3,11 @@
 import { useState, useContext, MouseEvent } from "react";
 import { AuthContext } from "../context/Auth";
 import { useCreateUser } from "@/hooks/user.hooks";
-import { Route } from "react-router-dom"
-
+import Image from "next/image";
 const Register = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { mutate: createUser } = useCreateUser();
   const [user, setUser] = useState({
@@ -19,17 +20,28 @@ const Register = () => {
 
   const onSubmitSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await createUser(user);
-    // e.target.value();
-    // <span>Email is required</span>
-    // <span>Enter a valid email address</span>
+    setInvalidmsg("");
+    if (user.password !== confirmPassword) {
+      setInvalidmsg("Passwords do not match");
+      return;
+    }
+    try {
+      const response = await createUser(user);
+      console.log("API Response:", response);
+      setIsRegistrationOpen(false);
+      setIsOpen(true);
+    } catch (error) {
+      console.error("Registration failed:", error);
+      setError("Registration failed. Please check your information and try again.");
+    }
+
   };
 
   const password = () => {
     // <span>Password is required</span>
     setShowPassword(!showPassword);
     // <span>Password is required</span>
-    if (!password || password.length < 6) {
+    if (!user.password || user.password.length < 6) {
       setInvalidmsg("Password must be at least 6 characters long");
       return false;
     }
@@ -49,13 +61,11 @@ const Register = () => {
     setIsForgotPasswordOpen(false);
     setIsRegistrationOpen(false);
   };
-  const signUp = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-    console.log("Sign up clicked");
-
-    e.preventDefault();
-    setIsRegistrationOpen(false);
-    setIsOpen(true);
-  };
+  // const signUp = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
+  //   e.preventDefault();
+  //   setIsRegistrationOpen(false);
+  //   setIsOpen(true);
+  // };
 
   return (
     <div className="w-[calc(100vw-200px)] h-5/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all object-cover">
@@ -102,7 +112,7 @@ const Register = () => {
               </div>
               <div className="m-0 ml-10 mb-6">
                 <label htmlFor="password">Password</label>
-                <div className="flex items-center">
+                <div className="relative flex items-center">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -112,14 +122,15 @@ const Register = () => {
                     }
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
-                  <img
+                  <Image
                     src={
                       showPassword
                         ? "/assets/images/login/view_password.png"
                         : "/assets/images/login/hide_password.png"
                     }
                     alt={showPassword ? "Hide Password" : "View Password"}
-                    className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg"
+                    className="text-[#333] p-1  m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
+                    width={8} height={5}
                     onClick={password}
                   />
                 </div>
@@ -127,28 +138,31 @@ const Register = () => {
               </div>
               <div className="m-0 ml-10 mb-6">
                 <label htmlFor="password">Confirn Password</label>
-                <div className="flex items-center">
+                <div className="relative flex items-center">
                   <input
                     type={showPassword ? "text" : "password"}
-                    name="password"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
-                  <img
+                  <Image
                     src={
                       showPassword
                         ? "/assets/images/login/view_password.png"
                         : "/assets/images/login/hide_password.png"
                     }
                     alt={showPassword ? "Hide Password" : "View Password"}
-                    className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg"
+                    className="text-[#333] p-1  m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
                     onClick={password}
+                    width={8} height={5}
                   />
                 </div>
                 <span className="text-danger mb-2 ">{invalidmsg}</span>
               </div>
               <button
                 className="mt-5 ml-10 p-2 pl-[220px] flex w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
-                onClick={signUp}
+
               >
                 Sign up
               </button>
@@ -156,13 +170,18 @@ const Register = () => {
                 className=" mt-5 ml-10 pt-4 pl-[100px] flex w-[520px] h-15 bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg"
                 onClick={googleSignUp}
               >
-                <img
+                <Image
                   src="/assets/images/social_media/google.png"
                   alt="Google"
                   className="m-2 pb-3"
+                  width={25}
+                  height={25}
                 />
                 Or signup with google
               </button>
+              {error && (
+                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+              )}
               <div className="mt-5 ml-10 text-xl">
                 Already have an account?
                 <button
@@ -175,17 +194,21 @@ const Register = () => {
               </div>
             </form>
           </div>
-          <div className="bg-[''] ml-[300px]">
-            <img
+          <div className="bg-[''] ml-[200px]">
+            <Image
               src="/assets/images/shapemeup_logo.png"
               loading="lazy"
               alt="Shape-me-up"
-              className="img-responsive modal-logo bg-[#34383d] h-auto"
+              width={150}
+              height={50}
+              className="img-responsive modal-logo bg-[#34383d] "
             />
-            <img
+            <Image
               src="/assets/images/login/login_right.png"
               alt="image"
-              className="h-auto w-full pb-30 "
+              className=" pb-30 "
+              width={800}
+              height={100}
             />
           </div>
         </div>

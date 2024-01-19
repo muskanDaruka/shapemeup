@@ -1,16 +1,20 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { useState, MouseEvent } from "react";
+import { MouseEvent, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
+import { useRouter } from "next/navigation";
 import { useCreateUser } from "@/hooks/user.hooks";
+import { IUser } from "@/types/user.type";
 
 const Login = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
   const { mutate: createUser } = useCreateUser();
+  const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
+  const navigation = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,15 +23,29 @@ const Login = () => {
     useContext(AuthContext);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await createUser(user);
-    // e.target.value();
-    // <span>Email is required</span>
-    // <span>Enter a valid email address</span>
-  };
+    try {
+      e.preventDefault();
+      console.log("Event Object:", e);
+      console.log("Form submission prevented");
+      const { email, password } = user;
+
+      const adminEmail = 'admin@shapemeup.com';
+      const adminPassword = 'admin@1234';
+
+      if (email === adminEmail && password === adminPassword) {
+        navigation.push('/admin/exercise');
+        console.log("Navigating to /admin/exercise");
+      } else {
+        navigation.push('/');
+        setIsOpen(false);
+        console.log("Navigating to /");
+      }
+    } catch (error) {
+      console.error("An error occurred during login:", error);
+    }
+  }
   const password = () => {
     setShowPassword(!showPassword);
-    // <span>Password is required</span>
     if (!password || password.length < 6) {
       setInvalidmsg("Password must be at least 6 characters long");
       return false;
@@ -51,7 +69,6 @@ const Login = () => {
     console.log("Google Login clicked");
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
-    console.log("Signup clicked");
     e.preventDefault();
     setIsRegistrationOpen(true);
     setIsOpen(false);
@@ -102,7 +119,7 @@ const Login = () => {
               </div>
               <div className="m-0 mb-6">
                 <label htmlFor="password">Password</label>
-                <div className="flex items-center">
+                <div className="relative flex items-center">
                   <input
                     type={showPassword ? "text" : "password"}
                     name="password"
@@ -119,7 +136,7 @@ const Login = () => {
                         : "/assets/images/login/hide_password.png"
                     }
                     alt={showPassword ? "Hide Password" : "View Password"}
-                    className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg"
+                    className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
                     onClick={password}
                   />
                 </div>
@@ -146,8 +163,9 @@ const Login = () => {
                 </div>
               </div>
               <button
+                type="submit"
                 className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
-                onClick={Login}
+
               >
                 Login now
               </button>
@@ -162,6 +180,9 @@ const Login = () => {
                 />
                 Or login with google
               </button>
+              {error && (
+                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+              )}
               <div className="mt-5">
                 Dont have an account?
                 <a

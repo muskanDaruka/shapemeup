@@ -5,22 +5,32 @@ import axios from "axios";
 
 class UserService {
     /**
-     * Get All posts
-     * @retutn
-     */
+   * Get All posts
+   * @retutn
+   */
     async getAllUser() {
-        console.log("Hello")
+        console.log("Hello");
         return await axios.get("/api/user");
-
     }
 
     /**
      * Create a user
      * @return
      */
+    // async createUser(userData: UserType) {
+    //     return await axios.post("/api/auth/register", userData);
+    // }
     async createUser(userData: UserType) {
-        return await axios.post("/api/user", userData);
+        try {
+            const response = await axios.post("/api/auth/register", userData);
+            console.log("API Response:", response);  // Log the entire response object
+            return response;
+        } catch (error: any) {
+            console.error("API Request failed:", error);
+            throw new Error(`Error in createUser: ${error.message}`);
+        }
     }
+
 
     /**
      * Delete a user

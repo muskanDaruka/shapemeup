@@ -18,14 +18,18 @@ export const authOptions: NextAuthOptions = {
         const user = (User as any).findByEmail(email);
         console.log("111111", user);
         if (user) return new Error("User already existed with this mail");
-
+        // If the user exists, check regular user credentials
         const isPasswordMatch = await user.comparePassword(password);
 
-        if (!isPasswordMatch) return new Error("User credentails are invalid");
+        if (!isPasswordMatch)
+          return new Error("User credentials are invalid");
 
-        return user;
+
+        return user; // Return the regular user
+
       },
     }),
+
   ],
   session: {
     strategy: "jwt",

@@ -7,19 +7,12 @@ export async function POST(req: NextRequest) {
 
   await connectToMongoDb();
 
-  const user = (User as any).findByEmail(email);
+  const user = await User.findOne({ email }).select("email password");
   if (!user) {
     return NextResponse.json({
       message: "User does not exist with this mail",
       status: "Failed",
       statusCode: 401,
-    });
-  }
-  if (!(user instanceof User)) {
-    return NextResponse.json({
-      message: "Invalid user object",
-      status: "Failed",
-      statusCode: 500,
     });
   }
   const isPasswordMatch = await user.comparePassword(password);
@@ -31,11 +24,21 @@ export async function POST(req: NextRequest) {
       statusCode: 401,
     });
   }
-
-  return NextResponse.json({
-    message: "Login successful",
-    status: "Success",
-    statusCode: 200,
-    data: user,
-  });
+  if (user.isAdmin) {
+    return NextResponse.json({
+      redirect: "/admin/exercise",
+      message: "Login successful",
+      status: "Success",
+      statusCode: 200,
+      data: user,
+    });
+  } else {
+    return NextResponse.json({
+      redirect: "/",
+      message: "Login successful",
+      status: "Success",
+      statusCode: 200,
+      data: user,
+    });
+  }
 }
