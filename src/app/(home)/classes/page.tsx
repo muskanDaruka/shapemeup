@@ -36,9 +36,9 @@ const Classes = () => {
   const { data: classesData, isLoading, isError } = useAllClasses();
   const classess = classesData?.data?.data || [];
 
-  if (classess.length === 0) {
-    return null;
-  }
+  // if (classess.length === 0) {
+  //   return null;
+  // }
   return (
     <div>
       <section className="relative">

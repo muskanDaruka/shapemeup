@@ -25,9 +25,9 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
     );
     console.log("pageProductData", pageProductData)
     console.log("products", products)
-    if (products.length === 0) {
-        return null;
-    }
+    // if (products.length === 0) {
+    //     return null;
+    // }
 
     return (
         <div>

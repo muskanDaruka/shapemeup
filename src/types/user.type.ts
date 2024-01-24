@@ -4,14 +4,14 @@ export interface IUser extends Document {
   _id: string;
   name: string;
   email: string;
-  password?: string;
+  password: string;
   confirmPassword?: string;
   gender?: string;
   phoneCode?: string;
   phoneNumber?: number;
   photoURL?: string;
   isActive: boolean;
-  isAdmin: boolean;
+  isAdmin?: boolean;
   imageUrl: string;
   firstName: string;
   lastName: string;

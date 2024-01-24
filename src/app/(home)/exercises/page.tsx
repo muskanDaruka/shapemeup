@@ -55,9 +55,9 @@ const Exercises = () => {
   const { data: exerciseData, isLoading, isError } = useAllExercise();
   const exercises = exerciseData?.data?.data || [];
 
-  if (exercises.length === 0) {
-    return null;
-  }
+  // if (exercises.length === 0) {
+  //   return null;
+  // }
   return (
     <main>
       <Hero data={heroImages} />

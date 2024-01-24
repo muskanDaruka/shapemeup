@@ -4,32 +4,42 @@ import connectToMongoDb from "@/lib/mongodb";
 import User from "@/models/user.model";
 
 export async function POST(req: NextRequest) {
-  const { email, password } = await req.json();
+  try {
+    const { name, email, password } = await req.json();
 
-  await connectToMongoDb();
+    await connectToMongoDb();
 
-  const isUserExist = (User as any).findByEmail(email);
+    const isUserExist = await (User as any).findByEmail(email);
 
-  if (isUserExist) {
+    if (isUserExist) {
+      return NextResponse.json({
+        message: "User already existed with this mail",
+        status: "Failed",
+        statusCode: 401,
+      });
+    }
+
+    const newUser = new User({
+      name,
+      email,
+      password,
+    });
+    await newUser.hashPassword();
+    await newUser.save();  // Save the document to the database
+    console.log("User data saved successfully");
     return NextResponse.json({
-      message: "User already existed with this mail",
-      status: "Failed",
-      statusCode: 401,
+      message: "User added successfully",
+      status: "Success",
+      statusCode: 201,
+      data: newUser,
+    });
+  } catch (error: any) {
+    console.error("Error:", error);
+    return NextResponse.json({
+      message: "An error occurred while processing your request",
+      status: "Error",
+      statusCode: 500,
+      error: error.message || "Unknown error",
     });
   }
-
-  const newUser = new User({
-    email,
-    password,
-  });
-
-  await newUser.hashPassword();
-  const userDoc = await newUser.save();
-
-  return NextResponse.json({
-    message: "User added successfully",
-    status: "Success",
-    statusCode: 201,
-    data: userDoc,
-  });
 }

@@ -51,9 +51,9 @@ const Blogs = () => {
   const { data: blogData, isLoading, isError } = useAllBlogs();
   const blogs = blogData?.data?.data || [];
 
-  if (blogs.length === 0) {
-    return null;
-  }
+  // if (blogs.length === 0) {
+  //   return null;
+  // }
 
   return (
     <div>
@@ -85,20 +85,20 @@ const Blogs = () => {
               <div className="flex flex-col md:flex-row mx-auto">
                 <div>
                   <img
-                    src={blogs[0].blogImgUrl}
+                    src={blogs[0]?.blogImgUrl}
                     alt="image"
                     className="h-[272.037px] md:h-auto md:w-[823px] w-full rounded-lg object-fit"
                   />
                 </div>
                 <div className="md:flex-grow h-[272.037px] md:h-auto">
                   <h1 className="font-bold text-2xl mt-2 md:mt-5 ml-5">
-                    {blogs[0].name}
+                    {blogs[0]?.name}
                   </h1>
                   <p className="text-normal mt-2 md:ml-5 ">
-                    {blogs[0].summary}
+                    {blogs[0]?.summary}
                   </p>
                   <Link
-                    href={`/blogs/${blogs[0]._id}`}
+                    href={`/blogs/${blogs[0]?._id}`}
                     id="readMoreLink"
                     className="text-[#f2994a] transition duration-300 hover:underline mt-5 block ml-5"
                   >
@@ -109,7 +109,7 @@ const Blogs = () => {
                       21 October 2023
                     </span>
                     <span className="font-bold mt-5 ml-2 md:ml-35 md:mr-5 mr-2">
-                      {blogs[0].category}
+                      {blogs[0]?.category}
                     </span>
                   </div>
                 </div>

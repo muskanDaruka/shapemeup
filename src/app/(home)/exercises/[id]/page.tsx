@@ -23,9 +23,9 @@ const ExerciseView: FC<ExerciseViewProps> = ({ params }) => {
     );
     console.log("pageExerciseData", pageExerciseData)
     console.log("exercises", exercises)
-    if (exercises.length === 0) {
-        return null;
-    }
+    // if (exercises.length === 0) {
+    //     return null;
+    // }
 
     return (
         <div>
