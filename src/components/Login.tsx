@@ -7,9 +7,9 @@ import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useCreateUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
-
   const [invalidmsg, setInvalidmsg] = useState("");
   const { mutate: createUser } = useCreateUser();
   const [error, setError] = useState("");
@@ -24,28 +24,27 @@ const Login = () => {
     useContext(AuthContext);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-
     try {
       e.preventDefault();
       console.log("Event Object:", e);
       console.log("Form submission prevented");
       const { email, password } = user;
 
-      const adminEmail = 'admin@shapemeup.com';
-      const adminPassword = 'admin@1234';
+      const adminEmail = "admin@shapemeup.com";
+      const adminPassword = "admin@1234";
 
       if (email === adminEmail && password === adminPassword) {
-        navigation.push('/admin/exercise');
+        navigation.push("/admin/exercise");
         console.log("Navigating to /admin/exercise");
       } else {
-        navigation.push('/');
+        navigation.push("/");
         setIsOpen(false);
         console.log("Navigating to /");
       }
     } catch (error) {
       console.error("An error occurred during login:", error);
     }
-  }
+  };
   const password = () => {
     setShowPassword(!showPassword);
     if (!password || password.length < 6) {
@@ -67,8 +66,14 @@ const Login = () => {
     setIsRegistrationOpen(false);
     console.log("Forgot Password clicked");
   };
-  const googleLogin = () => {
-    console.log("Google Login clicked");
+  const googleLogin = async () => {
+    try {
+      const result = await signIn("google", {
+        callbackUrl: "/",
+      });
+    } catch (error) {
+      console.error("Error during Google Sign-In:", error);
+    }
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -167,7 +172,6 @@ const Login = () => {
               <button
                 type="submit"
                 className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
-
               >
                 Login now
               </button>
@@ -183,7 +187,9 @@ const Login = () => {
                 Or login with google
               </button>
               {error && (
-                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+                  {error}
+                </div>
               )}
               <div className="mt-5">
                 Dont have an account?
