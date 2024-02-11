@@ -1,5 +1,5 @@
 import Image from "next/image"
-
+import { signOut } from "next-auth/react"
 const UserProfile = () => {
     return (
         <div>
@@ -9,15 +9,14 @@ const UserProfile = () => {
                     width={50}
                     height={50}
                     alt="user-image"
-                    className="h-20 md:w-20 rounded-full"
+                    className="h-[70px] md:w-[70px] rounded-full mt-2"
                 />
                 <div>
-                    <h4 className=" text-white ml-5 mt-2">Welcome Admin</h4>
-                    <h5 className=" text-white ml-5">name@mailid.com</h5>
+                    <h4 className=" text-white ml-5 mt-4">Welcome Admin</h4>
+                    <h5 className=" text-white ml-5">admin@shapemeup.com</h5>
                 </div>
             </div>
-
-            <button className="text-white bg-[#f2994a] w-28 h-10 rounded-md m-2 ml-20">Logout</button>
+            <button onClick={() => signOut()} className="text-white bg-[#f2994a] w-28 h-10 rounded-md m-2 ml-20" >Logout</button>
         </div>
     )
 }

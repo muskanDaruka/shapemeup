@@ -76,9 +76,13 @@ const Menu = () => {
               onClick={() => {
                 setActiveIndex(index);
               }}
-              className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
+              className={`inline-block px-10 py-4 ${index === activeIndex
+                ? "bg-[#f2994a] text-white h-full"
+                : "text-black"
+                }`}
             >
-              <span>{menu.label}</span>
+              <span className={`${index !== activeIndex ? "hover:text-[#f2994a]" : ""
+                } ${index === activeIndex ? "text-white hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
             </Link>
           ))}
           <div onClick={() => setIsRegistrationOpen(true)}>Register</div>

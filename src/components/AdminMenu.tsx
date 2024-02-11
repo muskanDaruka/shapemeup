@@ -18,7 +18,7 @@ const adminMenus: IAdminMenu[] = [
   {
     imageUrl: "/assets/images/icons/coach.png",
     label: "Coaches",
-    path: "/admin/coaches",
+    path: "/admin/coach",
   },
   {
     imageUrl: "/assets/images/icons/class.png",
@@ -57,7 +57,7 @@ const AdminMenu = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   return (
     <section className="h-full w-full bg-[#363740] object-fit h-fixed">
-      <div className="h-full bg-[#34383d] w-11/12 ml-5 h-full">
+      <div className="h-full bg-[#34383d] w-12/12  h-full">
         <Link
           href={"/"}
           className="h-full w-full"
@@ -72,13 +72,17 @@ const AdminMenu = () => {
         </Link>
         {adminMenus.map((adminMenu, index) => (
           <Link key={adminMenu.path} href={adminMenu.path}
-            onClick={() => { setActiveIndex(index) }}
-            className={`${index === activeIndex ? "text-[#f2994a]" : ""}`}
           >
-            <div className={`flex ${index === activeIndex ? "text-[#f2994a]" : ""}`} >
-              <span className={`p-[5px] m-5 mt-8 ${index === activeIndex ? "text-[#f2994a]" : ""}`}><Image src={adminMenu.imageUrl} alt="Icon" width={24}
-                height={24} /></span>
-              <div className={`text-white p-[10px] text-xl m-5 ${index === activeIndex ? "text-[#f2994a]" : ""}`}>{adminMenu.label}</div>
+            <div
+              onClick={() => setActiveIndex(index)}
+              className={`cursor-pointer ${index === activeIndex ? "bg-[#f2994a] text-white h-[85px] w-full hover:text-white hover:text-opacity-50"
+                : "text-white hover:text-white hover:text-opacity-50"}`}
+            >
+              <div className={`flex items-center ${index === activeIndex ? "bg-[#f2994a] " : ""}`} >
+                <span className={`p-[5px] m-5 mt-6`}><Image src={adminMenu.imageUrl} alt="Icon" width={20}
+                  height={18} style={{ filter: index === activeIndex ? "brightness(0) invert(1)" : "brightness(1)" }} /></span>
+                <div className={`p-[10px] text-xl m-5 `}>{adminMenu.label}</div>
+              </div>
             </div>
           </Link>
         ))}
