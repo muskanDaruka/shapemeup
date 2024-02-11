@@ -1,15 +1,12 @@
 "use client";
-
 import Image from "next/image";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
-import { Images } from "@/types/type";
+import { Images } from "@/types/image.type";
 import { FC } from "react";
-
 interface Props {
   data: Images[];
 }
-
 const Hero: FC<Props> = ({ data }) => {
   return (
     <div className="relative w-full">

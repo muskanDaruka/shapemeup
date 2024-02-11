@@ -1,12 +1,19 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import Hero from "@/components/Hero";
 import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
-import Image from "next/image";
 import Link from "next/link";
-import { IcardImages, Images } from "@/types/type";
+import FAQ from "@/components/FAQ";
+import { IcardImages, Images } from "@/types/image.type";
 import CardSection from "@/components/CardSection";
 import MobileApp from "@/components/MobileApp";
+import { useAllBlogs } from "@/hooks/blogs.hooks";
+import BlogUserCards from "@/components/BlogUserCard";
+import ExerciseUserCard from "@/components/ExerciseUserCard";
+import { useAllExercise } from "@/hooks/exercise.hooks";
+import { IExercise } from "@/types/exercise.type";
+import { IBlog } from "@/types/blog.type";
 
 const images: string[] = ["shapeme", "diet", "gym"];
 const cardImages: IcardImages[] = [
@@ -45,7 +52,6 @@ const productImages: IcardImages[] = [
     image: "fitness_equipment",
   },
 ];
-
 const heroImages: Images[] = [
   {
     image: "home/banner",
@@ -71,44 +77,40 @@ const heroImages: Images[] = [
 ];
 
 export default function Home() {
+  const { data: blogData } = useAllBlogs();
+  const blogs = blogData?.data?.data || [];
+  const { data: exerciseData } = useAllExercise();
+  const exercises = exerciseData?.data?.data || [];
+
+  // if (exercises.length === 0) {
+  //   return null;
+  // }
+  // if (blogs.length === 0) {
+  //   return null;
+  // }
   return (
     <>
       <Hero data={heroImages} />
       <HeroCard />
-
-      <section className="mt-4 relative">
-        <p className="text-center font-bold text-4xl my-4">
-          Making healthy living affordable, approachable, and attainable is our
-          goal.
+      <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">
+        Get acess to thousands of workouts
+      </h3>
+      <h4 className="w-full flex justify-center bg-[#f5f5f5]">
+        <p className="text-center font-normal text-lg w-10/12 sm:w-6/12">
+          Get the entire studio experience at home with hundreds of classes for
+          body, mind, and spirit, whether you&apos;re a complete beginner or
+          want to pick up your routine.
         </p>
-        <div className="flex sm:flex-row flex-col items-center justify-between gap-5 px-5">
-          {images.map((image) => (
-            <div key={image} className="relative flex-1 ">
-              <img
-                src={`/assets/images/home/${image}.png`}
-                alt={image}
-                className="object-cover rounded-md"
-              />
-            </div>
-          ))}
-        </div>
-        <h4 className="flex justify-center w-full my-5">
-          <p className="text-lg font-normal text-center w-9/12">
-            A ground-breaking new solution for staying healthy, Shape Me Up is
-            an online fitness training platform. We attempt to go above and
-            beyond with highly skilled instructors and customized training
-            programs. Everyone who wishes to develop healthy habits are cheered
-            by Shape me up!
-          </p>
-        </h4>
-      </section>
-
-      <CardSection
-        data={cardImages}
-        title="Get access to thousands of workouts"
-        description="Get the entire studio experience at home with hundreds of classes for body, mind and spirit, whether you're a complete beginner or want to pick up your routine."
-      />
-
+      </h4>
+      <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
+        {exercises.slice(0, 3).map((exercise: IExercise, index: number) => (
+          <div key={index}>
+            <Link href={`/exercises/${exercise._id}`}>
+              <ExerciseUserCard key={exercise.id} exercise={exercise} />
+            </Link>
+          </div>
+        ))}
+      </div>
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
         <div className="relative flex-1">
           <div className="relative flex flex-col items-start justify-between">
@@ -141,7 +143,6 @@ export default function Home() {
           />
         </div>
       </section>
-
       <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           Stay connected.Stay healthy.
@@ -162,25 +163,49 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       <section className="w-full px-5 py-10 space-y-5">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
           The fitness blog
         </h2>
-        <h4 className="text-center">
-          <p className="font-normal">
-            A blog about fitness is a great way for people to stay in touch with
-            the latest news and trends on healthy living.
-          </p>
+        <h4 className="text-center mb-4">
+          A blog about fitness is a great way for people to stay in touch with
+          the latest news and trends on healthy living.
         </h4>
-        <Link href={"/blogs"} className="w-full flex justify-center">
-          <button className="text-[#f2994a] underline text-2xl font-bold text-center">
-            View blogs
-          </button>
-          <span className="text-[#f2994a] text-2xl font-bold">⟶</span>
-        </Link>
+        <div className="mx-auto w-full sm:w-[1100px]">
+          <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[50px]">
+            {blogs.slice(1, 4).map((blog: IBlog, index: number) => (
+              <div
+                key={index}
+                className={`mb-4 flex ${
+                  index % 2 === 0
+                    ? "w-full sm:w-1/2"
+                    : "w-full md:w-1/2 md:ml-4 sm:ml-2"
+                } `}
+              >
+                <Link href={`/blogss/${blog._id}`}>
+                  <BlogUserCards
+                    key={blog.id}
+                    blog={blog}
+                    useInImg
+                    useInName
+                    useInSummary
+                    useInRead
+                    useInDate
+                    useInCategory
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="w-full flex justify-center mt-5">
+          <Link href="/blogs">
+            <p className="text-[#f2994a] underline text-2xl font-bold">
+              View blogs ⟶
+            </p>
+          </Link>
+        </div>
       </section>
-
       <section className="mt-4 relative bg-[#f5f5f5] px-5 py-10 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           Our fitness shop
@@ -191,12 +216,12 @@ export default function Home() {
           {productImages.map((cardImage) => (
             <div
               key={cardImage.image}
-              className="rounded-md overflow-hidden relative"
+              className="rounded-md overflow-hidden relative mb-4 sm:mb-0 sm:mr-4"
             >
               <img
                 src={`/assets/images/products/${cardImage.image}.png`}
                 alt={cardImage.image}
-                className="object-cover rounded-md"
+                className="object-cover rounded-md w-full h-40 sm:h-auto"
               />
               <div className="absolute z-[1] h-full flex items-center justify-center text-white top-0 text-center w-full px-2">
                 <h4 className="font-bold text-3xl opacity-80">
@@ -214,9 +239,34 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
+      <section className="mt-4 relative">
+        <p className="text-center font-bold text-4xl my-4">
+          Making healthy living affordable, approachable, and attainable is our
+          goal.
+        </p>
+        <div className="flex sm:flex-row flex-col items-center justify-between gap-5 px-5 md:ml-24">
+          {images.map((image) => (
+            <div key={image} className="relative flex-1 ">
+              <img
+                src={`/assets/images/home/${image}.png`}
+                alt={image}
+                className="object-cover rounded-md"
+              />
+            </div>
+          ))}
+        </div>
+        <h4 className="flex justify-center w-full my-5">
+          <p className="text-lg font-normal text-center w-9/12">
+            A ground-breaking new solution for staying healthy, Shape Me Up is
+            an online fitness training platform. We attempt to go above and
+            beyond with highly skilled instructors and customized training
+            programs. Everyone who wishes to develop healthy habits are cheered
+            by Shape me up!
+          </p>
+        </h4>
+      </section>
       <MobileApp />
-
+      <FAQ />
       <Footer />
     </>
   );

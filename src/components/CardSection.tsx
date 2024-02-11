@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { IcardImages } from "@/types/type";
+import { IcardImages } from "@/types/image.type";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -8,6 +8,7 @@ interface Props {
   title: string;
   description: string;
 }
+
 
 const CardSection: FC<Props> = ({ data, title, description }) => {
   return (
@@ -45,11 +46,11 @@ const CardSection: FC<Props> = ({ data, title, description }) => {
           </div>
         ))}
       </div>
-      <div className="w-full flex justify-center">
+      {<div className="w-full flex justify-center">
         <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
           View more
         </button>
-      </div>
+      </div>}
     </section>
   );
 };

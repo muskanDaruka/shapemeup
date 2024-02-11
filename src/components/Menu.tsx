@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AuthContext, AuthType } from "@/context/Auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 interface IMenu {
   label: string;
@@ -42,11 +42,23 @@ const menus: IMenu[] = [
 ];
 
 const Menu = () => {
-  const { isOpen, setIsOpen } = useContext<AuthType>(AuthContext);
+  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } =
+    useContext<AuthType>(AuthContext);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="h-14 sm:h-16 bg-gray-50 fixed w-full z-10">
+    <section className="h-14 sm:h-16 sm:bg-gray-50 bg-[#34383d] fixed w-full z-10">
       <nav className="flex flex-row items-center justify-between sm:justify-center h-14 sm:h-16">
+        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
+          <div>
+            <img src="/assets/images/icons/Menu.png" alt="Menu" />
+          </div>
+        </div>
+        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
+          <div>
+            <img src="/assets/images/icons/white-search.png" alt="Search" />
+          </div>
+        </div>
         <div className="h-full bg-[#34383d] box-content">
           <Link
             href={"/"}
@@ -56,25 +68,30 @@ const Menu = () => {
           </Link>
         </div>
 
-        <div className="sm:hidden bg-[#f2994a] w-14 h-full flex items-center justify-center text-white">
-          <div>
-            <img src="/assets/images/icons/menu.png" alt="Menu" />
-          </div>
-        </div>
-
         <div className="sm:flex hidden items-center justify-between w-11/12 ml-10 h-full">
-          {menus.map((menu) => (
-            <Link key={menu.path} href={menu.path}>
-              <span>{menu.label}</span>
+          {menus.map((menu, index) => (
+            <Link
+              key={menu.path}
+              href={menu.path}
+              onClick={() => {
+                setActiveIndex(index);
+              }}
+              className={`inline-block px-10 py-4 ${index === activeIndex
+                ? "bg-[#f2994a] text-white h-full"
+                : "text-black"
+                }`}
+            >
+              <span className={`${index !== activeIndex ? "hover:text-[#f2994a]" : ""
+                } ${index === activeIndex ? "text-white hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
             </Link>
           ))}
-          <div>Register</div>
-          <div
-            className="bg-[#f2994a] px-10 h-full flex items-center text-white"
-            onClick={() => setIsOpen(true)}
-          >
+          <div onClick={() => setIsRegistrationOpen(true)}>Register</div>
+          <div className="px-10 h-full flex items-center text-white sm:bg-[#f2994a]" onClick={() => setIsOpen(true)}>
             Login
           </div>
+        </div>
+        <div className="sm:hidden bg-[#34383d] px-10 h-full flex items-center text-white" onClick={() => setIsOpen(true)}>
+          Login
         </div>
       </nav>
     </section>
