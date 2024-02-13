@@ -13,7 +13,7 @@ const Footer = () => {
                     <li className="text-white font-semibold text-lg"><Link href={"/exercises"}>Exercises</Link></li>
                     <li className="text-white font-semibold text-lg"><Link href={"/coaches"}>Coaches</Link></li>
                     <li className="text-white font-semibold text-lg"><Link href={"/classes"}>Classes</Link></li>
-                    <li className="text-white font-semibold text-lg"><Link href={"/"}>Our fitness shop</Link></li>
+                    <li className="text-white font-semibold text-lg"><Link href={"/products"}>Our fitness shop</Link></li>
                 </ul>
                 <ul className="flex items-center lg:justify-start justify-center gap-20 mt-8">
                     <li><img src="/assets/images/social_media/facebook.png" alt="Facebook" /></li>

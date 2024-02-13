@@ -1,8 +1,11 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import UserProfile from "./UserProfile";
+import { usePathname, useRouter } from "next/navigation";
+import { AuthContext } from "@/context/Auth";
+
 interface IAdminMenu {
   imageUrl: string;
   label: string;
@@ -54,7 +57,24 @@ const adminMenus: IAdminMenu[] = [
 ];
 
 const AdminMenu = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const pathname = usePathname();
+  const navigation = useRouter();
+  const { isAdmin, setIsOpen } = useContext(AuthContext);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(adminMenus.findIndex((item) => {
+    return item.path == pathname;
+  }));
+  useEffect(() => {
+    if (!isAdmin) {
+      navigation.push('/');
+      setIsOpen(true);// Redirect to the login page if not authenticated as admin
+    }
+  }, [isAdmin, navigation, setIsOpen]);
+  useEffect(() => {
+    const currentIndex = adminMenus.findIndex((adminMenu) => adminMenu.path === pathname);
+    setActiveIndex(currentIndex);
+  }, [pathname]);
+  console.log(activeIndex, "activeIndex")
+
   return (
     <section className="h-full w-full bg-[#363740] object-fit h-fixed">
       <div className="h-full bg-[#34383d] w-12/12  h-full">
@@ -67,7 +87,7 @@ const AdminMenu = () => {
             alt="shapemeup_logo"
             width={200}
             height={50}
-            className="p-[30px] ml-10"
+            className="p-[30px] pb-4 ml-10"
           />
         </Link>
         {adminMenus.map((adminMenu, index) => (

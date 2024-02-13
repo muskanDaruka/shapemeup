@@ -70,7 +70,11 @@ const NewCoachPage = () => {
             [name]: value,
         } as typeof prev));
     };
-
+    const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    };
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -97,7 +101,7 @@ const NewCoachPage = () => {
                     <Image src={leftArrow} alt="Back" width={24} height={24} />
                 </Link>
             </div>
-            <form onSubmit={onHandleSubmit} className="flex-1 w-full">
+            <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
                 <div className="flex flex-col gap-5">
                     <h5>Add Coach details</h5>
                     <div className="flex items-end justify-between gap-3">

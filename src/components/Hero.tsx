@@ -6,11 +6,12 @@ import { Images } from "@/types/image.type";
 import { FC } from "react";
 interface Props {
   data: Images[];
+  onButtonClick?: (buttonText: string) => void;
 }
-const Hero: FC<Props> = ({ data }) => {
+const Hero: FC<Props> = ({ data, onButtonClick }) => {
   return (
     <div className="relative w-full">
-      <Carousel autoPlay infiniteLoop showThumbs={false}>
+      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
         {data.map((i) => (
           <div className="relative w-screen h-[577px]" key={i.image}>
             <Image
@@ -25,8 +26,8 @@ const Hero: FC<Props> = ({ data }) => {
                 {i.title}
               </h2>
               <p className="text-base sm:text-lg px-10">{i.description}</p>
-              {i.buttonText !== "" && (
-                <button className="bg-[#f2994a] px-12 py-5 rounded-md text-black text-xl">
+              {i.buttonText !== "" && onButtonClick && (
+                <button onClick={() => onButtonClick(i.buttonText)} className="bg-[#f2994a] px-12 py-5 rounded-md text-black text-xl">
                   {i.buttonText}
                 </button>
               )}

@@ -60,7 +60,7 @@ const ClassCards: FC<Props> = ({
           />
         </div>
         <div className="p-5 flex-1 flex flex-col items-start justify-between">
-          <h5>{name}</h5>
+          <h5 className="text-[#F2994A] text-xl font-bold">{name}</h5>
 
           <h6>
             Release date: <small>{releaseDate !== null && releaseDate !== undefined ? releaseDate.toString() : 'N/A'}</small>

@@ -28,7 +28,7 @@ const BlogUserCards: FC<BlogUserCardsProps> = ({
   // console.log("data", blogData?.data.data)
   return (
     <div className="w-full md:w-full rounded-md overflow-hidden mt-2">
-      <div className="w-full md:w-[500px] md:mr-4 border-slate-250 border-2 rounded-lg flex flex-col">
+      <div className="w-full md:w-[400px] sm:mr-4 border-slate-250 border-2 rounded-lg flex flex-col">
         {useInImg && (
           <img
             src={blog.blogImgUrl}

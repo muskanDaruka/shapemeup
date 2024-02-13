@@ -10,28 +10,32 @@ const images2: string[] = ["banner_img", "about_img", "about img"];
 const heroImages: Images[] = [
   {
     image: "about/about_banner",
-    title: "About us",
+    title: "About Us",
     description:
       "Making Healthy living affordable, approachable and attainable is our goal.",
     buttonText: "",
   },
 ];
-
+// const handleButtonClick = (buttonText: string) => {
+//   if (buttonText === 'Check out our Workouts') {
+//     navigation.push(`/exercises`)
+//   }
+// }
 const AboutUs = () => {
   return (
     <>
       <Hero data={heroImages} />
       <HeroCard />
       <section className="mt-4 mb-10 relative px-5 py-10 space-y-5">
-        <div className="flex sm:flex-row flex-col items-center justify-evenly gap-5 px-5">
+        <div className="flex sm:flex-row flex-col items-center justify-between px-5 ">
           {images.map((image) => (
-            <div key={image} className="relative flex ">
+            <div key={image} className="w-full sm:w-auto relative flex-1 ">
               <Image
                 src={`/assets/images/home/${image}.png`}
                 alt={image}
+                className="object-cover rounded-md w-full h-auto"
                 width={480}
-                height={351.604}
-                className=" object-cover w-250 h-96 rounded-md..."
+                height={350}
               />
             </div>
           ))}
@@ -45,15 +49,15 @@ const AboutUs = () => {
       </section>
 
       <section className="mt-4 mb-8 relative px-5 py-10 space-y-5">
-        <div className="flex sm:flex-row flex-col items-center justify-evenly gap-5 px-5">
+        <div className="flex sm:flex-row flex-col items-center justify-between px-5">
           {images2.map((image) => (
-            <div key={image} className="relative flex">
+            <div key={image} className="w-full sm:w-auto relative flex-1">
               <Image
                 src={`/assets/images/about/${image}.png`}
                 alt={image}
                 width={480}
-                height={351.604}
-                className="object-cover w-250 h-96 rounded-md..."
+                height={351.6}
+                className="object-cover w-full h-auto rounded-md"
               />
             </div>
           ))}

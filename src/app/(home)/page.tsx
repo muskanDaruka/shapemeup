@@ -5,6 +5,7 @@ import HeroCard from "@/components/HeroCard";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import FAQ from "@/components/FAQ";
+import { useEffect, useState } from "react";
 import { IcardImages, Images } from "@/types/image.type";
 import CardSection from "@/components/CardSection";
 import MobileApp from "@/components/MobileApp";
@@ -14,6 +15,9 @@ import ExerciseUserCard from "@/components/ExerciseUserCard";
 import { useAllExercise } from "@/hooks/exercise.hooks";
 import { IExercise } from "@/types/exercise.type";
 import { IBlog } from "@/types/blog.type";
+import { useRouter } from "next/navigation";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const images: string[] = ["shapeme", "diet", "gym"];
 const cardImages: IcardImages[] = [
@@ -55,21 +59,21 @@ const productImages: IcardImages[] = [
 const heroImages: Images[] = [
   {
     image: "home/banner",
-    title: "Exercise your happiness.",
+    title: "Exercise Your Happiness.",
     description:
       "Get in Ship-Shape the best way. But wondering how to start and where to start? We offer everything you need to tune your shape at the comfort of your homes.",
     buttonText: "Check out our Workouts",
   },
   {
     image: "home/home_banner",
-    title: "On demand digital personal coaches",
+    title: "On Demand Digital Personal Coaches",
     description:
       "Need to unplug stress? By turning off your lethargy and directing it into exercises, our trainers can transform your life! Tone up, firm up, and sculpt your body into the shape you've always wanted. Get instant motivation and guidance to reach your fitness goals.Lose weight, build muscle, or just get in better shape with no muss, no fuss!",
     buttonText: "Our Coaches",
   },
   {
     image: "home/homebanner",
-    title: "Bored of the same old training workouts?",
+    title: "Bored Of The Same Old Training Workouts?",
     description:
       "Build a Healthy Routine with New Ways to Train. We are all mindful of the challenges of maintaining a healthy body balance. We provide a range of programs to empower you in reaching your fitness goals. For you to experience results faster than ever before, our trainers will design a program that is personalized just for you.",
     buttonText: "Check out our Workouts",
@@ -80,8 +84,27 @@ export default function Home() {
   const { data: blogData } = useAllBlogs();
   const blogs = blogData?.data?.data || [];
   const { data: exerciseData } = useAllExercise();
+  const navigation = useRouter();
+  const [centerSlidePercentage, setCenterSlidePercentage] = useState(33.3333);
   const exercises = exerciseData?.data?.data || [];
-
+  const handleButtonClick = (buttonText: string) => {
+    if (buttonText === 'Check out our Workouts') {
+      navigation.push(`/exercises`)
+    }
+    if (buttonText === 'Our Coaches') {
+      navigation.push(`/coaches`)
+    }
+  }
+  useEffect(() => {
+    const handleResize = () => {
+      setCenterSlidePercentage(window.innerWidth > 425 ? 33.3333 : 100);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   // if (exercises.length === 0) {
   //   return null;
   // }
@@ -90,33 +113,51 @@ export default function Home() {
   // }
   return (
     <>
-      <Hero data={heroImages} />
+      <Hero data={heroImages} onButtonClick={handleButtonClick} />
       <HeroCard />
-      <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">
-        Get acess to thousands of workouts
-      </h3>
-      <h4 className="w-full flex justify-center bg-[#f5f5f5]">
-        <p className="text-center font-normal text-lg w-10/12 sm:w-6/12">
-          Get the entire studio experience at home with hundreds of classes for
-          body, mind, and spirit, whether you&apos;re a complete beginner or
-          want to pick up your routine.
-        </p>
-      </h4>
-      <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
-        {exercises.slice(0, 3).map((exercise: IExercise, index: number) => (
-          <div key={index}>
-            <Link href={`/exercises/${exercise._id}`}>
-              <ExerciseUserCard key={exercise.id} exercise={exercise} />
-            </Link>
-          </div>
-        ))}
-      </div>
+      <section className="relative bg-[#f5f5f5] pb-4 -top-10">
+        <h3 className="text-center text-4xl font-bold bg-[#f5f5f5]">
+          Get acess to thousands of workouts
+        </h3>
+        <h4 className="w-full flex justify-center bg-[#f5f5f5]">
+          <p className="text-center font-normal text-lg w-10/12 sm:w-6/12">
+            Get the entire studio experience at home with hundreds of classes for
+            body, mind, and spirit, whether you&apos;re a complete beginner or
+            want to pick up your routine.
+          </p>
+        </h4>
+        <Carousel
+          showArrows={false}
+          infiniteLoop={true}
+          showThumbs={false}
+          showStatus={false}
+          centerMode={true}
+          centerSlidePercentage={centerSlidePercentage}
+        // onChange={(index) => setCurrentSlide(index)}
+        >
+          {exercises.map((exercise: IExercise, index: number) => (
+            <div key={index} className="bg-gray-100 py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
+              <Link href={`/exercises/${exercise._id}`}>
+                <ExerciseUserCard key={exercise.id} exercise={exercise} />
+              </Link>
+            </div>
+          ))}
+        </Carousel>
+
+        <div className="w-full flex justify-center">
+          <Link href={"/exercises"}>
+            <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
+              View more
+            </button>
+          </Link>
+        </div>
+      </section>
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
         <div className="relative flex-1">
           <div className="relative flex flex-col items-start justify-between">
-            <h2 className="text-4xl font-bold">Get customized classes</h2>
+            <h2 className="text-4xl font-bold text-center ml-0 sm:ml-10">Get customized classes</h2>
             <h5 className="w-full">
-              <p className="text-justify lg:text-left text-lg font-normal leading-9 mt-4">
+              <p className=" text-justify lg:text-left text-lg font-normal leading-9 mt-4 ml-0 sm:ml-10">
                 It&apos;s time to get in shape! With Shape Me Up, you can create
                 a customized diet plan that fits your needs and lifestyle.
                 Whether you&apos;re looking to lose weight, gain muscle, or just
@@ -127,15 +168,15 @@ export default function Home() {
                 started today with us.
               </p>
             </h5>
-            <Link href={"/classes"} className="mt-5 lg:mt-20">
-              <button className="text-[#f2994a] underline text-2xl font-bold">
+            <Link href={"/classes"} className="mt-5 lg:mt-20 ml-0 sm:ml-10">
+              <button className=" text-[#f2994a] underline text-2xl font-bold">
                 View more
               </button>
               <span className="text-[#f2994a] text-2xl font-bold">⟶</span>
             </Link>
           </div>
         </div>
-        <div className="flex-1 flex items-center justify-center">
+        <div className="flex-1 flex items-center justify-center ml-0 sm:ml-10">
           <img
             src={"/assets/images/home/customized classes.png"}
             alt="Image"
@@ -172,15 +213,14 @@ export default function Home() {
           the latest news and trends on healthy living.
         </h4>
         <div className="mx-auto w-full sm:w-[1100px]">
-          <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[50px]">
-            {blogs.slice(1, 4).map((blog: IBlog, index: number) => (
+          <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[48px]">
+            {blogs.slice(0, 3).map((blog: IBlog, index: number) => (
               <div
                 key={index}
-                className={`mb-4 flex ${
-                  index % 2 === 0
-                    ? "w-full sm:w-1/2"
-                    : "w-full md:w-1/2 md:ml-4 sm:ml-2"
-                } `}
+                className={`mb-4 flex ${index % 2 === 0
+                  ? "w-full sm:w-1/2 md:ml-2"
+                  : "w-full md:w-1/2 md:ml-2 "
+                  } `}
               >
                 <Link href={`/blogss/${blog._id}`}>
                   <BlogUserCards
@@ -232,7 +272,7 @@ export default function Home() {
           ))}
         </div>
         <div className="w-full flex justify-center">
-          <Link href={"/coaches"}>
+          <Link href={"/products"}>
             <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
               View shop
             </button>
@@ -244,13 +284,13 @@ export default function Home() {
           Making healthy living affordable, approachable, and attainable is our
           goal.
         </p>
-        <div className="flex sm:flex-row flex-col items-center justify-between gap-5 px-5 md:ml-24">
+        <div className="flex sm:flex-row flex-col items-center justify-between px-5 ">
           {images.map((image) => (
-            <div key={image} className="relative flex-1 ">
+            <div key={image} className="w-full sm:w-auto relative flex-1 ">
               <img
                 src={`/assets/images/home/${image}.png`}
                 alt={image}
-                className="object-cover rounded-md"
+                className="object-cover rounded-md w-full h-auto"
               />
             </div>
           ))}

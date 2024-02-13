@@ -2,8 +2,8 @@
 
 const MobileAppUpdated = () => {
     return (
-        <section className="bg-[#FBEFB0] flex flex-col sm:flex-row px-5 py-10 gap-10">
-            <div className="flex-1 space-y-5">
+        <section className="bg-[#FBEFB0] flex flex-col sm:flex-row px-5 py-10 gap-10 ">
+            <div className="flex-1 space-y-5 ml-0 sm:ml-24">
                 <h2 className="text-3xl sm:text-4xl font-bold mt-20">
                     Fitness + nutrition questions answered
                 </h2>

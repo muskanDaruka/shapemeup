@@ -36,7 +36,7 @@ const ExerciseCards: FC<Props> = ({ exercise, onDeleteExercise }) => {
           />
         </div>
         <div className="p-5 flex-1 flex flex-col items-start justify-between">
-          <h5>{name}</h5>
+          <h5 className="text-[#F2994A] text-xl font-bold">{name}</h5>
 
           <h6>
             Category: <small>{category}</small>

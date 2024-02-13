@@ -6,15 +6,16 @@ import { useState } from "react";
 import { AuthContext } from "../context/Auth";
 
 const ForgetPassword: React.FC = () => {
-  const { setIsOpen, setIsForgotPasswordOpen, setIsRegistrationOpen } =
+  const { setIsOpen, setIsForgotPasswordOpen, setIsRegistrationOpen, setIsEnroll } =
     useContext(AuthContext);
   const backToLogin = () => {
     setIsOpen(true);
     setIsForgotPasswordOpen(false);
     setIsRegistrationOpen(false);
+    setIsEnroll(false);
   };
   const handleCloseClick = () => {
-    console.log("Close button clicked");
+    setIsForgotPasswordOpen(false);
   };
 
   return (
