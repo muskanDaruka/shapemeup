@@ -129,20 +129,12 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
         <div className="items-center space-y-1">
           <div className="w-full md:w-[1200px] mx-auto">
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <div className="m-8">
               <h3 className="m-8 font-bold">Table of Content</h3>
@@ -156,28 +148,16 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
             </div>
             <h1 className="m-8 text-2xl font-bold">{pageData[0].name}</h1>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <center>
               <img
@@ -188,25 +168,15 @@ const BlogsView: FC<BlogsViewProps> = ({ params }) => {
             </center>
             <h1 className="m-8 text-2xl font-bold">{pageData[0].name}</h1>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
+              {pageData[0].contents}
             </p>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <p className="m-8">
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis{pageData[0].contents}
-              Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis
+              {pageData[0].contents}
+
             </p>
             <ul className="flex items-center md:justify-start justify-left gap-8 mt-5 md:mt-8 m-8">
               <h3 className="font-normal w-12 h-8 rounded-md text-center md:text-left">

@@ -57,13 +57,9 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
                             {pageProductData[0].name}
                         </h2>
                         <h2 className="m-5 font-normal">
-                            Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis
+
                             {pageProductData[0].summary}
-                            Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis
+
                         </h2>
                         <div className="flex flex-col md:flex-row lg:ml-5">
                             <button className="bg-[#f2994a] text-white w-full md:w-[100px] h-[40px] mb-4 md:mb-0 md:mr-4">Add to Cart</button>

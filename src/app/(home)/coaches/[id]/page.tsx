@@ -74,13 +74,9 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                                 {pageCoachData[0]?.name}
                             </h2>
                             <h2 className="font-normal md:ml-8 my-5">
-                                Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis
+
                                 {pageCoachData[0]?.summary}
-                                Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis
+
                             </h2>
                         </div>
                         <div className="lg:w-1/2 ">
