@@ -7,9 +7,12 @@ import { useContext } from "react";
 import { useRouter } from "next/navigation";
 // import { useCreateUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
+
   // const { mutate: createUser } = useCreateUser();
+
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
@@ -22,7 +25,6 @@ const Login = () => {
     useContext(AuthContext);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-
     try {
       e.preventDefault();
       console.log("Event Object:", e);
@@ -55,6 +57,7 @@ const Login = () => {
       if (response.ok) {
         // Successful login, redirect based on server response
         navigation.push(data.redirect);
+
         setIsOpen(false);
         setIsLogin(true);
         console.log(`Navigating to ${data.redirect}`);
@@ -66,7 +69,7 @@ const Login = () => {
     } catch (error) {
       console.error("An error occurred during login:", error);
     }
-  }
+  };
   const password = () => {
     setShowPassword(!showPassword);
     if (!showPassword && user.password.length < 6) {
@@ -87,8 +90,14 @@ const Login = () => {
     setIsRegistrationOpen(false);
     console.log("Forgot Password clicked");
   };
-  const googleLogin = () => {
-    console.log("Google Login clicked");
+  const googleLogin = async () => {
+    try {
+      const result = await signIn("google", {
+        callbackUrl: "/",
+      });
+    } catch (error) {
+      console.error("Error during Google Sign-In:", error);
+    }
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
 
@@ -190,7 +199,9 @@ const Login = () => {
               </div>
               <button
                 type="submit"
+
                 className=" mt-5 flex items-center justify-center w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+
 
               >
                 Login now
@@ -206,6 +217,8 @@ const Login = () => {
                 />
                 Or login with google
               </button>
+
+
 
               <div className="mt-5">
                 Dont have an account?

@@ -2,8 +2,9 @@ import connectToMongoDb from "@/lib/mongodb";
 import User from "@/models/user.model";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -21,19 +22,31 @@ export const authOptions: NextAuthOptions = {
         // If the user exists, check regular user credentials
         const isPasswordMatch = await user.comparePassword(password);
 
-        if (!isPasswordMatch)
-          return new Error("User credentials are invalid");
-
+        if (!isPasswordMatch) return new Error("User credentials are invalid");
 
         return user; // Return the regular user
-
       },
     }),
-
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
   session: {
     strategy: "jwt",
   },
+  // callbacks: {
+  //   async jwt({ token, account }) {
+  //     if (account) {
+  //       token = Object.assign({}, token, {
+  //         access_token: account.access_token,
+  //       });
+  //     }
+  //     return token;
+  //   },
+  // },
 };
 
-export default NextAuth(authOptions);
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };
