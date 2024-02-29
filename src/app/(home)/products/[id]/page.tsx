@@ -57,17 +57,16 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
                             {pageProductData[0].name}
                         </h2>
                         <h2 className="m-5 font-normal">
-                            Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis
+
                             {pageProductData[0].summary}
-                            Lorem ipsum dolor sit amet, consectetur iscing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                            enim ad minim veniam, quis
+
                         </h2>
                         <div className="flex flex-col md:flex-row lg:ml-5">
                             <button className="bg-[#f2994a] text-white w-full md:w-[100px] h-[40px] mb-4 md:mb-0 md:mr-4">Add to Cart</button>
-                            <button className="bg-[#f2994a] text-white w-full md:w-[100px] h-[40px]">Buy Now</button>
+                            <Link href={'/cart'}>
+                                <button className="bg-[#f2994a] text-white w-full md:w-[100px] h-[40px]">Buy Now</button>
+
+                            </Link>
                         </div>
                         <ul className="flex items-center md:justify-start justify-left gap-8 mt-5 md:mt-8 m-8">
                             <h3 className="font-normal w-12 h-8 rounded-md shadow-xl text-center md:text-left">Share</h3>

@@ -3,11 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AuthContext, AuthType } from "@/context/Auth";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+
 
 interface IMenu {
   label: string;
   path: string;
+  params?: string;
 }
 
 const menus: IMenu[] = [
@@ -42,9 +45,21 @@ const menus: IMenu[] = [
 ];
 
 const Menu = () => {
+  const pathname = usePathname()
+  console.log("pathname:", pathname)
+
   const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } =
     useContext<AuthType>(AuthContext);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(menus.findIndex((item) => {
+    return item.path == pathname;
+  }));
+  const [isCartActive, setIsCartActive] = useState(false);
+
+  useEffect(() => {
+    const currentIndex = menus.findIndex((menu) => menu.path === pathname);
+    setActiveIndex(currentIndex);
+  }, [pathname]);
+  console.log(activeIndex, "activeIndex")
 
   return (
     <section className="h-14 sm:h-16 sm:bg-gray-50 bg-[#34383d] fixed w-full z-10">
@@ -74,7 +89,10 @@ const Menu = () => {
               key={menu.path}
               href={menu.path}
               onClick={() => {
+                console.log("activeIndex:", activeIndex);
+                console.log("index:", index);
                 setActiveIndex(index);
+
               }}
               className={`inline-block px-10 py-4 ${index === activeIndex
                 ? "bg-[#f2994a] text-white h-full"
@@ -85,8 +103,22 @@ const Menu = () => {
                 } ${index === activeIndex ? "text-white hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
             </Link>
           ))}
-          <div onClick={() => setIsRegistrationOpen(true)}>Register</div>
-          <div className="px-10 h-full flex items-center text-white sm:bg-[#f2994a]" onClick={() => setIsOpen(true)}>
+
+          <Link href="/cart">
+            <div
+              className={`flex items-center justify-center h-full w-full ${isCartActive ? "text-white" : "text-black"}`}
+              onClick={() => {
+                setIsCartActive(true);
+                setActiveIndex(undefined);
+              }}
+            >
+              <img src="/assets/images/home/menu-cart.png" alt="Shopping Cart" className="w-full h-full" />
+            </div>
+          </Link>
+
+
+          <div className="cursor-pointer" onClick={() => setIsRegistrationOpen(true)}>Register</div>
+          <div className="px-10 h-full flex items-center text-white sm:bg-[#f2994a] cursor-pointer" onClick={() => setIsOpen(true)}>
             Login
           </div>
         </div>

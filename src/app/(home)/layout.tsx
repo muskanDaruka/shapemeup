@@ -4,6 +4,7 @@ import { AuthContext, AuthType } from "@/context/Auth";
 import Login from "@/components/Login";
 import Register from "@/components/Register";
 import ForgotPassword from "@/components/ForgotPassword";
+import Enroll from "@/components/Enroll";
 import { useContext } from "react";
 import Menu from "@/components/Menu";
 
@@ -12,10 +13,11 @@ export default function HomeLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { isOpen, isRegistrationOpen, isForgotPasswordOpen } =
+  const { isOpen, isRegistrationOpen, isForgotPasswordOpen, isEnroll } =
     useContext<AuthType>(AuthContext);
-
+  console.log("muskan")
   return (
+
     <>
       <Menu />
       {isOpen && (
@@ -31,6 +33,11 @@ export default function HomeLayout({
       {isForgotPasswordOpen && (
         <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
           <ForgotPassword />
+        </div>
+      )}
+      {isEnroll && (
+        <div className="absolute top-0 w-screen h-screen bg-black/5 flex items-center justify-center z-50">
+          <Enroll />
         </div>
       )}
       <div className="relative top-14 sm:top-16 h-[1000px]">{children}</div>

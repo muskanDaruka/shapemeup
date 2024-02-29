@@ -8,15 +8,18 @@ export async function POST(req: NextRequest) {
     const { name, email, password } = await req.json();
 
     await connectToMongoDb();
-
+    console.log("Checking existence for email:", email);
     const isUserExist = await (User as any).findByEmail(email);
-
+    console.log("isUserExist:", isUserExist);
     if (isUserExist) {
+      console.log("User already exists!");
       return NextResponse.json({
         message: "User already existed with this mail",
         status: "Failed",
         statusCode: 401,
       });
+    } else {
+      console.log("User does not exist.");
     }
 
     const newUser = new User({
@@ -25,7 +28,7 @@ export async function POST(req: NextRequest) {
       password,
     });
     await newUser.hashPassword();
-    await newUser.save();  // Save the document to the database
+    await newUser.save();
     console.log("User data saved successfully");
     return NextResponse.json({
       message: "User added successfully",

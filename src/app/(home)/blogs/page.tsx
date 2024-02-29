@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import { IBlog } from "@/types/blog.type";
 import { useAllBlogs } from "@/hooks/blogs.hooks";
 import BlogUserCards from "@/components/BlogUserCard";
+import Image from "next/image";
 
 
 const categories = [
@@ -59,10 +60,12 @@ const Blogs = () => {
     <div>
       <section className="relative">
         <div className="relative">
-          <img
+          <Image
             src="/assets/images/blogs/banner.png"
             alt="blog_banner"
             className="relative w-full object-cover h-auto min-h-[490px]"
+            width={1440}
+            height={375}
           />
           <div className="absolute flex flex-col items-center justify-center w-full top-0 h-full gap-10">
             <h2 className="text-white text-5xl font-bold ">Our Blogs</h2>
@@ -78,44 +81,47 @@ const Blogs = () => {
           </div>
         </div>
       </section>
-      <section className="flex flex-col md:flex-row">
+      <section className="flex flex-col md:flex-row md:w-[850px] p-10 ml-0 md:ml-32">
         <div className="items-center space-y-1">
           <div>
-            <div className=" mt-10 justify-left border-slate-25 border-2 rounded-lg w-full md:w-[1050px] mx-auto md:ml-10 md:mr-10">
-              <div className="flex flex-col md:flex-row mx-auto">
-                <div>
-                  <img
-                    src={blogs[0]?.blogImgUrl}
-                    alt="image"
-                    className="h-[272.037px] md:h-auto md:w-[823px] w-full rounded-lg object-fit"
-                  />
-                </div>
-                <div className="md:flex-grow h-[272.037px] md:h-auto">
-                  <h1 className="font-bold text-2xl mt-2 md:mt-5 ml-5">
-                    {blogs[0]?.name}
-                  </h1>
-                  <p className="text-normal mt-2 md:ml-5 ">
-                    {blogs[0]?.summary}
-                  </p>
-                  <Link
-                    href={`/blogs/${blogs[0]?._id}`}
-                    id="readMoreLink"
-                    className="text-[#f2994a] transition duration-300 hover:underline mt-5 block ml-5"
-                  >
-                    Read More&gt;&gt;
-                  </Link>
-                  <div className="flex md:flex-row items-start justify-between">
-                    <span className="text-black font-bold mt-5 ml-5">
-                      21 October 2023
-                    </span>
-                    <span className="font-bold mt-5 ml-2 md:ml-35 md:mr-5 mr-2">
-                      {blogs[0]?.category}
-                    </span>
+            {blogs[0] && (
+              <div className=" mt-5 justify-left border-slate-25 border-2 rounded-lg w-full md:w-[840px] mx-auto md:ml-0 md:mr-0">
+                <div className="flex flex-col md:flex-row mx-auto">
+                  <div>
+                    <Image
+                      src={blogs[0]?.blogImgUrl}
+                      alt="image"
+                      className="h-[272.037px] md:h-auto md:w-[823px] w-full rounded-lg object-fit"
+                      width={330} height={270}
+                    />
+                  </div>
+                  <div className="md:flex-grow h-[272.037px] md:h-auto">
+                    <h1 className="font-bold text-2xl mt-2 md:mt-5 ml-5">
+                      {blogs[0]?.name}
+                    </h1>
+                    <p className="text-normal mt-2 md:ml-5 ">
+                      {blogs[0]?.summary}
+                    </p>
+                    <Link
+                      href={`/blogs/${blogs[0]?._id}`}
+                      id="readMoreLink"
+                      className="text-[#f2994a] transition duration-300 hover:underline mt-5 block ml-5"
+                    >
+                      Read More&gt;&gt;
+                    </Link>
+                    <div className="flex md:flex-row items-start justify-between">
+                      <span className="text-black font-bold mt-5 ml-5">
+                        21 October 2023
+                      </span>
+                      <span className="font-bold mt-5 ml-2 md:ml-35 md:mr-5 mr-2">
+                        {blogs[0]?.category}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="w-full md:ml-6 sm:container mx-auto  ">
+            )}
+            <div className="w-full md:ml-1 sm:container mx-auto ">
               {blogs.map((blog: IBlog, index: number) => (
                 index % 2 === 1 && (
                   <div key={index / 2} className="flex flex-col md:flex-row mb-4 sm:mb-0  md:space-x-4">
@@ -140,8 +146,8 @@ const Blogs = () => {
             </button>
           </div>
         </div>
-        <div className=" w-full md:w-px   md:border-l border-gray-400">
-          <div className="w-full h-[1500px] md:w-[600px] md:ml-5">
+        <div className="w-full md:w-[455px] md:border-l border-gray-400 p-10">
+          <div className="w-full h-full md:w-[455px] md:ml-0">
             <h2 className="font-bold text-2xl ml-5 mt-10">Trending Topics</h2>
             <hr />
             <div className="mt-10">
@@ -154,7 +160,7 @@ const Blogs = () => {
                   </a>
                   <div className="flex mb-5">
                     <span className="text-black font-bold mt-5">{item.date}</span>
-                    <span className="font-bold mt-5 md:ml-[330px] ml-40">{item.category}</span>
+                    <span className="font-bold mt-5 md:ml-[100px] ml-40">{item.category}</span>
                   </div>
                   <hr />
                 </div>
@@ -176,10 +182,12 @@ const Blogs = () => {
       </section>
       <section className="relative">
         <div className="relative">
-          <img
+          <Image
             src="/assets/images/coaches/coach_banner.png"
             alt="coach_banner"
             className="relative w-screen object-cover h-auto min-h-[490px]"
+            width={1440}
+            height={375}
           />
           <div className="absolute flex flex-col items-center justify-center w-full top-0 h-full gap-10">
             <h2 className="text-white text-4xl font-bold text-center">

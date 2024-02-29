@@ -2,11 +2,14 @@
 "use client"
 import HorizontalList from "@/components/HorizontalList";
 import Footer from "@/components/Footer";
-import React, { FC } from "react";
+import React, { FC, useState, useEffect } from "react";
 import Link from "next/link";
 import ClassUserCard from "@/components/ClassUserCard";
 import { IClass } from "@/types/classes.type";
 import { useAllClasses } from "@/hooks/classes.hooks";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+
 interface ClassViewProps {
   params: {
     id: string;
@@ -32,7 +35,28 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
   // if (classess.length === 0) {
   //   return null;
   // }
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [centerSlidePercentage, setCenterSlidePercentage] = useState(33.3333);
+  const handlePrevClick = () => {
+    const newSlide = currentSlide > 0 ? currentSlide - 1 : classess.length - 1;
+    setCurrentSlide(newSlide);
+  };
 
+  const handleNextClick = () => {
+    const newSlide = currentSlide < classess.length - 1 ? currentSlide + 1 : 0;
+    setCurrentSlide(newSlide);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setCenterSlidePercentage(window.innerWidth > 425 ? 33.3333 : 100);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div>
       <section className="relative">
@@ -47,26 +71,26 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
           <div className="mx-5 my-5 font-bold lg:block order-1 lg:order-2">
             <div className="flex">
               <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8">
-                {pageClassesData[0].releaseDate}
+                {pageClassesData[0]?.releaseDate}
               </h2>
               <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8 lg:ml-0">
-                {pageClassesData[0].name}
+                {pageClassesData[0]?.name}
               </h2>
             </div>
             <div className="flex flex-col lg:flex-row w-full lg:w-2/3 xl:w-1/2 p-4 space-y-4 lg:space-y-0 lg:space-x-4">
               <div className=" p-4 flex-1">
                 <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">
-                  Type: {pageClassesData[0].type}
+                  Type: {pageClassesData[0]?.type}
                 </h5>
               </div>
               <div className="p-4 flex-1">
                 <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">
-                  Number of Days: {pageClassesData[0].days}
+                  Number of Days: {pageClassesData[0]?.days}
                 </h5>
               </div>
               <div className="p-4 flex-1">
                 <h5 className="text-black font-normal text-xl lg:text-2xl mt-0 mb-2">
-                  Duration: {pageClassesData[0].duration}
+                  Duration: {pageClassesData[0]?.duration}
                 </h5>
               </div>
             </div>
@@ -93,15 +117,15 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
         <div>
           <center>
             <img
-              src={pageClassesData[0].photoUrl}
+              src={pageClassesData[0]?.photoUrl}
               alt="image"
               className="relative w-[793px] object-cover h-[343px]"
             />
           </center>
           <h3 className="font-bold text-xl m-8">About this course:</h3>
-          <p className="text-xl m-8">{pageClassesData[0].about}</p>
+          <p className="text-xl m-8">{pageClassesData[0]?.about}</p>
           <h3 className="font-bold text-xl m-8">Benefits:</h3>
-          <p className="text-xl m-8">{pageClassesData[0].benefits}</p>
+          <p className="text-xl m-8">{pageClassesData[0]?.benefits}</p>
           <p className="m-8 font-bold">
             For more zoom click:
             <span className="block md:inline text-[#f2994a]">
@@ -112,15 +136,21 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
       </section>
       <section className="relative ">
         <h1 className="font-bold text-2xl text-center bg-[#f5f5f5]">You might also be interested in</h1>
+        <img src="/assets/images/icons/previous.png" alt="previous" onClick={handlePrevClick} className="cursor-pointer absolute left-0 bottom-48 hidden sm:block " />
+
         <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
-          {classess.slice(0, 3).map((classes: IClass, index: number) => (
-            <div key={index} className="mb-5">
-              <Link href={`/classes/${classes._id}`}>
-                <ClassUserCard classes={classes} />
-              </Link>
-            </div>
-          ))}
+          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
+            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
+            {classess.slice(0, 3).map((classes: IClass, index: number) => (
+              <div key={index} className="w-full">
+                <Link href={`/classes/${classes._id}`}>
+                  <ClassUserCard classes={classes} />
+                </Link>
+              </div>
+            ))}
+          </Carousel>
         </div>
+        <img src="/assets/images/icons/next.png" alt="next" onClick={handleNextClick} className="cursor-pointer absolute right-0 bottom-56 hidden sm:block" />
       </section>
       <Footer />
     </div>

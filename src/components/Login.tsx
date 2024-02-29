@@ -5,13 +5,14 @@ import { MouseEvent, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
-import { useCreateUser } from "@/hooks/user.hooks";
+// import { useCreateUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
 import { signIn } from "next-auth/react";
 
 const Login = () => {
-  const [invalidmsg, setInvalidmsg] = useState("");
-  const { mutate: createUser } = useCreateUser();
+
+  // const { mutate: createUser } = useCreateUser();
+
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
@@ -20,7 +21,7 @@ const Login = () => {
     email: "",
     password: "",
   });
-  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen } =
+  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen, setIsAdmin, setIsLogin } =    //setIsAdmin
     useContext(AuthContext);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,17 +30,41 @@ const Login = () => {
       console.log("Event Object:", e);
       console.log("Form submission prevented");
       const { email, password } = user;
+      setError("");
+      if (user.password.length < 6) {
+        setError("Password must be at least 6 characters long");
+        return;
+      }
 
-      const adminEmail = "admin@shapemeup.com";
-      const adminPassword = "admin@1234";
-
-      if (email === adminEmail && password === adminPassword) {
-        navigation.push("/admin/exercise");
-        console.log("Navigating to /admin/exercise");
-      } else {
-        navigation.push("/");
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      console.log("response:", response)
+      const data = await response.json();
+      console.log("data:", data)
+      if (data.openRegister) {
+        setIsRegistrationOpen(true);
         setIsOpen(false);
-        console.log("Navigating to /");
+      }
+      if (data.redirect === "/admin/exercise") {
+        setIsAdmin(true);
+      }
+
+      if (response.ok) {
+        // Successful login, redirect based on server response
+        navigation.push(data.redirect);
+
+        setIsOpen(false);
+        setIsLogin(true);
+        console.log(`Navigating to ${data.redirect}`);
+      } else {
+        // Failed login, handle the error
+        setError(data.message);
+        console.log("Login failed:", data.message);
       }
     } catch (error) {
       console.error("An error occurred during login:", error);
@@ -47,11 +72,10 @@ const Login = () => {
   };
   const password = () => {
     setShowPassword(!showPassword);
-    if (!password || password.length < 6) {
-      setInvalidmsg("Password must be at least 6 characters long");
+    if (!showPassword && user.password.length < 6) {
+      setError("Password must be at least 6 characters long");
       return false;
     }
-    setInvalidmsg("");
     return true;
   };
   const handleCloseClick = () => {
@@ -76,13 +100,14 @@ const Login = () => {
     }
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
+
     e.preventDefault();
     setIsRegistrationOpen(true);
     setIsOpen(false);
   };
 
   return (
-    <div className="w-[calc(100vw-200px)] h-5/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
+    <div className="max-w-screen-md sm:max-w-screen-lg md:max-w-screen-xl lg:max-w-screen-2xl w-[calc(100vw-200px)] h-5/6 transform overflow-auto rounded-lg bg-white text-left shadow-xl transition-all">
       <button
         onClick={handleCloseClick}
         className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8"
@@ -147,7 +172,10 @@ const Login = () => {
                     onClick={password}
                   />
                 </div>
-                <span className="text-danger mb-2 ">{invalidmsg}</span>
+                {/* <span className="text-danger mb-2 ">{invalidmsg}</span> */}
+                {error && (
+                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+                )}
               </div>
               <div className="flex">
                 <div className="mb-6">
@@ -171,26 +199,27 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className=" mt-5 p-2 pl-60 flex w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+
+                className=" mt-5 flex items-center justify-center w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+
+
               >
                 Login now
               </button>
               <button
-                className=" mt-5 pt-4 flex w-full h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg"
+                className=" mt-5 flex p-2 items-center justify-center w-full h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg"
                 onClick={googleLogin}
               >
                 <img
                   src="/assets/images/social_media/google.png"
                   alt="Google"
-                  className="m-2 pl-40  pb-3"
+                  className="m-2 flex items-center justify-center"
                 />
                 Or login with google
               </button>
-              {error && (
-                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
-                  {error}
-                </div>
-              )}
+
+
+
               <div className="mt-5">
                 Dont have an account?
                 <a

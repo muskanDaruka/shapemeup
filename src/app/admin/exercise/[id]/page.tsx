@@ -30,7 +30,7 @@ const NewExercisePage = () => {
     _id: "",
     name: "",
     category: "",
-    time: null,
+    time: 0,
     durationType: "",
     difficulty: "",
     imageUrl: "",
@@ -83,7 +83,11 @@ const NewExercisePage = () => {
       } as typeof prev)
     );
   };
-
+  const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
+  };
   const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -111,7 +115,7 @@ const NewExercisePage = () => {
           <Image src={leftArrow} alt="Back" width={24} height={24} />
         </Link>
       </div>
-      <form onSubmit={onHandleSubmit} className="flex-1 w-full">
+      <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
         <div className="flex flex-col gap-5">
           <h5>Add New Exercise</h5>
           <div className="flex items-end justify-between gap-3">
@@ -193,7 +197,7 @@ const NewExercisePage = () => {
                 name="time"
                 className="rounded-md px-3 h-10 w-full border border-gray-300"
                 onChange={onHandleChange}
-                value={exercise.time + ""}
+                value={exercise.time ?? ""}
               />
             </div>
             <button
@@ -213,11 +217,6 @@ const NewExercisePage = () => {
               onChange={onHandleChange}
               value={exercise.difficulty}
             />
-          </div>
-          <div>
-            <label htmlFor="tags">
-              <input type="text" name="tags" id="tags" />
-            </label>
           </div>
           <div className="grid gap-2 w-full">
             <label htmlFor="contents">Instructions</label>

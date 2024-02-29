@@ -9,6 +9,7 @@ import {
 } from "@/hooks/coach.hooks";
 import { ICoach } from "@/types/coach.type";
 import CoachCards from "@/components/CoachCards";
+import Image from "next/image";
 
 interface Props {
   image: string;
@@ -41,14 +42,23 @@ const CoachesPage = () => {
         <div className="w-full flex items-center justify-between">
           <h4>Coaches</h4>
           <div className="flex items-center justify-end gap-5">
-            <div>
-              <input
-                type="text"
-                name="search"
-                id="search"
-                className="w-full md:w-60 h-10 rounded-md bg-white text-black px-2 py-1 border border-gray-300"
-              />
-              {/* TODO: Search Icon */}
+            <div className="relative">
+              <div className="relative">
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search"
+                  id="search"
+                  className="w-full md:w-60 h-10 rounded-md bg-white text-black px-2 py-1 border border-gray-300 pl-8" // Adjust padding for better alignment
+                />
+                <Image
+                  src="/assets/images/icons/search.png"
+                  className="w-5 h-5 absolute p-1 m-1 right-2 top-2"
+                  alt="search"
+                  width={11}
+                  height={11}
+                />
+              </div>
             </div>
             <div>
               {/* TODO: Plus Icon */}
@@ -56,7 +66,7 @@ const CoachesPage = () => {
                 type="button"
                 className="bg-[#F2994A] px-4 text-white h-10 rounded-md"
               >
-                <Link href={"/admin/coach/new"}>Add New</Link>
+                <Link href={"/admin/coach/new"}>+ Add New</Link>
               </button>
             </div>
           </div>

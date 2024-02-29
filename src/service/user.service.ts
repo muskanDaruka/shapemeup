@@ -22,14 +22,18 @@ class UserService {
     //     return await axios.post("/api/auth/register", userData);
     // }
     async createUser(userData: UserType) {
-        try {
-            const response = await axios.post("/api/auth/register", userData);
-            console.log("API Response:", response);  // Log the entire response object
-            return response;
-        } catch (error: any) {
-            console.error("API Request failed:", error);
-            throw new Error(`Error in createUser: ${error.message}`);
-        }
+        // try {
+        //     const response = await axios.post("/api/auth/register", userData);
+        //     console.log("API Response hooks data:", response.data);
+        //     return {
+        //         status: response.status,
+        //         data: response.data,
+        //     };
+        // } catch (error: any) {
+        //     console.error("API Request failed:", error);
+        //     throw new Error(`Error in createUser: ${error.message}`);
+        // }
+        return await axios.post("/api/auth/register", userData);
     }
 
 

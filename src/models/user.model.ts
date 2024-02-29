@@ -48,7 +48,7 @@ userSchema.methods.comparePassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
 
-userSchema.statics.findByEmail = function (this: IUserModel, email: string) {
+userSchema.statics.findByEmail = async function (this: IUserModel, email: string) {
   return this?.findOne({ email }) as Promise<UserType | null>;
 };
 

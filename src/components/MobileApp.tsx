@@ -2,7 +2,7 @@
 
 const MobileApp = () => {
   return (
-    <section className="bg-white flex flex-col sm:flex-row px-5 py-10 gap-10">
+    <section className="bg-white flex flex-col sm:flex-row px-5 py-10 gap-10 ml-0 sm:ml-24">
       <div className="flex-1 space-y-5">
         <h2 className="text-3xl sm:text-4xl font-bold">
           Get the app for the most effective results

@@ -6,14 +6,17 @@ import { useCreateUser } from "@/hooks/user.hooks";
 import Image from "next/image";
 const Register = () => {
   const [invalidmsg, setInvalidmsg] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const { mutate: createUser } = useCreateUser();
+  console.log("createUser:", createUser);
   const [user, setUser] = useState({
     email: "",
     name: "",
     password: "",
+    confirmPassword: "",
   });
   const { setIsRegistrationOpen, setIsOpen, setIsForgotPasswordOpen } =
     useContext(AuthContext);
@@ -21,28 +24,45 @@ const Register = () => {
   const onSubmitSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setInvalidmsg("");
-    if (user.password !== confirmPassword) {
+    if (user.password.length < 6) {
+      setError("Password must be at least 6 characters long");
+      return;
+    }
+    if (user.password !== user.confirmPassword) {
       setInvalidmsg("Passwords do not match");
       return;
     }
     try {
+      console.log("try working");
       const response = await createUser(user);
       console.log("API Response:", response);
+
+      // if (response.status === 401) {
+      //   setError("User already exists with this email. Please login instead.");
+      //   return;
+      // }
+      console.log("Registration Successfull")
       setIsRegistrationOpen(false);
       setIsOpen(true);
     } catch (error) {
       console.error("Registration failed:", error);
       setError("Registration failed. Please check your information and try again.");
+      return;
     }
-
   };
-
+  const passwordConfirm = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+    setInvalidmsg("");
+    if (!showConfirmPassword && user.password !== user.confirmPassword) {
+      setInvalidmsg("Passwords do not match");
+      return false;
+    }
+    return true;
+  }
   const password = () => {
-    // <span>Password is required</span>
     setShowPassword(!showPassword);
-    // <span>Password is required</span>
-    if (!user.password || user.password.length < 6) {
-      setInvalidmsg("Password must be at least 6 characters long");
+    if (!showPassword && user.password.length < 6) {
+      setError("Password must be at least 6 characters long");
       return false;
     }
     setInvalidmsg("");
@@ -61,14 +81,9 @@ const Register = () => {
     setIsForgotPasswordOpen(false);
     setIsRegistrationOpen(false);
   };
-  // const signUp = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
-  //   e.preventDefault();
-  //   setIsRegistrationOpen(false);
-  //   setIsOpen(true);
-  // };
 
   return (
-    <div className="w-[calc(100vw-200px)] h-5/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all object-cover">
+    <div className="max-w-screen-md sm:max-w-screen-lg md:max-w-screen-xl lg:max-w-screen-2xl w-[calc(100vw-200px)] h-5/6  transform overflow-auto rounded-lg bg-white text-left shadow-xl transition-all object-cover">
       <button
         onClick={handleCloseClick}
         className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8"
@@ -129,59 +144,68 @@ const Register = () => {
                         : "/assets/images/login/hide_password.png"
                     }
                     alt={showPassword ? "Hide Password" : "View Password"}
-                    className="text-[#333] p-1  m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
-                    width={8} height={5}
+                    className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
                     onClick={password}
+                    width={20}
+                    height={20}
                   />
                 </div>
-                {/* <span className="text-danger mb-2 ">{invalidmsg}</span> */}
+
+                {error && (
+                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+                )}
               </div>
               <div className="m-0 ml-10 mb-6">
-                <label htmlFor="password">Confirn Password</label>
+                <label htmlFor="confirmPassword">Confirm Password</label>
                 <div className="relative flex items-center">
                   <input
-                    type={showPassword ? "text" : "password"}
+                    type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    value={user.confirmPassword}
+                    onChange={(e) => setUser((prev) => ({ ...prev, confirmPassword: e.target.value }))
+                    }
                     className="w-full h-12 border-slate-250 border-2 rounded-lg"
                   />
                   <Image
                     src={
-                      showPassword
+                      showConfirmPassword
                         ? "/assets/images/login/view_password.png"
                         : "/assets/images/login/hide_password.png"
                     }
-                    alt={showPassword ? "Hide Password" : "View Password"}
-                    className="text-[#333] p-1  m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-3 cursor-pointer"
-                    onClick={password}
-                    width={8} height={5}
+                    alt={showConfirmPassword ? "Hide Password" : "View Password"}
+                    className="w-8 h-5 absolute p-1 m-1 right-3 cursor-pointer text-[#333]"
+                    onClick={passwordConfirm}
+                    width={8}
+                    height={5}
                   />
                 </div>
-                <span className="text-danger mb-2 ">{invalidmsg}</span>
+
+                {invalidmsg && (
+                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{invalidmsg}</div>
+                )}
+                {error && (
+                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+                )}
               </div>
               <button
-                className="mt-5 ml-10 p-2 pl-[220px] flex w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+                className="flex items-center justify-center ml-10 w-[520px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
 
               >
                 Sign up
               </button>
               <button
-                className=" mt-5 ml-10 pt-4 pl-[100px] flex w-[520px] h-15 bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg"
+                className=" ml-10 flex items-center justify-center mt-6 w-[520px] p-2 h-15 bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg"
                 onClick={googleSignUp}
               >
                 <Image
                   src="/assets/images/social_media/google.png"
                   alt="Google"
-                  className="m-2 pb-3"
+                  className="m-2 flex items-center justify-center"
                   width={25}
                   height={25}
                 />
                 Or signup with google
               </button>
-              {error && (
-                <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
-              )}
               <div className="mt-5 ml-10 text-xl">
                 Already have an account?
                 <button

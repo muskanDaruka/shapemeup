@@ -14,6 +14,16 @@ export const useAllUser = () => {
 export const useCreateUser = () => {
     return useMutation({
         mutationFn: userService.createUser,
+        onSuccess: (data) => {
+            console.log("API Response data:", data);
+            console.log(data);
+            return data;
+
+        },
+        onError: (error) => {
+            console.error("API Request failed:", error);
+            throw new Error(`Error in createUser: ${error.message}`);
+        },
     });
 };
 

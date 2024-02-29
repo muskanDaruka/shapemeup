@@ -19,7 +19,7 @@ const ClassUserCard: FC<ClassUserCardsProps> = ({ classes }) => {
     return (
         <section>
             <div className="flex flex-col items-center justify-evenly lg:gap-10 sm:flex-row">
-                <div className="rounded-md overflow-hidden relative" key={classes._id}>
+                <div className="rounded-md overflow-hidden relative p-5" key={classes._id}>
                     <img
                         src={classes.photoUrl}
                         alt="classes"

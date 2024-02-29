@@ -8,6 +8,9 @@ import ProductUserCard from "@/components/ProductUserCard";
 import Link from "next/link";
 import Image from 'next/image';
 import { IProducts } from "@/types/products.type";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { useEffect, useState } from "react";
 
 const list = ["Protein suppliments", "Fitness clothing", "Fitness equipments"]
 const heroImages: Images[] = [
@@ -53,7 +56,26 @@ const productImages = [
 const Products = () => {
   const { data: productData, isLoading, isError } = useAllProducts();
   const products = productData?.data?.data || [];
+  const [centerSlidePercentage, setCenterSlidePercentage] = useState(33.3333);
+  const [currentSlide, setCurrentSlide] = useState(0); // State to track the current slide
 
+  const handlePrevClick = () => {
+    setCurrentSlide((prevSlide) => (prevSlide === products.length - 1 ? 0 : prevSlide + 1));
+  };
+
+  const handleNextClick = () => {
+    setCurrentSlide((prevSlide) => (prevSlide === 0 ? products.length - 1 : prevSlide - 1));
+  };
+  useEffect(() => {
+    const handleResize = () => {
+      setCenterSlidePercentage(window.innerWidth > 425 ? 33.3333 : 100);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   // if (products.length === 0) {
   //   return null;
   // }
@@ -62,7 +84,7 @@ const Products = () => {
       <Hero data={heroImages} />
       <br />
       <div className="flex flex-col items-center md:flex-row relative">
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-[180px] rounded-full text-2xl font-bold absolute right-20">⟶</span> */}
+        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} className="cursor-pointer absolute left-8 hidden sm:block" />
         <div className="md:ml-auto md:mr-auto w-full md:w-[1100px] relative">
           <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
             {productImages.map((item, index) => (
@@ -83,7 +105,7 @@ const Products = () => {
             ))}
           </div>
         </div>
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-[180px] rounded-full text-2xl font-bold float-left absolute left-20">⟵</span> */}
+        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} className="cursor-pointer absolute right-8 hidden sm:block" />
       </div>
       <br />
       <section className="relative">
@@ -105,20 +127,21 @@ const Products = () => {
       </section>
       <section className="m-[40px]">
         <h1 className="text-black text-4xl mb-[20px] font-bold"><center>Featured products</center></h1>
-        <HorizontalList data={list} />
-        {/* <div className="flex relative"> */}
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold absolute right-0">⟶</span> */}
-        <div className="flex flex-col md:flex-row w-full sm:container items-center justify-center text-center mx-auto mr-10">
-          {products.slice(0, 3).map((product: IProducts, index: number) => (
-            <div key={index} className={`mb-4 flex w-full md:w-1/2 ${index % 2 === 0 ? 'md:ml-auto' : ' md:ml-4 sm:ml-2  '}`}>
-              <Link href={`/products/${product._id}`}>
-                <ProductUserCard key={product.id} product={product} />
-              </Link>
-            </div>
-          ))}
+        <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
+        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} onClick={handlePrevClick} className="cursor-pointer absolute left-8 hidden" />
+        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} onClick={handleNextClick} className="cursor-pointer absolute right-8 hidden" />
+        <div className="sm:ml-32 items-center justify-center ">
+          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
+            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
+            {products.map((product: IProducts, index: number) => (
+              <div key={index} className={`mb-4 flex py-5 ${index % 2 === 0 ? 'w-full md:w-1/2' : 'w-full md:w-1/2'}`}>
+                <Link href={`/products/${product._id}`}>
+                  <ProductUserCard key={product.id} product={product} />
+                </Link>
+              </div>
+            ))}
+          </Carousel>
         </div>
-        {/* <span className="text-[#FBEFB0] bg-[#f2994a] w-10 h-8 mt-64 rounded-full text-2xl font-bold float-left absolute left-0">⟵</span> */}
-        {/* </div> */}
       </section>
       <Footer />
     </div>

@@ -19,12 +19,12 @@ const ExerciseUserCard: FC<ExerciseUserCardProps> = ({ exercise }) => {
 
             <div className="flex flex-col items-center justify-evenly lg:gap-10 sm:flex-row">
                 <div
-                    className="rounded-md overflow-hidden relative"
+                    className="rounded-md overflow-hidden relative w-[370px]"
                 >
                     <img
                         src={exercise?.imageUrl}
                         alt="image"
-                        className="object-cover rounded-md w-[370px] h-[393px]"
+                        className="object-cover rounded-md h-[393px]"
                     />
                     <div className="absolute z-[1] gap-y-5 flex flex-col items-center bottom-10 w-full text-center text-white">
                         <h4 className="text-xl font-bold">{exercise?.name}</h4>
