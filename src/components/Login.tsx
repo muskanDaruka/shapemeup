@@ -1,71 +1,56 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { AuthContext } from "../context/Auth";
 import { useContext } from "react";
-import { useRouter } from "next/navigation";
 // import { useCreateUser } from "@/hooks/user.hooks";
 import { IUser } from "@/types/user.type";
-import { signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
-
-  // const { mutate: createUser } = useCreateUser();
-
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [passwordRequired, setPasswordRequired] = useState(false);
-  const navigation = useRouter();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
-  const { setIsForgotPasswordOpen, setIsOpen, setIsRegistrationOpen, setIsAdmin, setIsLogin } =    //setIsAdmin
-    useContext(AuthContext);
+  const {
+    setIsForgotPasswordOpen,
+    setIsOpen,
+    setIsRegistrationOpen,
+    setIsAdmin,
+    setIsLogin,
+  } = useContext(AuthContext); //setIsAdmin
+
+  const { data: session, update } = useSession();
+  const navigation = useRouter();
+
+  console.log("session", session);
 
   const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       e.preventDefault();
-      console.log("Event Object:", e);
-      console.log("Form submission prevented");
       const { email, password } = user;
       setError("");
       if (user.password.length < 6) {
         setError("Password must be at least 6 characters long");
         return;
       }
-
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const res = await signIn("credentials", {
+        email,
+        password,
+        // redirect: false,
+        callbackUrl: "/admin/exercise",
       });
-      console.log("response:", response)
-      const data = await response.json();
-      console.log("data:", data)
-      if (data.openRegister) {
-        setIsRegistrationOpen(true);
-        setIsOpen(false);
-      }
-      if (data.redirect === "/admin/exercise") {
-        setIsAdmin(true);
-      }
-
-      if (response.ok) {
-        // Successful login, redirect based on server response
-        navigation.push(data.redirect);
-
-        setIsOpen(false);
-        setIsLogin(true);
-        console.log(`Navigating to ${data.redirect}`);
-      } else {
-        // Failed login, handle the error
-        setError(data.message);
-        console.log("Login failed:", data.message);
-      }
+      update();
+      console.log("111111", res);
+      setIsForgotPasswordOpen(false);
+      setIsOpen(false);
+      setIsRegistrationOpen(false);
     } catch (error) {
       console.error("An error occurred during login:", error);
     }
@@ -94,13 +79,13 @@ const Login = () => {
     try {
       const result = await signIn("google", {
         callbackUrl: "/",
+        redirect: false,
       });
     } catch (error) {
       console.error("Error during Google Sign-In:", error);
     }
   };
   const signup = (e: MouseEvent<HTMLAnchorElement>) => {
-
     e.preventDefault();
     setIsRegistrationOpen(true);
     setIsOpen(false);
@@ -174,7 +159,9 @@ const Login = () => {
                 </div>
                 {/* <span className="text-danger mb-2 ">{invalidmsg}</span> */}
                 {error && (
-                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
+                  <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">
+                    {error}
+                  </div>
                 )}
               </div>
               <div className="flex">
@@ -199,10 +186,7 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-
                 className=" mt-5 flex items-center justify-center w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
-
-
               >
                 Login now
               </button>
@@ -217,8 +201,6 @@ const Login = () => {
                 />
                 Or login with google
               </button>
-
-
 
               <div className="mt-5">
                 Dont have an account?

@@ -9,7 +9,6 @@ class ExerciseService {
    * @retutn
    */
   async getAllExercise() {
-    console.log("Hello");
     return await axios.get("/api/exercise");
   }
 
