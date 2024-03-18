@@ -47,13 +47,17 @@ const menus: IMenu[] = [
 const Menu = () => {
   const pathname = usePathname()
   console.log("pathname:", pathname)
-
-  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } =
-    useContext<AuthType>(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartActive, setIsCartActive] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | undefined>(menus.findIndex((item) => {
     return item.path == pathname;
   }));
-  const [isCartActive, setIsCartActive] = useState(false);
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+  const { isOpen, setIsOpen, isRegistrationOpen, setIsRegistrationOpen } =
+    useContext<AuthType>(AuthContext);
+
 
   useEffect(() => {
     const currentIndex = menus.findIndex((menu) => menu.path === pathname);
@@ -64,11 +68,28 @@ const Menu = () => {
   return (
     <section className="h-14 sm:h-16 sm:bg-gray-50 bg-[#34383d] fixed w-full z-10">
       <nav className="flex flex-row items-center justify-between sm:justify-center h-14 sm:h-16">
-        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
+        <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white" onClick={toggleMenu}>
           <div>
             <img src="/assets/images/icons/Menu.png" alt="Menu" />
           </div>
         </div>
+        {isMenuOpen && (
+          <div className="sm:hidden bg-white w-full h-[961px] fixed top-14 left-0 flex flex-col text-white">
+            {menus.map((menu, index) => (
+              <Link
+                key={menu.path}
+                href={menu.path}
+                onClick={() => {
+                  setIsMenuOpen(false);
+                }}
+                className={`block px-48 py-4 border-b-2 ${index === activeIndex ? "border-b-4 border-[#34383D] text-[#f2994a] hover:text-gray-500" : "text-black hover:text-[#f2994a]"
+                  }`}
+              >
+                <span>{menu.label}</span>
+              </Link>
+            ))}
+          </div>
+        )}
         <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
           <div>
             <img src="/assets/images/icons/white-search.png" alt="Search" />
@@ -95,22 +116,22 @@ const Menu = () => {
 
               }}
               className={`inline-block px-10 py-4 ${index === activeIndex
-                ? "bg-[#f2994a] text-white h-full"
+                ? "border-b-4 border-[#34383D] text-[#f2994a] h-full"
                 : "text-black"
                 }`}
             >
               <span className={`${index !== activeIndex ? "hover:text-[#f2994a]" : ""
-                } ${index === activeIndex ? "text-white hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
+                } ${index === activeIndex ? "text-[#f2994a] hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
             </Link>
           ))}
 
           <Link href="/cart">
             <div
-              className={`flex items-center justify-center h-full w-full ${isCartActive ? "text-white" : "text-black"}`}
               onClick={() => {
                 setIsCartActive(true);
                 setActiveIndex(undefined);
               }}
+              className={`flex items-center justify-center h-full w-full px-10 py-5  ${isCartActive ? "text-opacity-50 hover:text-opacity-30" : "text-black"}`}
             >
               <img src="/assets/images/home/menu-cart.png" alt="Shopping Cart" className="w-full h-full" />
             </div>

@@ -75,7 +75,7 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                             </h2>
                             <h2 className="font-normal md:ml-8 my-5">
 
-                                {pageCoachData[0]?.summary}
+                                {pageCoachData[0]?.bio}
 
                             </h2>
                         </div>
@@ -89,10 +89,10 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                     </div>
                 </div>
             </section >
-            <div className="flex bg-[#F2994A] text-white w-full">
+            <div className="flex justify-between bg-[#F2994A] text-white w-full">
                 <div className="p-4 font-bold">Clients : {pageCoachData[0]?.clients}</div>
-                <div className="p-4 font-bold lg:ml-[660px]">Years of Experience: {pageCoachData[0]?.yearsOfExp}  </div>
-                <div className="p-4 font-bold lg:ml-[660px]">Certifications: {pageCoachData[0]?.certifications}  </div>
+                <div className="p-4 font-bold">Years of Experience: {pageCoachData[0]?.yearsOfExp}  </div>
+                <div className="p-4 font-bold">Certifications: {pageCoachData[0]?.certifications}  </div>
             </div>
             <section className="m-10">
                 <h2 className="font-bold text-xl">
@@ -101,13 +101,22 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                 <div className="flex flex-col items-center gap-10 md:flex-row relative">
                     <div className="md:ml-auto md:mr-auto w-full md:w-[1150px] relative">
                         <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                            <img src="/assets/images/icons/previous.png" alt="previous" onClick={handlePrevClick} className="cursor-pointer absolute -left-20 bottom-48 hidden sm:block " />
+                            {coachs.length > 0 && (
+                                <Image
+                                    src="/assets/images/icons/previous.png"
+                                    width={37}
+                                    height={37}
+                                    alt="previous"
+                                    onClick={handlePrevClick}
+                                    className="cursor-pointer absolute left-0 top-1/2 transform -translate-y-1/2 hidden sm:block"
+                                />
+                            )}
                             <div className="relative">
                                 <div className=" py-10 px-5 flex flex-col sm:flex-row w-full gap-10">
                                     <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
                                         centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
                                         {classess.slice(0, 3).map((classes: IClass, index: number) => (
-                                            <div key={index} className="w-full">
+                                            <div key={index} className="w-full mb-4">
                                                 <Link href={`/classes/${classes._id}`}>
                                                     <ClassUserCard classes={classes} />
                                                 </Link>
@@ -117,7 +126,16 @@ const CoachView: FC<CoachViewProps> = ({ params }) => {
                                 </div>
                             </div>
                         </div>
-                        <img src="/assets/images/icons/next.png" alt="next" onClick={handleNextClick} className="cursor-pointer absolute -right-20 bottom-56 hidden sm:block" />
+                        {coachs.length > 0 && (
+                            <Image
+                                src="/assets/images/icons/next.png"
+                                width={37}
+                                height={37}
+                                alt="next"
+                                onClick={handleNextClick}
+                                className="cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2 hidden sm:block"
+                            />
+                        )}
                     </div>
                 </div>
             </section>

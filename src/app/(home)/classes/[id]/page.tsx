@@ -136,10 +136,16 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
       </section>
       <section className="relative ">
         <h1 className="font-bold text-2xl text-center bg-[#f5f5f5]">You might also be interested in</h1>
-        <img src="/assets/images/icons/previous.png" alt="previous" onClick={handlePrevClick} className="cursor-pointer absolute left-0 bottom-48 hidden sm:block " />
-
+        {classess.length > 0 && ( // Conditionally render "previous" arrow
+          <img
+            src="/assets/images/icons/previous.png"
+            alt="previous"
+            onClick={handlePrevClick}
+            className="cursor-pointer absolute left-0 hidden sm:block transform -translate-y-1/2 sm:bottom-1/3 sm:left-2%"
+          />
+        )}
         <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
-          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
+          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true} showIndicators={false}
             centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
             {classess.slice(0, 3).map((classes: IClass, index: number) => (
               <div key={index} className="w-full">
@@ -150,7 +156,14 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
             ))}
           </Carousel>
         </div>
-        <img src="/assets/images/icons/next.png" alt="next" onClick={handleNextClick} className="cursor-pointer absolute right-0 bottom-56 hidden sm:block" />
+        {classess.length > 0 && ( // Conditionally render "next" arrow
+          <img
+            src="/assets/images/icons/next.png"
+            alt="next"
+            onClick={handleNextClick}
+            className="cursor-pointer absolute right-0 hidden sm:block transform -translate-y-1/2 sm:bottom-1/3 sm:right-2%"
+          />
+        )}
       </section>
       <Footer />
     </div>

@@ -130,7 +130,7 @@ const Products = () => {
         <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
         <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} onClick={handlePrevClick} className="cursor-pointer absolute left-8 hidden" />
         <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} onClick={handleNextClick} className="cursor-pointer absolute right-8 hidden" />
-        <div className="sm:ml-32 items-center justify-center ">
+        <div className="sm:ml-16 items-center justify-center ">
           <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
             centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
             {products.map((product: IProducts, index: number) => (

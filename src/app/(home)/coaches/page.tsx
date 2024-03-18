@@ -80,14 +80,32 @@ const Coaches = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
+      <section className="bg-[#f5f5f5] w-full py-10 space-y-5 relative">
         <h3 className="text-black text-2xl md:text-4xl font-bold mb-8 text-center">Our Coaches</h3>
-        <Image src="/assets/images/icons/previous.png" width={37} height={37} alt="previous" onClick={handlePrevClick} className="cursor-pointer absolute left-0 bottom-14 hidden sm:block " />
-        <div className="sm:ml-32 items-center justify-center ">
-          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
-            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
+        {coachs.length > 0 && (
+          <Image
+            src="/assets/images/icons/previous.png"
+            width={37}
+            height={37}
+            alt="previous"
+            onClick={handlePrevClick}
+            className="cursor-pointer absolute left-0 top-1/2 transform -translate-y-1/2 hidden sm:block"
+          />
+        )}
+        <div className="flex justify-center sm:pl-16">
+          <Carousel
+            showArrows={false}
+            infiniteLoop={true}
+            showThumbs={false}
+            showStatus={false}
+            centerMode={true}
+            centerSlidePercentage={centerSlidePercentage}
+            selectedItem={currentSlide}
+            onChange={(index) => setCurrentSlide(index)}
+            className="w-full"
+          >
             {coachs.map((coach: ICoach, index: number) => (
-              <div key={index} className={`mb-4 flex py-5 ${index % 2 === 0 ? 'w-full md:w-1/2' : 'w-full md:w-1/2 md:ml-4 sm:ml-2'}`}>
+              <div key={index} className={`mb-4 flex py-5 ${index % 2 === 0 ? 'w-full md:w-1/2' : 'w-full md:w-1/2 '}`}>
                 <Link href={`/coaches/${coach._id}`}>
                   <CoachUserCard key={coach.id} coach={coach} />
                 </Link>
@@ -95,7 +113,16 @@ const Coaches = () => {
             ))}
           </Carousel>
         </div>
-        <Image src="/assets/images/icons/next.png" width={37} height={37} alt="next" onClick={handleNextClick} className="cursor-pointer absolute right-0 bottom-12 hidden sm:block" />
+        {coachs.length > 0 && (
+          <Image
+            src="/assets/images/icons/next.png"
+            width={37}
+            height={37}
+            alt="next"
+            onClick={handleNextClick}
+            className="cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2 hidden sm:block"
+          />
+        )}
       </section >
       <section className="w-full px-5 py-10 space-y-5 ">
         <div>
