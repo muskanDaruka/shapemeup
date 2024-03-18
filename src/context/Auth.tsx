@@ -6,6 +6,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useEffect,
   useState,
 } from "react";
 
@@ -26,17 +27,17 @@ export type AuthType = {
 
 const initState: AuthType = {
   isOpen: false,
-  setIsOpen: () => { },
+  setIsOpen: () => {},
   isRegistrationOpen: false,
-  setIsRegistrationOpen: () => { },
+  setIsRegistrationOpen: () => {},
   isForgotPasswordOpen: false,
-  setIsForgotPasswordOpen: () => { },
-  setIsEnroll: () => { },
+  setIsForgotPasswordOpen: () => {},
+  setIsEnroll: () => {},
   isEnroll: false,
-  setIsAdmin: () => { },
+  setIsAdmin: () => {},
   isAdmin: false,
-  setIsLogin: () => { },
-  isLogin: false
+  setIsLogin: () => {},
+  isLogin: false,
 };
 
 export const AuthContext = createContext<AuthType>(initState);
@@ -44,11 +45,11 @@ export const AuthContext = createContext<AuthType>(initState);
 const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isRegistrationOpen, setIsRegistrationOpen] = useState<boolean>(false);
-  const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState<boolean>(false);
+  const [isForgotPasswordOpen, setIsForgotPasswordOpen] =
+    useState<boolean>(false);
   const [isEnroll, setIsEnroll] = useState<boolean>(false);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLogin, setIsLogin] = useState<boolean>(false);
-
 
   return (
     <AuthContext.Provider
@@ -65,7 +66,6 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
         setIsAdmin,
         isLogin,
         setIsLogin,
-
       }}
     >
       {children}

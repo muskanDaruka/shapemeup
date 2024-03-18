@@ -73,10 +73,12 @@ export async function PUT(req: NextRequest) {
     await connectToMongoDb();
     const updatedExercise = await Exercise.findByIdAndUpdate(
       { _id: exercise?._id },
-      exercise, {
-      new: true,
-      upsert: true // Make this update into an upsert
-    });
+      exercise,
+      {
+        new: true,
+        upsert: true, // Make this update into an upsert
+      }
+    );
     console.log("22222", exercise);
     return NextResponse.json({
       status: "Success",

@@ -15,9 +15,7 @@ export default function HomeLayout({
 }) {
   const { isOpen, isRegistrationOpen, isForgotPasswordOpen, isEnroll } =
     useContext<AuthType>(AuthContext);
-  console.log("muskan")
   return (
-
     <>
       <Menu />
       {isOpen && (

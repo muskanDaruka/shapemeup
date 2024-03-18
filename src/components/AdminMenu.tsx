@@ -53,35 +53,35 @@ const adminMenus: IAdminMenu[] = [
     label: "Blogs",
     path: "/admin/blogs",
   },
-
 ];
 
 const AdminMenu = () => {
   const pathname = usePathname();
   const navigation = useRouter();
   const { isAdmin, setIsOpen } = useContext(AuthContext);
-  const [activeIndex, setActiveIndex] = useState<number | undefined>(adminMenus.findIndex((item) => {
-    return item.path == pathname;
-  }));
+  const [activeIndex, setActiveIndex] = useState<number | undefined>(
+    adminMenus.findIndex((item) => {
+      return item.path == pathname;
+    })
+  );
+  // useEffect(() => {
+  //   if (!isAdmin) {
+  //     navigation.push("/");
+  //     setIsOpen(true); // Redirect to the login page if not authenticated as admin
+  //   }
+  // }, [isAdmin, navigation, setIsOpen]);
   useEffect(() => {
-    if (!isAdmin) {
-      navigation.push('/');
-      setIsOpen(true);// Redirect to the login page if not authenticated as admin
-    }
-  }, [isAdmin, navigation, setIsOpen]);
-  useEffect(() => {
-    const currentIndex = adminMenus.findIndex((adminMenu) => adminMenu.path === pathname);
+    const currentIndex = adminMenus.findIndex(
+      (adminMenu) => adminMenu.path === pathname
+    );
     setActiveIndex(currentIndex);
   }, [pathname]);
-  console.log(activeIndex, "activeIndex")
+  console.log(activeIndex, "activeIndex");
 
   return (
     <section className="h-full w-full bg-[#363740] object-fit h-fixed">
-      <div className="h-full bg-[#34383d] w-12/12  h-full">
-        <Link
-          href={"/"}
-          className="h-full w-full"
-        >
+      <div className="h-full bg-[#34383d] w-12/12">
+        <Link href={"/"} className="h-full w-full">
           <Image
             src="/assets/images/shapemeup_logo.png"
             alt="shapemeup_logo"
@@ -91,16 +91,34 @@ const AdminMenu = () => {
           />
         </Link>
         {adminMenus.map((adminMenu, index) => (
-          <Link key={adminMenu.path} href={adminMenu.path}
-          >
+          <Link key={adminMenu.path} href={adminMenu.path}>
             <div
               onClick={() => setActiveIndex(index)}
-              className={`cursor-pointer ${index === activeIndex ? "bg-[#f2994a] text-white h-[85px] w-full hover:text-white hover:text-opacity-50"
-                : "text-white hover:text-white hover:text-opacity-50"}`}
+              className={`cursor-pointer ${
+                index === activeIndex
+                  ? "bg-[#f2994a] text-white h-[85px] w-full hover:text-white hover:text-opacity-50"
+                  : "text-white hover:text-white hover:text-opacity-50"
+              }`}
             >
-              <div className={`flex items-center ${index === activeIndex ? "bg-[#f2994a] " : ""}`} >
-                <span className={`p-[5px] m-5 mt-6`}><Image src={adminMenu.imageUrl} alt="Icon" width={20}
-                  height={18} style={{ filter: index === activeIndex ? "brightness(0) invert(1)" : "brightness(1)" }} /></span>
+              <div
+                className={`flex items-center ${
+                  index === activeIndex ? "bg-[#f2994a] " : ""
+                }`}
+              >
+                <span className={`p-[5px] m-5 mt-6`}>
+                  <Image
+                    src={adminMenu.imageUrl}
+                    alt="Icon"
+                    width={20}
+                    height={18}
+                    style={{
+                      filter:
+                        index === activeIndex
+                          ? "brightness(0) invert(1)"
+                          : "brightness(1)",
+                    }}
+                  />
+                </span>
                 <div className={`p-[10px] text-xl m-5 `}>{adminMenu.label}</div>
               </div>
             </div>
