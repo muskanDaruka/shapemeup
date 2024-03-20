@@ -21,10 +21,15 @@ const Enroll = () => {
 
                 <button
                     onClick={handleCloseClick}
-                    className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8"
+                    className="flex items-center justify-center fixed top-1 right-1 bg-[#FBEFB0] hover:bg-opacity-50 text-white rounded-full cursor-pointer w-[50px] h-[50px]"
                     id="closeButton"
                 >
-                    X
+                    <Image
+                        src="/assets/images/icons/close.png"
+                        alt="close"
+                        width={24}
+                        height={24}
+                    />
                 </button>
                 <div>
                     <Image

@@ -125,7 +125,7 @@ const NewBlogPage = () => {
               type="button"
               className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
             >
-              {/* TODO: Plus Icon */}Browse
+              + Browse
             </button>
           </div>
           <div className="grid gap-2 w-full">

@@ -92,36 +92,41 @@ const Login = () => {
   };
 
   return (
-    <div className="max-w-screen-md sm:max-w-screen-lg md:max-w-screen-xl lg:max-w-screen-2xl w-[calc(100vw-200px)] h-5/6 transform overflow-auto rounded-lg bg-white text-left shadow-xl transition-all">
+    <div className="flex md:h-5/6 h-screen transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all">
       <button
         onClick={handleCloseClick}
-        className="fixed top-1 right-1  pt-1 pl-2 pb-1 bg-[#f2994a] hover:bg-[#f2994a] text-white rounded-full cursor-pointer w-8 h-8"
+        className="flex items-center justify-center fixed top-1 right-1 bg-[#FBEFB0] hover:bg-opacity-50 text-white rounded-full cursor-pointer w-[50px] h-[50px]"
         id="closeButton"
       >
-        X
+        <img
+          src="/assets/images/icons/close.png"
+          alt="close"
+        />
       </button>
-      <div className="bg-white px-4 pb-4 pt-5 sm:p-2 sm:pb-6">
+      <div className="bg-white">
         <div className="flex w-full justify-evenly">
-          <div className="bg-['']">
-            <img
-              src="/assets/images/shapemeup_logo.png"
-              loading="lazy"
-              alt="Shape-me-up"
-              className="img-responsive modal-logo bg-[#34383d] h-auto"
-            />
-            <img
-              src="/assets/images/login/login_left.png"
-              alt="image"
-              className="h-126"
-            />
+          <div className="relative">
+            <div className="bg-['']">
+              <img
+                src="/assets/images/shapemeup_logo.png"
+                loading="lazy"
+                alt="Shape-me-up"
+                className="img-responsive modal-logo bg-[#34383d] h-[40px] absolute "
+              />
+              <img
+                src="/assets/images/login/login_left.png"
+                alt="image"
+                className="h-126"
+              />
+            </div>
           </div>
-          <div>
-            <h4 className="mt-20">Welcome back</h4>
-            <h2 className="text-black text-2xl font-bold mb-10 mt-10">
+          <div className="p-8">
+            <h4 className="m-4">Welcome back</h4>
+            <h2 className="text-black text-2xl font-bold m-4">
               Login to your account
             </h2>
             <form onSubmit={onSubmitLogin}>
-              <div className="m-0 mb-6">
+              <div className="m-4">
                 <label htmlFor="email">Email ID</label>
                 <br />
                 <input
@@ -134,7 +139,7 @@ const Login = () => {
                   }
                 />
               </div>
-              <div className="m-0 mb-6">
+              <div className="m-4">
                 <label htmlFor="password">Password</label>
                 <div className="relative flex items-center">
                   <input
@@ -165,7 +170,7 @@ const Login = () => {
                 )}
               </div>
               <div className="flex">
-                <div className="mb-6">
+                <div className="m-4">
                   <input
                     type="checkbox"
                     name="remember"
@@ -174,7 +179,7 @@ const Login = () => {
                   />
                   <label htmlFor="remember"> Remember me</label>
                 </div>
-                <div className="mb-6 ml-64">
+                <div className="m-4 ml-64">
                   <button
                     onClick={forgotPassword}
                     className="text-[#f2994a]"
@@ -186,12 +191,17 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className=" mt-5 flex items-center justify-center w-full h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+
+
+                className=" m-4 flex items-center justify-center w-[522px] h-12 bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+
+
+
               >
                 Login now
               </button>
               <button
-                className=" mt-5 flex p-2 items-center justify-center w-full h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg"
+                className="m-4 flex p-2 items-center justify-center w-[522px] h-15 bg-[#34383d] text-white font-sans font-normal rounded-lg"
                 onClick={googleLogin}
               >
                 <img
@@ -202,7 +212,10 @@ const Login = () => {
                 Or login with google
               </button>
 
-              <div className="mt-5">
+
+
+              <div className="m-4">
+
                 Dont have an account?
                 <a
                   href="/"

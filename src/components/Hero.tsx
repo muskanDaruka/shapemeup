@@ -11,7 +11,7 @@ interface Props {
 const Hero: FC<Props> = ({ data, onButtonClick }) => {
   return (
     <div className="relative w-full">
-      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false}>
+      <Carousel autoPlay infiniteLoop showThumbs={false} showStatus={false} showIndicators={false}>
         {data.map((i) => (
           <div className="relative w-screen h-[577px]" key={i.image}>
             <Image

@@ -104,7 +104,14 @@ const Classes = () => {
         </h2>
         <br />
         <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
-        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} onClick={handlePrevClick} className="cursor-pointer absolute left-0 bottom-14 hidden sm:block " />
+        {classess.length > 0 && ( // Conditionally render "previous" arrow
+          <img
+            src="/assets/images/icons/previous.png"
+            alt="previous"
+            onClick={handlePrevClick}
+            className="cursor-pointer absolute left-0 hidden sm:block transform -translate-y-1/2 sm:bottom-0 sm:left-2%"
+          />
+        )}
         <div className="relative">
           <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
             centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
@@ -117,8 +124,14 @@ const Classes = () => {
             ))}
           </Carousel>
         </div>
-        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} onClick={handleNextClick} className="cursor-pointer absolute right-0 bottom-12 hidden sm:block" />
-
+        {classess.length > 0 && ( // Conditionally render "next" arrow
+          <img
+            src="/assets/images/icons/next.png"
+            alt="next"
+            onClick={handleNextClick}
+            className="cursor-pointer absolute right-0 hidden sm:block transform -translate-y-1/2 sm:bottom-0 sm:right-2%"
+          />
+        )}
       </section>
       <section className="md:mt-2">
         <div className="bg-gradient-to-r from-gray-300 via-gray-300 to-gray-300 h-full w-full">

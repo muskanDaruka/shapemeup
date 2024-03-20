@@ -73,10 +73,10 @@ const heroImages: Images[] = [
   },
   {
     image: "home/homebanner",
-    title: "Bored Of The Same Old Training Workouts?",
+    title: "Tired of the same old routine at the gym?",
     description:
-      "Build a Healthy Routine with New Ways to Train. We are all mindful of the challenges of maintaining a healthy body balance. We provide a range of programs to empower you in reaching your fitness goals. For you to experience results faster than ever before, our trainers will design a program that is personalized just for you.",
-    buttonText: "Check out our Workouts",
+      "We all know that getting in shape can be a real challenge. That’s why we offer a variety of programs to help you meet your fitness goals. Our trainers will work with you to create a program that is tailored specifically for you – so you can see results faster than ever before.",
+    buttonText: "Check out our Fitness Classes",
   },
 ];
 
@@ -93,6 +93,9 @@ export default function Home() {
     }
     if (buttonText === 'Our Coaches') {
       navigation.push(`/coaches`)
+    }
+    if (buttonText === 'Check out our Fitness Classes') {
+      navigation.push(`/classes`)
     }
   }
   useEffect(() => {
@@ -153,8 +156,8 @@ export default function Home() {
         </div>
       </section>
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
-        <div className="relative flex-1">
-          <div className="relative flex flex-col items-start justify-between">
+        <div className="relative flex-1 m-10">
+          <div className="relative flex flex-col items-start justif-between">
             <h2 className="text-4xl font-bold text-center ml-0 sm:ml-10">Get customized classes</h2>
             <h5 className="w-full">
               <p className=" text-justify lg:text-left text-lg font-normal leading-9 mt-4 ml-0 sm:ml-10">
@@ -240,9 +243,12 @@ export default function Home() {
         </div>
         <div className="w-full flex justify-center mt-5">
           <Link href="/blogs">
-            <p className="text-[#f2994a] underline text-2xl font-bold">
-              View blogs ⟶
-            </p>
+            <div className="flex">
+              <p className="text-[#f2994a] underline text-2xl font-bold">
+                View blogs
+              </p>
+              <span className="text-[#f2994a] text-2xl font-bold">⟶</span>
+            </div>
           </Link>
         </div>
       </section>
