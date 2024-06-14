@@ -23,12 +23,12 @@ const menus: IMenu[] = [
     path: "/exercises",
   },
   {
-    label: "Classes",
-    path: "/classes",
-  },
-  {
     label: "Coaches",
     path: "/coaches",
+  },
+  {
+    label: "Classes",
+    path: "/classes",
   },
   {
     label: "Products",
@@ -68,7 +68,7 @@ const Menu = () => {
   return (
     <section className="h-14 sm:h-16 sm:bg-gray-50 bg-[#34383d] fixed w-full z-10">
 
-      <nav className="flex flex-row items-center justify-between sm:justify-center h-14 sm:h-16">
+      <nav className="flex flex-row items-center sm:justify-center justify-between h-14 sm:h-16">
         <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white" onClick={toggleMenu}>
 
           <div>
@@ -77,7 +77,7 @@ const Menu = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="sm:hidden bg-white w-full h-[961px] fixed top-14 left-0 flex flex-col text-white">
+          <div className="sm:hidden bg-white w-full h-[1000px] fixed top-14 left-0 flex flex-col text-white">
             {menus.map((menu, index) => (
               <Link
                 key={menu.path}
@@ -85,12 +85,30 @@ const Menu = () => {
                 onClick={() => {
                   setIsMenuOpen(false);
                 }}
-                className={`block px-48 py-4 border-b-2 ${index === activeIndex ? "border-b-4 border-[#34383D] text-[#f2994a] hover:text-gray-500" : "text-black hover:text-[#f2994a]"
+                className={`flex justify-center items-center block  px-48 py-5 text-xl border-b-2 ${index === activeIndex ? "border-b-4 border-[#34383D] text-[#f2994a] hover:text-gray-500" : "text-black hover:text-[#f2994a]"
                   }`}
               >
-                <span>{menu.label}</span>
+                <span className={`${index !== activeIndex ? "hover:text-[#f2994a]" : ""
+                  } ${index === activeIndex ? "text-[#f2994a] hover:text-gray-500" : "text-black"}`}>{menu.label}</span>
               </Link>
             ))}
+            {/* <Link href="/cart">
+              <div
+                onClick={() => {
+                  setIsCartActive(true);
+                  setActiveIndex(undefined);
+                  setIsMenuOpen(false); // Close menu when cart is clicked
+                }}
+                className={`flex items-center justify-center block text-2xl px-48 py-8 border-b-2 text-black hover:text-[#f2994a]`}
+              >
+                <img
+                  src="/assets/images/home/menu-cart.png"
+                  alt="Shopping Cart"
+                  className="w-full h-full"
+                />
+                <span className="ml-2">Shopping Cart</span>
+              </div>
+            </Link> */}
           </div>
         )}
         <div className="sm:hidden bg-[#34383d] w-14 h-full flex items-center justify-center text-white">
@@ -107,7 +125,12 @@ const Menu = () => {
             <img src="/assets/images/shapemeup_logo.png" alt="shapemeup_logo" />
           </Link>
         </div>
-
+        <div
+          className="sm:hidden sm:bg-[#f2994a] px-10 h-full flex items-center text-white cursor-pointer"
+          onClick={() => setIsOpen(true)}
+        >
+          Login
+        </div>
         <div className="sm:flex flex-1 hidden items-center justify-between h-full">
           {menus.map((menu, index) => (
             <Link
@@ -121,7 +144,7 @@ const Menu = () => {
 
               className={`inline-block px-10 py-4 ${index === activeIndex
                 ? "border-b-4 border-[#34383D] text-[#f2994a] h-full"
-                : "text-black"
+                : "text-black "
                 }`}
             >
               <span className={`${index !== activeIndex ? "hover:text-[#f2994a]" : ""
@@ -136,7 +159,7 @@ const Menu = () => {
                 setIsCartActive(true);
                 setActiveIndex(undefined);
               }}
-              className={`flex items-center justify-center h-full w-full px-10 py-5  ${isCartActive ? "text-opacity-50 hover:text-opacity-30" : "text-black"}`}
+              className={`sm:block hidden flex items-center justify-center h-full w-full px-10 py-5  ${isCartActive ? "text-opacity-50 hover:text-opacity-30" : "text-black"}`}
             >
               <img
                 src="/assets/images/home/menu-cart.png"
@@ -154,14 +177,14 @@ const Menu = () => {
           </div>
           {session?.user?.email ? (
             <div
-              className="bg-[#34383d] px-10 h-full flex items-center text-white"
+              className="bg-[#34383d] px-10 h-full flex items-center text-white cursor-pointer"
               onClick={() => signOut()}
             >
               Logout
             </div>
           ) : (
             <div
-              className="bg-[#34383d] px-10 h-full flex items-center text-white"
+              className="sm:bg-[#f2994a] px-10 h-full flex items-center text-white cursor-pointer"
               onClick={() => setIsOpen(true)}
             >
               Login

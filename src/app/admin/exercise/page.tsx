@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Pagination";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import {
   useAllExercise,
@@ -22,25 +22,52 @@ interface Props {
 const ExercisesPage = () => {
   const { data: exerciseData, isLoading, isError } = useAllExercise();
   const { mutate: deleteExercise } = useDeleteExercise();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredExercise, setFilteredExercise] = useState<IExercise[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
   // const { mutate: updateExercise } = useUpdateExercise({} as IExercise);
-  const exercise: IExercise[] = exerciseData?.data?.data || [];
+  const exercise: IExercise[] = exerciseData?.data?.data
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredExercise.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
 
   const onDeleteExercise = async (id: string) => {
     await deleteExercise(id);
   };
-  // const onUpdateExercise = async (id: string) => {
-  //   await updateExercise(id);
-  // };
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  useEffect(() => {
+    if (Array.isArray(exercise)) {
+      const filtered = exercise.filter(exercises =>
+        exercises.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredExercise(filtered);
+    }
+  }, [searchTerm, exercise]);
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) {
     return <div>Error loading exercises. Please try again later.</div>;
   }
+  // const onUpdateExercise = async (id: string) => {
+  //   await updateExercise(id);
+  // };
+
+
   return (
     <div className="w-full h-full bg-[#F7F8FC]">
       <div className="p-5 md:p-10 flex flex-col items-center">
         <div className="w-full flex items-center justify-between">
-          <h4>Exercises</h4>
+          <h4 className="font-bold">Exercises</h4>
           <div className="flex items-center justify-end gap-5">
             <div className="relative">
               <div className="relative">
@@ -49,6 +76,7 @@ const ExercisesPage = () => {
                   name="search"
                   placeholder="Search"
                   id="search"
+                  onChange={handleInputChange}
                   className="w-full md:w-60 h-10 rounded-md bg-white text-black px-2 py-1 border border-gray-300 pl-8" // Adjust padding for better alignment
                 />
                 <Image
@@ -66,14 +94,14 @@ const ExercisesPage = () => {
                 type="button"
                 className="bg-[#F2994A] px-4 text-white h-10 rounded-md"
               >
-                <Link href={"/admin/exercise/new"}>+ Add New</Link>
+                <Link href={"/admin/exercise/new"}>+Add New</Link>
               </button>
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
-          {Array.isArray(exercise) &&
-            exercise.map((exercise) => (
+        {Array.isArray(exercise) && filteredExercise.length > 0 ? (
+          <div className="w-full flex flex-wrap items-center justify-between gap-5 my-8 ml-0">
+            {currentItems.map((exercise) => (
               <ExerciseCards
                 exercise={exercise}
                 key={exercise._id}
@@ -81,9 +109,30 @@ const ExercisesPage = () => {
               // onUpdateExercise={onUpdateExercise}
               />
             ))}
-        </div>
+          </div>
+        ) : (
+          <div className="p-32">
+            <div className="flex justify-center items-center w-full h-80">
+              <Image
+                src="/assets/images/admin/no_records.png"
+                alt="No Exercise available"
+                className="max-w-full max-h-full"
+                width={701}
+                height={459}
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <p className="text-xl font-bold font-nunito p-5">No Records Found</p>
+            </div>
+          </div>
+        )}
         <div className="w-full flex justify-end ml-8">
-          <Pagination />
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={filteredExercise.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </div>
       </div>
     </div>

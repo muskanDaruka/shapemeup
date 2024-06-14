@@ -14,6 +14,8 @@ const exerciseSchema = new Schema<ExerciseType>({
   description: String,
   instructions: String,
   externalLinks: String,
+  metaTitle: String,
+  metaDescription: String,
 });
 
 const Exercise =

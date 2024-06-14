@@ -46,6 +46,7 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
     const newSlide = currentSlide < classess.length - 1 ? currentSlide + 1 : 0;
     setCurrentSlide(newSlide);
   };
+  const otherClassess = classess.filter((classes: IClass) => classes._id !== params.id);
 
   useEffect(() => {
     const handleResize = () => {
@@ -57,6 +58,11 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) {
+    return <div>Error loading classes. Please try again later.</div>;
+  }
   return (
     <div>
       <section className="relative">
@@ -124,18 +130,20 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
           </center>
           <h3 className="font-bold text-xl m-8">About this course:</h3>
           <p className="text-xl m-8">{pageClassesData[0]?.about}</p>
+          <h3 className="font-bold text-xl m-8">Coach Name:</h3>
+          <p className="text-xl m-8">{pageClassesData[0]?.assignedCoach}</p>
           <h3 className="font-bold text-xl m-8">Benefits:</h3>
           <p className="text-xl m-8">{pageClassesData[0]?.benefits}</p>
-          <p className="m-8 font-bold">
+          {/* <p className="m-8 font-bold">
             For more zoom click:
             <span className="block md:inline text-[#f2994a]">
               https://www.acefitness.org/education-and-resources/lifestyle/exercise-library/14/bird-dog/
             </span>
-          </p>
+          </p> */}
         </div>
       </section>
       <section className="relative ">
-        <h1 className="font-bold text-2xl text-center bg-[#f5f5f5]">You might also be interested in</h1>
+        <h1 className="font-bold text-2xl text-center bg-[#f5f5f5] p-5">You might also be interested in</h1>
         {classess.length > 0 && ( // Conditionally render "previous" arrow
           <img
             src="/assets/images/icons/previous.png"
@@ -144,19 +152,34 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
             className="cursor-pointer absolute left-0 hidden sm:block transform -translate-y-1/2 sm:bottom-1/3 sm:left-2%"
           />
         )}
-        <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
-          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true} showIndicators={false}
-            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
-            {classess.slice(0, 3).map((classes: IClass, index: number) => (
-              <div key={index} className="w-full">
-                <Link href={`/classes/${classes._id}`}>
-                  <ClassUserCard classes={classes} />
-                </Link>
-              </div>
-            ))}
+        <div className="hidden sm:block sm:bg-[#f5f5f5]">
+
+          <Carousel
+            showArrows={false}
+            infiniteLoop={false}
+            showThumbs={false}
+            showStatus={false}
+            centerMode={false}
+            showIndicators={true}
+            autoPlay={true}
+            interval={3000}
+          >
+            {otherClassess && otherClassess.length > 0 && (
+              [...Array(Math.ceil(otherClassess.length / 3))].map((_, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  {otherClassess.slice(index * 3, (index + 1) * 3).map((classes: IClass) => (
+                    <div key={classes._id} className="px-5 py-10">
+                      <Link href={`/classes/${classes._id}`}>
+                        <ClassUserCard classes={classes} />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))
+            )}
           </Carousel>
         </div>
-        {classess.length > 0 && ( // Conditionally render "next" arrow
+        {classess.length > 0 && (
           <img
             src="/assets/images/icons/next.png"
             alt="next"
@@ -164,6 +187,27 @@ const ClassView: FC<ClassViewProps> = ({ params }) => {
             className="cursor-pointer absolute right-0 hidden sm:block transform -translate-y-1/2 sm:bottom-1/3 sm:right-2%"
           />
         )}
+        <div className="sm:hidden">
+          <Carousel
+            showArrows={false}
+            infiniteLoop={false}
+            showThumbs={false}
+            showStatus={false}
+            centerMode={true}
+            showIndicators={true}
+            autoPlay={true}
+            centerSlidePercentage={centerSlidePercentage}
+          // onChange={(index) => setCurrentSlide(index)}
+          >
+            {otherClassess.map((classes: IClass) => (
+              <div key={classes._id} className="py-10 px-5 flex flex-col items-center justify-center sm:flex-row">
+                <Link href={`/classes/${classes._id}`}>
+                  <ClassUserCard classes={classes} />
+                </Link>
+              </div>
+            ))}
+          </Carousel>
+        </div>
       </section>
       <Footer />
     </div>

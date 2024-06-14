@@ -27,16 +27,16 @@ export type AuthType = {
 
 const initState: AuthType = {
   isOpen: false,
-  setIsOpen: () => {},
+  setIsOpen: () => { },
   isRegistrationOpen: false,
-  setIsRegistrationOpen: () => {},
+  setIsRegistrationOpen: () => { },
   isForgotPasswordOpen: false,
-  setIsForgotPasswordOpen: () => {},
-  setIsEnroll: () => {},
+  setIsForgotPasswordOpen: () => { },
+  setIsEnroll: () => { },
   isEnroll: false,
-  setIsAdmin: () => {},
+  setIsAdmin: () => { },
   isAdmin: false,
-  setIsLogin: () => {},
+  setIsLogin: () => { },
   isLogin: false,
 };
 

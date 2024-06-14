@@ -2,13 +2,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import {
-    uploadToTmpFilesDotOrg_DEV_ONLY,
-    BlockNoteEditor,
-} from "@blocknote/core";
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
-import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { IProducts } from "../../../../types/products.type"
 import Link from "next/link";
@@ -36,26 +30,6 @@ const NewProductsPage = () => {
         }
     }, [productsData]);
 
-    const editor = useBlockNote({
-        onEditorContentChange: async (editor: BlockNoteEditor) => {
-            // Log the document to console on every update
-            const markdown: string = await editor.blocksToMarkdown(
-                editor.topLevelBlocks
-            );
-            console.log(markdown);
-            setProducts((prev) => ({
-                ...prev,
-                description: markdown,
-            } as typeof prev));
-        },
-        domAttributes: {
-            editor: {
-                class: "bg-white h-40 border border-gray-300 overflow-scroll",
-                "data-test": "editor",
-            },
-        },
-        uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
-    });
 
     const onHandleChange = (e: any) => {
         const {
@@ -66,11 +40,14 @@ const NewProductsPage = () => {
             [name]: value,
         } as typeof prev));
     };
+
     const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-        if (e.key === 'Enter') {
+        const target = e.target as HTMLTextAreaElement;
+        if (e.key === 'Enter' && target.tagName.toLowerCase() !== 'textarea') {
             e.preventDefault();
         }
     };
+
     const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
@@ -86,6 +63,28 @@ const NewProductsPage = () => {
         }
 
     };
+    const handleBrowseClick = (fieldName: keyof typeof products) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*,.jpg,.jpeg,.png,.gif,.bmp,.svg', 'video/*'; // Accept only image files
+        input.onchange = (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target.files && target.files.length > 0) {
+                const file = target.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        setProducts((prev) => ({
+                            ...prev,
+                            [fieldName]: reader.result as string,
+                        } as typeof prev));
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        input.click();
+    };
 
     return (
         <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
@@ -96,7 +95,7 @@ const NewProductsPage = () => {
             </div>
             <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
                 <div className="flex flex-col gap-5">
-                    <h5>Add Products details</h5>
+                    <h5 className="font-bold">Add Products details</h5>
                     <div className="flex items-end justify-between gap-3">
                         <div className="grid gap-2 w-full">
                             <label htmlFor="image">Upload products image</label>
@@ -107,13 +106,15 @@ const NewProductsPage = () => {
                                 name="imageUrl"
                                 onChange={onHandleChange}
                                 value={products.imageUrl}
+                                required
                             />
                         </div>
                         <button
                             type="button"
                             className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+                            onClick={() => handleBrowseClick('imageUrl')}
                         >
-                            {/* TODO: Plus Icon */}Browse
+                            +Browse
                         </button>
                     </div>
                     <div className="grid gap-2 w-full">
@@ -125,6 +126,7 @@ const NewProductsPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={products.name}
+                            required
                         />
                     </div>
 
@@ -137,6 +139,7 @@ const NewProductsPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={products.category}
+                            required
                         />
                     </div>
 
@@ -148,6 +151,7 @@ const NewProductsPage = () => {
                             className="rounded-md px-3 h-40 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={products.description}
+                            required
                         />
                     </div>
 

@@ -2,13 +2,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import {
-    uploadToTmpFilesDotOrg_DEV_ONLY,
-    BlockNoteEditor,
-} from "@blocknote/core";
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
-import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { ICoach } from "../../../../types/coach.type"
 import Link from "next/link";
@@ -38,29 +32,6 @@ const NewCoachPage = () => {
         }
     }, [coachData]);
 
-    const editor = useBlockNote({
-        onEditorContentChange: async (editor: BlockNoteEditor) => {
-            // Log the document to console on every update
-            const markdown: string = await editor.blocksToMarkdown(
-                editor.topLevelBlocks
-            );
-            console.log(markdown);
-            setCoach((prev) => ({
-                ...prev,
-                bio: markdown,
-            } as typeof prev));
-        },
-        domAttributes: {
-            editor: {
-                class: "bg-white h-40 border border-gray-300 overflow-scroll",
-                "data-test": "editor",
-            },
-        },
-        uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
-    });
-
-
-
     const onHandleChange = (e: any) => {
         const {
             target: { name, value },
@@ -71,7 +42,8 @@ const NewCoachPage = () => {
         } as typeof prev));
     };
     const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-        if (e.key === 'Enter') {
+        const target = e.target as HTMLTextAreaElement;
+        if (e.key === 'Enter' && target.tagName.toLowerCase() !== 'textarea') {
             e.preventDefault();
         }
     };
@@ -93,6 +65,25 @@ const NewCoachPage = () => {
         }
 
     };
+    const handleBrowseClick = (fieldName: keyof typeof coach) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*,.jpg,.jpeg,.png,.gif,.bmp,.svg'; // Accept only image files
+        input.onchange = (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target.files && target.files.length > 0) {
+                const file = target.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        setCoach({ ...coach, [fieldName]: reader.result as string });
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        input.click();
+    };
 
     return (
         <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
@@ -103,7 +94,7 @@ const NewCoachPage = () => {
             </div>
             <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
                 <div className="flex flex-col gap-5">
-                    <h5>Add Coach details</h5>
+                    <h5 className="font-bold">Add Coach details</h5>
                     <div className="flex items-end justify-between gap-3">
                         <div className="grid gap-2 w-full">
                             <label htmlFor="image">Upload coach photo</label>
@@ -114,13 +105,15 @@ const NewCoachPage = () => {
                                 name="photoUrl"
                                 onChange={onHandleChange}
                                 value={coach.photoUrl}
+                                required
                             />
                         </div>
                         <button
                             type="button"
                             className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+                            onClick={() => handleBrowseClick('photoUrl')}
                         >
-                            {/* TODO: Plus Icon */}Browse
+                            +Browse
                         </button>
                     </div>
                     <div className="grid gap-2 w-full">
@@ -132,6 +125,7 @@ const NewCoachPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={coach.name}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -142,6 +136,7 @@ const NewCoachPage = () => {
                             className="rounded-md px-3 h-40 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={coach.bio}
+                            required
                         />
                     </div>
 
@@ -154,6 +149,7 @@ const NewCoachPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={coach.yearsOfExp ?? ''}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -165,6 +161,7 @@ const NewCoachPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={coach.clients !== null ? coach.clients : ''}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -176,6 +173,7 @@ const NewCoachPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={coach.certifications !== null ? coach.certifications : ''}
+                            required
                         />
                     </div>
                     <div className="w-full flex justify-end">

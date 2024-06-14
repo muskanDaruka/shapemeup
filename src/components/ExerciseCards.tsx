@@ -18,16 +18,16 @@ type Props = {
 
 const ExerciseCards: FC<Props> = ({ exercise, onDeleteExercise }) => {
   const navigation = useRouter();
-  const { imageUrl, name, category, time, difficulty, _id } = exercise;
+  const { imageUrl, name, category, time, durationType, difficulty, _id } = exercise;
   const { mutate: updateExercise } = useUpdateExercise(exercise);
 
   const handleEditClick = async () => {
     // await updateExercise(exercise);
-    navigation.push(`/admin/exercises/${_id}`);
+    navigation.push(`/admin/exercise/${_id}`);
   };
   return (
     <div className="w-full md:w-[48%] rounded-md overflow-hidden">
-      <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
+      <div className="flex w-full flex-1 h-[200px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
         <div className="overflow-hidden w-5/12">
           <img
             src={imageUrl}
@@ -35,14 +35,14 @@ const ExerciseCards: FC<Props> = ({ exercise, onDeleteExercise }) => {
             className="bg-cover w-full h-full"
           />
         </div>
-        <div className="p-5 flex-1 flex flex-col items-start justify-between">
+        <div className="p-2 flex-1 flex flex-col items-start justify-evenly">
           <h5 className="text-[#F2994A] text-xl font-bold">{name}</h5>
 
           <h6>
             Category: <small>{category}</small>
           </h6>
           <h6>
-            Time: <small>{time}</small>
+            Time: <small>{time} {durationType}</small>
           </h6>
           <h6>
             Difficulty: <small>{difficulty}</small>

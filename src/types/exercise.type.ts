@@ -13,4 +13,6 @@ export interface IExercise extends Document {
   description: string;
   instructions: string;
   externalLinks: string;
+  metaTitle: string;
+  metaDescription: string;
 }

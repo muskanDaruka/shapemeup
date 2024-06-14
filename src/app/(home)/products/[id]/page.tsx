@@ -6,7 +6,6 @@ import { useAllProducts } from "@/hooks/products.hooks";
 import { IProducts } from "@/types/products.type";
 import ProductUserCard from "@/components/ProductUserCard";
 import Image from "next/image";
-import leftArrow from "@/images/icons/leftArrow.svg"
 import Link from "next/link";
 
 interface ProductViewProps {
@@ -28,6 +27,7 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
     // if (products.length === 0) {
     //     return null;
     // }
+    const otherProducts = products.filter((product: IProducts) => product._id !== params.id);
 
     return (
         <div>
@@ -79,7 +79,7 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
             <section className="md:m-10">
                 <h1 className="text-black text-4xl mb-[20px] font-bold">Related products</h1>
                 <div className="flex flex-col md:flex-row w-full md:ml-2 sm:container items-center justify-center text-center mx-auto ">
-                    {products.map((product: IProducts, index: number) => (
+                    {/* {otherProducts.map((product: IProducts, index: number) => (
                         index % 2 === 1 && index < 3 && (
                             <div key={index / 2} className="mb-4 sm:mb-0 md:flex gap-10">
                                 <ProductUserCard key={product.id} product={product} />
@@ -88,6 +88,14 @@ const ProductsView: FC<ProductViewProps> = ({ params }) => {
                                 )}
                             </div>
                         )
+                    ))} */}
+
+                    {otherProducts.slice(-4).map((product: IProducts) => (
+                        <div key={product._id} className="px-5 py-10">
+                            <Link href={`/products/${product._id}`}>
+                                <ProductUserCard product={product} />
+                            </Link>
+                        </div>
                     ))}
                 </div>
             </section>

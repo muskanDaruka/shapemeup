@@ -1,4 +1,4 @@
-import { Document } from "mongoose";
+// import { Document } from "mongoose";
 
 export interface IBlog {
   _id: string;
@@ -14,8 +14,7 @@ export interface IBlog {
   description: string;
   keywords: string;
   blogSlugUrl: string;
-  faqQues: string;
-  faqAns: string;
+  faq: { ques: string; ans: string }[];
   ctaBlogImg: string;
   ctaBlogImgUrl: string;
 }

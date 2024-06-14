@@ -1,6 +1,6 @@
 "use client";
 import Pagination from "@/components/Pagination";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import {
   useAllCoach,
@@ -22,9 +22,35 @@ interface Props {
 const CoachesPage = () => {
   const { data: coachData, isLoading, isError } = useAllCoach();
   const { mutate: deleteCoach } = useDeleteCoach();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCoach, setFilteredCoach] = useState<ICoach[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6);
   // const { mutate: updateCoach } = useUpdateCoach({} as ICoach);
-  const coach: ICoach[] = coachData?.data?.data || [];
+  // const coach: ICoach[] = coachData?.data?.data || [];
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredCoach.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  useEffect(() => {
+    if (coachData && Array.isArray(coachData.data.data)) {
+      const coach: ICoach[] = coachData.data.data;
+      // Filter blogs based on search term
+      const filtered = coach.filter(coachs =>
+        coachs.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setFilteredCoach(filtered);
+    }
+  }, [searchTerm, coachData]);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+  };
   const onDeleteCoach = async (id: string) => {
     await deleteCoach(id);
   };
@@ -40,7 +66,7 @@ const CoachesPage = () => {
     <div className="w-full h-full bg-[#F7F8FC]">
       <div className="p-5 md:p-10 flex flex-col items-center">
         <div className="w-full flex items-center justify-between">
-          <h4>Coaches</h4>
+          <h4 className="font-bold">Coaches</h4>
           <div className="flex items-center justify-end gap-5">
             <div className="relative">
               <div className="relative">
@@ -49,6 +75,7 @@ const CoachesPage = () => {
                   name="search"
                   placeholder="Search"
                   id="search"
+                  onChange={handleInputChange}
                   className="w-full md:w-60 h-10 rounded-md bg-white text-black px-2 py-1 border border-gray-300 pl-8" // Adjust padding for better alignment
                 />
                 <Image
@@ -71,9 +98,9 @@ const CoachesPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-wrap items-center justify-between gap-4 md:gap-8 lg:gap-10 my-8 ml-0">
-          {Array.isArray(coach) &&
-            coach.map((coach) => (
+        {filteredCoach.length > 0 ? (
+          <div className="w-full flex flex-wrap items-center justify-between gap-5 my-8 ml-0">
+            {currentItems.map((coach) => (
               <CoachCards
                 {...coach}
                 key={coach._id}
@@ -81,9 +108,30 @@ const CoachesPage = () => {
               // onUpdateCoach={onUpdateCoach}
               />
             ))}
-        </div>
+          </div>
+        ) : (
+          <div className="p-32">
+            <div className="flex justify-center items-center w-full h-80">
+              <Image
+                src="/assets/images/admin/no_records.png"
+                alt="No Coach available"
+                className="max-w-full max-h-full"
+                height={459}
+                width={701}
+              />
+            </div>
+            <div className="flex items-center justify-center">
+              <p className="text-xl font-bold font-nunito p-5">No Records Found</p>
+            </div>
+          </div>
+        )}
         <div className="w-full flex justify-end ml-8">
-          <Pagination />
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            totalItems={filteredCoach.length}
+            paginate={paginate}
+            currentPage={currentPage}
+          />
         </div>
       </div>
     </div>

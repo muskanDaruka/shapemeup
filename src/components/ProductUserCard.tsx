@@ -25,6 +25,13 @@ const ProductUserCard: FC<ProductUserCardProps> = ({ product }) => {
                 <h1 className="font-bold mt-6 ml-5">
                     {product.name}
                 </h1>
+                <div className="w-32 ml-32 mt-2">
+                    <img
+                        src="/assets/images/coaches/star.png"
+                        alt="review"
+                        className=""
+                    />
+                </div>
             </div>
         </div>
     );

@@ -21,13 +21,13 @@ const Hero: FC<Props> = ({ data, onButtonClick }) => {
               className="object-cover -z-10"
               priority
             />
-            <div className="text-white flex flex-col items-center justify-center h-full space-y-5">
-              <h2 className="text-[clamp(1.5rem,1.7em,2rem)] font-bold">
+            <div className="text-white flex flex-col items-center justify-center h-full">
+              <h2 className="text-2xl font-bold">
                 {i.title}
               </h2>
-              <p className="text-base sm:text-lg px-10">{i.description}</p>
+              <p className="text-base sm:text-lg px-8 w-10/12 sm:w-6/12 pb-2">{i.description}</p>
               {i.buttonText !== "" && onButtonClick && (
-                <button onClick={() => onButtonClick(i.buttonText)} className="bg-[#f2994a] px-12 py-5 rounded-md text-black text-xl">
+                <button onClick={() => onButtonClick(i.buttonText)} className="bg-[#f2994a] sm:px-12 sm:py-5 px-2 py-2 rounded-md text-black text-xl">
                   {i.buttonText}
                 </button>
               )}

@@ -2,13 +2,9 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import {
-    uploadToTmpFilesDotOrg_DEV_ONLY,
-    BlockNoteEditor,
-} from "@blocknote/core";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
-import "@blocknote/core/style.css";
 import { FormEvent, useEffect, useState } from "react";
 import { IClass } from "../../../../types/classes.type"
 import Link from "next/link";
@@ -44,30 +40,42 @@ const NewClassesPage = () => {
         if (classData?.data?.data) {
             setClasses(classData?.data?.data);
         }
-
     }, [classData]);
 
-    const editor = useBlockNote({
-        onEditorContentChange: async (editor: BlockNoteEditor) => {
-            // Log the document to console on every update
-            const markdown: string = await editor.blocksToMarkdown(
-                editor.topLevelBlocks
-            );
-            console.log(markdown);
-            setClasses((prev) => ({
+    useEffect(() => {
+        console.log(classData);
+        if (classData?.data?.data) {
+            const { releaseDate, ...rest } = classData.data.data;
+            // Convert releaseDate to Date object if it exists
+            const formattedReleaseDate = releaseDate ? new Date(releaseDate) : null;
+            setClasses(prev => ({
                 ...prev,
-                about: markdown,
-            } as typeof prev));
-        },
-        domAttributes: {
-            editor: {
-                class: "bg-white h-40 border border-gray-300 overflow-scroll",
-                "data-test": "editor",
-            },
-        },
-        uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
-    });
+                ...rest,
+                releaseDate: formattedReleaseDate
+            }));
+        }
+    }, [classData]);
 
+    const handleAboutEditorChange = (value: string) => {
+        setClasses((prev) => ({ ...prev, about: value }));
+    };
+    const handleBenefitsEditorChange = (value: string) => {
+        setClasses((prev) => ({ ...prev, benefits: value }));
+    };
+    const modules = {
+        toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+            [{ font: [] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+                { list: "ordered" },
+                { list: "bullet" },
+                { indent: "-1" },
+                { indent: "+1" },
+            ],
+            ["link", "image", "video"],
+        ],
+    }
     const onHandleChange = (e: any) => {
         const {
             target: { name, value },
@@ -85,7 +93,8 @@ const NewClassesPage = () => {
         }
     };
     const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-        if (e.key === 'Enter') {
+        const target = e.target as HTMLTextAreaElement;
+        if (e.key === 'Enter' && target.tagName.toLowerCase() !== 'textarea') {
             e.preventDefault();
         }
     };
@@ -104,6 +113,28 @@ const NewClassesPage = () => {
         }
 
     };
+    const handleBrowseClick = (fieldName: keyof typeof classes) => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*,.jpg,.jpeg,.png,.gif,.bmp,.svg', 'video/*'; // Accept only image files
+        input.onchange = (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target.files && target.files.length > 0) {
+                const file = target.files[0];
+                const reader = new FileReader();
+                reader.onload = () => {
+                    if (reader.result) {
+                        setClasses((prev) => ({
+                            ...prev,
+                            [fieldName]: reader.result as string,
+                        } as typeof prev));
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        };
+        input.click();
+    };
 
     return (
         <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
@@ -114,7 +145,7 @@ const NewClassesPage = () => {
             </div>
             <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
                 <div className="flex flex-col gap-5">
-                    <h5>Add new Class</h5>
+                    <h5 className="font-bold">Add new Class</h5>
                     <div className="flex items-end justify-between gap-3">
                         <div className="grid gap-2 w-full">
                             <label htmlFor="image">Upload class photo</label>
@@ -125,13 +156,15 @@ const NewClassesPage = () => {
                                 name="photoUrl"
                                 onChange={onHandleChange}
                                 value={classes.photoUrl}
+                                required
                             />
                         </div>
                         <button
                             type="button"
                             className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+                            onClick={() => handleBrowseClick('photoUrl')}
                         >
-                            {/* TODO: Plus Icon */}Browse
+                            +Browse
                         </button>
                     </div>
                     <div className="grid gap-2 w-full">
@@ -143,6 +176,7 @@ const NewClassesPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes.name}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -153,6 +187,7 @@ const NewClassesPage = () => {
                             className="rounded-md px-3 h-40 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes.description}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -164,6 +199,7 @@ const NewClassesPage = () => {
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes.assignedCoach}
+                            required
                         />
                     </div>
                     <div className="grid gap-2 w-full">
@@ -171,14 +207,11 @@ const NewClassesPage = () => {
                         <input
                             type="date"
                             id="date"
-                            name="date"
+                            name="releaseDate"
+                            required
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
-                            value={
-                                classes.releaseDate instanceof Date
-                                    ? classes.releaseDate.toISOString().split('T')[0]
-                                    : ''
-                            }
+                            value={classes.releaseDate instanceof Date ? classes.releaseDate.toISOString().split('T')[0] : ''}
                         />
                     </div>
 
@@ -188,6 +221,7 @@ const NewClassesPage = () => {
                             type="text"
                             id="type"
                             name="type"
+                            required
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes.type}
@@ -199,6 +233,7 @@ const NewClassesPage = () => {
                             type="text"
                             id="days"
                             name="days"
+                            required
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes && classes.days !== null && classes.days !== undefined ? classes.days.toString() : ''}
@@ -210,6 +245,7 @@ const NewClassesPage = () => {
                             type="text"
                             id="duration"
                             name="duration"
+                            required
                             className="rounded-md px-3 h-10 w-full border border-gray-300"
                             onChange={onHandleChange}
                             value={classes.duration !== null && classes.duration !== undefined ? classes.duration.toString() : ''}
@@ -221,6 +257,7 @@ const NewClassesPage = () => {
                             <input
                                 type="text"
                                 id="video"
+                                required
                                 className="rounded-md px-3 h-10 w-full border border-gray-300"
                                 name="videoUrl"
                                 onChange={onHandleChange}
@@ -230,27 +267,32 @@ const NewClassesPage = () => {
                         <button
                             type="button"
                             className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+                            onClick={() => handleBrowseClick('videoUrl')}
                         >
-                            {/* TODO: Plus Icon */}Browse
+                            +Browse
                         </button>
                     </div>
-                    <div className="grid gap-2 w-full">
-                        <label htmlFor="about">About this course</label>
-                        <BlockNoteView editor={editor} theme={"light"} />
-                    </div>
-
-                    <div className="grid gap-2 w-full">
-                        <label htmlFor="benefits">Benefits</label>
-                        <textarea
-                            id="benefits"
-                            name="benefits"
-                            className="rounded-md px-3 h-40 w-full border border-gray-300"
-                            onChange={onHandleChange}
-                            value={classes.benefits}
+                    <div className="grid gap-2 w-full" aria-required >
+                        <label htmlFor="About">About</label>
+                        <ReactQuill
+                            theme="snow"
+                            id="about"
+                            value={classes.about}
+                            onChange={handleAboutEditorChange}
+                            modules={modules}
                         />
                     </div>
-
-                    <div className="w-full flex justify-end">
+                    <div className="grid gap-2 w-full mt-8" aria-required >
+                        <label htmlFor="benefits">Benefits</label>
+                        <ReactQuill
+                            theme="snow"
+                            id="benefits"
+                            value={classes.benefits}
+                            onChange={handleBenefitsEditorChange}
+                            modules={modules}
+                        />
+                    </div>
+                    <div className="w-full flex justify-end mt-8">
                         <button
                             type="submit"
                             className="text-white bg-[#F2994A] px-3 py-2 rounded-md"

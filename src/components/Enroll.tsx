@@ -17,7 +17,7 @@ const Enroll = () => {
     };
     return (
         <>
-            <div className="w-[calc(50vw-100px)]  h-4/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all p-5">
+            <div className="w-[calc(50vw-400px)]  h-4/6 transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all p-5">
 
                 <button
                     onClick={handleCloseClick}

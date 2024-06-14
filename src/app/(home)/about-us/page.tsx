@@ -41,8 +41,8 @@ const AboutUs = () => {
           ))}
         </div>
       </section>
-      <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5">
-        <h5 className=" text-[#f2994a] font-bold text-4xl text-center">
+      <section className="bg-[#f5f5f5] w-full px-5 py-10 space-y-5 flex items-center justify-center">
+        <h5 className=" text-[#f2994a] font-bold text-4xl text-center w-10/12 sm:w-6/12">
           Designed to assist you in living a better, happier, and healthier
           life.
         </h5>

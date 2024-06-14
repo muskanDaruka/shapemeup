@@ -16,8 +16,8 @@ import { useAllExercise } from "@/hooks/exercise.hooks";
 import { IExercise } from "@/types/exercise.type";
 import { IBlog } from "@/types/blog.type";
 import { useRouter } from "next/navigation";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
+// import { Carousel } from "react-responsive-carousel";
+// import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const images: string[] = ["shapeme", "diet", "gym"];
 const cardImages: IcardImages[] = [
@@ -85,7 +85,7 @@ export default function Home() {
   const blogs = blogData?.data?.data || [];
   const { data: exerciseData } = useAllExercise();
   const navigation = useRouter();
-  const [centerSlidePercentage, setCenterSlidePercentage] = useState(33.3333);
+  // const [centerSlidePercentage, setCenterSlidePercentage] = useState(33.3333);
   const exercises = exerciseData?.data?.data || [];
   const handleButtonClick = (buttonText: string) => {
     if (buttonText === 'Check out our Workouts') {
@@ -98,22 +98,7 @@ export default function Home() {
       navigation.push(`/classes`)
     }
   }
-  useEffect(() => {
-    const handleResize = () => {
-      setCenterSlidePercentage(window.innerWidth > 425 ? 33.3333 : 100);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-  // if (exercises.length === 0) {
-  //   return null;
-  // }
-  // if (blogs.length === 0) {
-  //   return null;
-  // }
+
   return (
     <>
       <Hero data={heroImages} onButtonClick={handleButtonClick} />
@@ -129,24 +114,17 @@ export default function Home() {
             want to pick up your routine.
           </p>
         </h4>
-        <Carousel
-          showArrows={false}
-          infiniteLoop={true}
-          showThumbs={false}
-          showStatus={false}
-          centerMode={true}
-          centerSlidePercentage={centerSlidePercentage}
-        // onChange={(index) => setCurrentSlide(index)}
-        >
-          {exercises.map((exercise: IExercise, index: number) => (
-            <div key={index} className="bg-gray-100 py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
-              <Link href={`/exercises/${exercise._id}`}>
-                <ExerciseUserCard key={exercise.id} exercise={exercise} />
-              </Link>
-            </div>
-          ))}
-        </Carousel>
-
+        {Array.isArray(exercises) && exercises.length > 0 && (
+          <div className="bg-[#f5f5f5] py-10 px-5 flex flex-col gap-5 items-center justify-center sm:flex-row">
+            {exercises.slice(-3).reverse().map((exercise: IExercise, index: number) => (
+              <div key={index}>
+                <Link href={`/exercises/${exercise._id}`}>
+                  <ExerciseUserCard key={exercise.id} exercise={exercise} />
+                </Link>
+              </div>
+            ))}
+          </div>
+        )}
         <div className="w-full flex justify-center">
           <Link href={"/exercises"}>
             <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
@@ -156,7 +134,7 @@ export default function Home() {
         </div>
       </section>
       <section className="bg-white flex flex-col sm:flex-row px-5 py-10 relative gap-5">
-        <div className="relative flex-1 m-10">
+        <div className="relative flex-1 sm:m-10">
           <div className="relative flex flex-col items-start justif-between">
             <h2 className="text-4xl font-bold text-center ml-0 sm:ml-10">Get customized classes</h2>
             <h5 className="w-full">
@@ -191,8 +169,8 @@ export default function Home() {
         <h2 className="text-3xl sm:text-4xl font-bold text-center">
           Stay connected.Stay healthy.
         </h2>
-        <h4 className="text-center">
-          <p className="font-normal">
+        <h4 className="text-center flex items-center justify-center">
+          <p className="font-normal w-11/12 sm:w-6/12">
             Our team of personal trainers will help sculpt your perfect body in
             the comfort of your own home. Transform your physique with our safe
             and effective exercises - what are you waiting for? Get in touch
@@ -201,7 +179,7 @@ export default function Home() {
         </h4>
         <div className="w-full flex justify-center">
           <Link href={"/coaches"}>
-            <button className="bg-[#f2994a] text-black py-4 px-16 rounded-md text-lg">
+            <button className="bg-[#f2994a] text-black sm:py-4 sm:px-16 px-10 py-4 rounded-md text-lg">
               Connect with a Coach
             </button>
           </Link>
@@ -211,21 +189,23 @@ export default function Home() {
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4">
           The fitness blog
         </h2>
-        <h4 className="text-center mb-4">
-          A blog about fitness is a great way for people to stay in touch with
-          the latest news and trends on healthy living.
-        </h4>
+        <div className="flex items-center justify-center">
+          <h4 className="text-center mb-4 w-11/12 sm:w-6/12 ">
+            A blog about fitness is a great way for people to stay in touch with
+            the latest news and trends on healthy living.
+          </h4>
+        </div>
         <div className="mx-auto w-full sm:w-[1100px]">
           <div className="flex flex-col sm:flex-row mx-auto items-center justify-center text-center md:ml-[48px]">
-            {blogs.slice(0, 3).map((blog: IBlog, index: number) => (
+            {blogs?.slice(-3).map((blog: IBlog, index: number) => (
               <div
                 key={index}
                 className={`mb-4 flex ${index % 2 === 0
-                  ? "w-full sm:w-1/2 md:ml-2"
-                  : "w-full md:w-1/2 md:ml-2 "
+                  ? " sm:w-1/2 md:ml-2"
+                  : " md:w-1/2 md:ml-2 "
                   } `}
               >
-                <Link href={`/blogss/${blog._id}`}>
+                <Link href={`/blogs/${blog._id}`}>
                   <BlogUserCards
                     key={blog.id}
                     blog={blog}
@@ -286,10 +266,12 @@ export default function Home() {
         </div>
       </section>
       <section className="mt-4 relative">
-        <p className="text-center font-bold text-4xl my-4">
-          Making healthy living affordable, approachable, and attainable is our
-          goal.
-        </p>
+        <div className="flex items-center justify-center">
+          <p className="text-center font-bold text-4xl my-4 w-11/12 sm:w-6/12">
+            Making healthy living affordable, approachable, and attainable is our
+            goal.
+          </p>
+        </div>
         <div className="flex sm:flex-row flex-col items-center justify-between px-5 ">
           {images.map((image) => (
             <div key={image} className="w-full sm:w-auto relative flex-1 ">

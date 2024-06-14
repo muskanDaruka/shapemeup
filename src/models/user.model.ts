@@ -1,5 +1,5 @@
 import { Schema, model, Document, models, Model } from "mongoose";
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 import { IUser, IUserMethods, UserModel } from "@/types/user.type";
 
 type UserType = IUser & Document;

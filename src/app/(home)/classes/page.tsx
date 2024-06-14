@@ -76,11 +76,11 @@ const Classes = () => {
     <div>
       <section className="relative">
         <div className="relative flex flex-col lg:flex-row bg-gradient-to-r from-[#f0f5ff] via-[#f0f5ff] to-[#c2d4f7]">
-          <div className="mx-5 my-5 font-bold lg:block order-1 lg:order-2 pt-28">
+          <div className="mx-5 my-5 font-bold lg:block order-1 lg:order-2 sm:pt-26 pt-10">
             <h2 className="text-black text-2xl sm:text-3xl md:text-4xl font-bold m-2 sm:m-4 lg:m-8">
-              March 2022 Weight Loss Class
+              March 2024 Weight Loss Class
             </h2>
-            <p className="text-2xl font-normal mx-10 my-5">
+            <p className="text-2xl font-normal mx-10 my-5 w-10/12 sm:w-6/12">
               Looking for a way to get in shape? With this course you can
               achieve real results faster than you imagined. Mark this event in
               your calender for an early access.
@@ -104,7 +104,33 @@ const Classes = () => {
         </h2>
         <br />
         <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
-        {classess.length > 0 && ( // Conditionally render "previous" arrow
+        <div className="hidden sm:block">
+          <Carousel
+            showArrows={false}
+            infiniteLoop={false}
+            showThumbs={false}
+            showStatus={false}
+            centerMode={false}
+            showIndicators={true}
+            autoPlay={true}
+            interval={3000}
+          >
+            {classess && classess.length > 0 && (
+              [...Array(Math.ceil(classess.length / 3))].map((_, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  {classess.slice(index * 3, (index + 1) * 3).map((classes: IClass) => (
+                    <div key={classes._id} className="px-5 py-10">
+                      <Link href={`/classes/${classes._id}`}>
+                        <ClassUserCard classes={classes} />
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))
+            )}
+          </Carousel>
+        </div>
+        {classess.length > 0 && (
           <img
             src="/assets/images/icons/previous.png"
             alt="previous"
@@ -112,11 +138,20 @@ const Classes = () => {
             className="cursor-pointer absolute left-0 hidden sm:block transform -translate-y-1/2 sm:bottom-0 sm:left-2%"
           />
         )}
-        <div className="relative">
-          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
-            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
-            {classess.map((classes: IClass, index: number) => (
-              <div key={index} className="py-10 px-5 flex flex-col items-center justify-center sm:flex-row w-full">
+        <div className="sm:hidden">
+          <Carousel
+            showArrows={false}
+            infiniteLoop={false}
+            showThumbs={false}
+            showStatus={false}
+            centerMode={true}
+            autoPlay={true}
+            centerSlidePercentage={centerSlidePercentage}
+            selectedItem={currentSlide}
+            onChange={(index) => setCurrentSlide(index)}
+          >
+            {classess.map((classes: IClass) => (
+              <div key={classes._id} className="py-10 px-5 flex flex-col items-center justify-center w-full sm:flex-row">
                 <Link href={`/classes/${classes._id}`}>
                   <ClassUserCard classes={classes} />
                 </Link>
@@ -131,23 +166,26 @@ const Classes = () => {
             onClick={handleNextClick}
             className="cursor-pointer absolute right-0 hidden sm:block transform -translate-y-1/2 sm:bottom-0 sm:right-2%"
           />
-        )}
-      </section>
+        )
+        }
+      </section >
       <section className="md:mt-2">
         <div className="bg-gradient-to-r from-gray-300 via-gray-300 to-gray-300 h-full w-full">
-          <h1 className="text-black text-4xl font-bold m-8 ">
-            <center>Use our app to access courses anywhere.</center>
-          </h1>
-          <p className="text-black text-2xl  m-8">
-            <center>
+          <div className="flex justify-center items-center">
+            <h1 className="text-black text-4xl font-bold m-8 ">
+              Use our app to access courses anywhere.
+            </h1>
+          </div>
+          <div className="flex justify-center items-center">
+            <p className="text-black text-2xl w-10/12 sm:w-6/12 text-center">
               You can create a customized diet plan that fits your needs and
               lifestyle. We&apos;ll work with you to develop a plan that is
               tailored specifically for you, and we&apos;ll provide all the
               support you need to make sure you reach your goals. So don&apos;t
               wait any longer! Get started today with us.
-            </center>
-          </p>
-          <div className="flex items-center justify-center sm:justify-center gap-5 mx-40">
+            </p>
+          </div>
+          <div className="flex items-center justify-center sm:justify-center gap-5 mx-40 m-5">
             <Image
               src={"/assets/images/home/googleplay.png"}
               alt="Image"
@@ -174,7 +212,7 @@ const Classes = () => {
       </section>
 
       <Footer />
-    </div>
+    </div >
   );
 };
 

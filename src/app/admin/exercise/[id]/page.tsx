@@ -1,14 +1,9 @@
 "use client";
-import React from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { BlockNoteView, useBlockNote } from "@blocknote/react";
-import {
-  uploadToTmpFilesDotOrg_DEV_ONLY,
-  BlockNoteEditor,
-} from "@blocknote/core";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import leftArrow from "./../../../../images/icons/leftArrow.svg";
-import "@blocknote/core/style.css";
-import { FormEvent, useEffect, useState } from "react";
 import { IExercise } from "../../../../types/exercise.type";
 import Link from "next/link";
 import {
@@ -38,38 +33,14 @@ const NewExercisePage = () => {
     description: "",
     instructions: "",
     externalLinks: "",
+    metaTitle: "",
+    metaDescription: "",
   } as IExercise);
 
-  useEffect(() => {
-    console.log(exerciseData);
-    if (exerciseData?.data?.data) {
-      setExercise(exerciseData?.data?.data);
-    }
-  }, [exerciseData]);
 
-  const editor = useBlockNote({
-    onEditorContentChange: async (editor: BlockNoteEditor) => {
-      // Log the document to console on every update
-      const markdown: string = await editor.blocksToMarkdown(
-        editor.topLevelBlocks
-      );
-      console.log(markdown);
-      setExercise(
-        (prev) =>
-        ({
-          ...prev,
-          instructions: markdown,
-        } as typeof prev)
-      );
-    },
-    domAttributes: {
-      editor: {
-        class: "bg-white h-40 border border-gray-300 overflow-scroll",
-        "data-test": "editor",
-      },
-    },
-    uploadFile: uploadToTmpFilesDotOrg_DEV_ONLY,
-  });
+  const handleEditorChange = (value: string) => {
+    setExercise((prev) => ({ ...prev, instructions: value } as IExercise));
+  };
 
   const onHandleChange = (e: any) => {
     const {
@@ -83,11 +54,29 @@ const NewExercisePage = () => {
       } as typeof prev)
     );
   };
+
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      [{ font: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+    ],
+  }
+
   const onFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
-    if (e.key === 'Enter') {
+    const target = e.target as HTMLTextAreaElement;
+    if (e.key === 'Enter' && target.tagName.toLowerCase() !== 'textarea') {
       e.preventDefault();
     }
   };
+
   const onHandleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -108,6 +97,38 @@ const NewExercisePage = () => {
     }
   };
 
+  const handleBrowseClick = (fieldName: keyof typeof exercise) => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*,.jpg,.jpeg,.png,.gif,.bmp,.svg', 'video/*'; // Accept only image files
+    input.onchange = (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.files && target.files.length > 0) {
+        const file = target.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (reader.result) {
+            setExercise((prev) => ({
+              ...prev,
+              [fieldName]: reader.result as string,
+            } as typeof prev));
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    input.click();
+  };
+
+
+  useEffect(() => {
+    console.log(exerciseData);
+    if (exerciseData?.data?.data) {
+      setExercise(exerciseData?.data?.data);
+    }
+  }, [exerciseData]);
+
+  console.log("exercise.instructions:", exercise.instructions);
   return (
     <div className="flex flex-row items-start justify-between w-full h-full px-14 py-10 bg-[#F7F8FC]">
       <div className="w-20">
@@ -117,7 +138,7 @@ const NewExercisePage = () => {
       </div>
       <form onSubmit={onHandleSubmit} onKeyDown={onFormKeyDown} className="flex-1 w-full">
         <div className="flex flex-col gap-5">
-          <h5>Add New Exercise</h5>
+          <h5 className="font-bold">Add New Exercise</h5>
           <div className="flex items-end justify-between gap-3">
             <div className="grid gap-2 w-full">
               <label htmlFor="image">Upload exercise video</label>
@@ -128,13 +149,15 @@ const NewExercisePage = () => {
                 name="videoUrl"
                 onChange={onHandleChange}
                 value={exercise.videoUrl || ''}
+                required
               />
             </div>
             <button
               type="button"
               className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+              onClick={() => handleBrowseClick('videoUrl')}
             >
-              {/* TODO: Plus Icon */}Browse
+              +Browse
             </button>
           </div>
           <div className="flex items-end justify-between gap-3">
@@ -147,13 +170,15 @@ const NewExercisePage = () => {
                 name="imageUrl"
                 onChange={onHandleChange}
                 value={exercise.imageUrl}
+                required
               />
             </div>
             <button
               type="button"
               className="text-white bg-[#F2994A] px-3 py-2 rounded-md"
+              onClick={() => handleBrowseClick('imageUrl')}
             >
-              {/* TODO: Plus Icon */}Browse
+              +Browse
             </button>
           </div>
           <div className="grid gap-2 w-full">
@@ -165,6 +190,7 @@ const NewExercisePage = () => {
               className="rounded-md px-3 h-10 w-full border border-gray-300"
               onChange={onHandleChange}
               value={exercise.name}
+              required
             />
           </div>
           <div className="grid gap-2 w-full">
@@ -175,6 +201,7 @@ const NewExercisePage = () => {
               className="rounded-md px-3 h-40 w-full border border-gray-300"
               onChange={onHandleChange}
               value={exercise.description}
+              required
             />
           </div>
           <div className="grid gap-2 w-full">
@@ -186,43 +213,62 @@ const NewExercisePage = () => {
               className="rounded-md px-3 h-10 w-full border border-gray-300"
               onChange={onHandleChange}
               value={exercise.category}
+              required
             />
           </div>
           <div className="flex items-end justify-between gap-3">
             <div className="grid gap-2 w-full">
-              <label htmlFor="time">time</label>
-              <input
-                type="text"
-                id="time"
-                name="time"
-                className="rounded-md px-3 h-10 w-full border border-gray-300"
-                onChange={onHandleChange}
-                value={exercise.time ?? ""}
-              />
+              <label htmlFor="time">Time</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  id="time"
+                  name="time"
+                  className="rounded-md px-3 h-10 w-full border border-gray-300"
+                  onChange={onHandleChange}
+                  value={exercise.time ?? ""}
+                  required
+                />
+                <select
+                  name="durationType"
+                  className="rounded-md px-3 h-10 border border-gray-300"
+                  onChange={onHandleChange}
+                  value={exercise.durationType || ''}
+                >
+                  <option value="seconds">Seconds</option>
+                  <option value="minutes">Minutes</option>
+                  <option value="hours">Hours</option>
+                </select>
+              </div>
             </div>
-            <button
-              type="button"
-              className="text-black bg-white px-3 py-2 rounded-md border border-gray-300"
-            >
-              {/* TODO: Plus Icon */}Minutes/hours
-            </button>
           </div>
           <div className="grid gap-2 w-full">
             <label htmlFor="category">Difficulty</label>
-            <input
-              type="text"
+            <select
               id="difficulty"
               name="difficulty"
-              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              className="rounded-md px-3 h-10 w-full border border-gray-300 bg-white"
               onChange={onHandleChange}
               value={exercise.difficulty}
+              required
+            >
+              <option value="">Easy/Medium/Hard</option>
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+          <div className="grid gap-2 w-full" aria-required >
+            <label htmlFor="Instructions">Instructions</label>
+            <ReactQuill
+              theme="snow"
+              id="instructions"
+              value={exercise.instructions}
+              onChange={handleEditorChange}
+              modules={modules}
             />
           </div>
-          <div className="grid gap-2 w-full">
-            <label htmlFor="contents">Instructions</label>
-            <BlockNoteView editor={editor} theme={"light"} />
-          </div>
-          <div className="grid gap-2 w-full">
+          <div className="grid gap-2 w-full mt-8">
             <label htmlFor="externalLinks">External links</label>
             <input
               type="text"
@@ -231,6 +277,31 @@ const NewExercisePage = () => {
               className="rounded-md px-3 h-10 w-full border border-gray-300"
               onChange={onHandleChange}
               value={exercise.externalLinks}
+              required
+            />
+          </div>
+          <div className="grid gap-2 w-full" >
+            <label htmlFor="metaTile"> Meta title </label>
+            < input
+              type="text"
+              id="metaTitle"
+              name="metaTitle"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={exercise.metaTitle}
+              required
+            />
+          </div>
+          < div className="grid gap-2 w-full" >
+            <label htmlFor="metaDescription" > Meta description </label>
+            < input
+              type="text"
+              id="metaDescription"
+              name="metaDescription"
+              className="rounded-md px-3 h-10 w-full border border-gray-300"
+              onChange={onHandleChange}
+              value={exercise.metaDescription}
+              required
             />
           </div>
           <div className="w-full flex justify-end">

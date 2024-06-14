@@ -96,7 +96,6 @@ const Register = () => {
           height={24}
         />
       </button>
-
       <div className="bg-white">
         <div className="flex">
           <div className="flex-1">
@@ -108,40 +107,40 @@ const Register = () => {
               height={50}
               className="img-responsive modal-logo bg-[#34383d] h-[40px] object-left-top hidden sm:block"
             />
-            <div className="p-8">
-              <h4 className="m-2 text-2xl">Welcome to shape me up</h4>
-              <h2 className="text-black text-2xl font-bold m-2">
+            <div className="p-5">
+              <h4 className="ml-2 text-sm">Welcome to shape me up</h4>
+              <h2 className="text-black text-2xl font-bold ml-2">
                 Create an account
               </h2>
               <form onSubmit={onSubmitSignUp}>
-                <div className="m-2">
-                  <label htmlFor="email">Email ID</label>
+                <div className="ml-2">
+                  <label htmlFor="email" className="text-sm">Email ID</label>
                   <br />
                   <input
                     type="text"
                     name="email"
                     value={user?.email}
-                    className="w-[522px] h-[50px] border-slate-250 border-2 rounded-lg"
+                    className="w-[522px] h-[40px] border-slate-250 border-2 rounded-lg"
                     onChange={(e) =>
                       setUser((prev) => ({ ...prev, email: e.target.value }))
                     }
                   />
                 </div>
-                <div className="m-2">
-                  <label htmlFor="name">Name</label>
+                <div className="ml-2">
+                  <label htmlFor="name" className="text-sm">Name</label>
                   <br />
                   <input
                     type="text"
                     name="Name"
                     value={user?.name}
-                    className="w-[522px] h-[50px] border-slate-250 border-2 rounded-lg"
+                    className="w-[522px] h-[40px] border-slate-250 border-2 rounded-lg"
                     onChange={(e) =>
                       setUser((prev) => ({ ...prev, name: e.target.value }))
                     }
                   />
                 </div>
-                <div className="m-2">
-                  <label htmlFor="password">Password</label>
+                <div className="ml-2">
+                  <label htmlFor="password" className="text-sm">Password</label>
                   <div className="relative flex items-center">
                     <input
                       type={showPassword ? "text" : "password"}
@@ -150,7 +149,7 @@ const Register = () => {
                       onChange={(e) =>
                         setUser((prev) => ({ ...prev, password: e.target.value }))
                       }
-                      className="w-[522px] h-[50px] border-slate-250 border-2 rounded-lg pr-10"
+                      className="w-[522px] h-[40px] border-slate-250 border-2 rounded-lg pr-10"
                     />
                     <Image
                       src={
@@ -159,7 +158,7 @@ const Register = () => {
                           : "/assets/images/login/hide_password.png"
                       }
                       alt={showPassword ? "Hide Password" : "View Password"}
-                      className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-28 cursor-pointer"
+                      className="text-[#333] p-1 w-8 h-5 m-0 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-32 cursor-pointer"
                       onClick={password}
                       width={20}
                       height={20}
@@ -170,8 +169,8 @@ const Register = () => {
                     <div className="bg-red-500 text-white w-fit text-sm py-1 px-3 rounded-md mt-2">{error}</div>
                   )}
                 </div>
-                <div className="m-2">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
+                <div className="ml-2">
+                  <label htmlFor="confirmPassword" className="text-sm">Confirm Password</label>
                   <div className="relative flex items-center">
                     <input
                       type={showConfirmPassword ? "text" : "password"}
@@ -179,7 +178,7 @@ const Register = () => {
                       value={user.confirmPassword}
                       onChange={(e) => setUser((prev) => ({ ...prev, confirmPassword: e.target.value }))
                       }
-                      className="w-[522px] h-[50px] border-slate-250 border-2 rounded-lg"
+                      className="w-[522px] h-[40px] border-slate-250 border-2 rounded-lg"
                     />
                     <Image
                       src={
@@ -188,7 +187,7 @@ const Register = () => {
                           : "/assets/images/login/hide_password.png"
                       }
                       alt={showConfirmPassword ? "Hide Password" : "View Password"}
-                      className="text-[#333] p-1 w-8 h-5 m-1 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-28 cursor-pointer"
+                      className="text-[#333] p-1 w-8 h-5 m-0 rounded-lg absolute top-1/2 transform -translate-y-1/2 right-32 cursor-pointer"
                       onClick={passwordConfirm}
                       width={8}
                       height={5}
@@ -203,13 +202,13 @@ const Register = () => {
                   )}
                 </div>
                 <button
-                  className="m-2 flex items-center justify-center w-[522px] h-[50px] bg-[#f2994a] text-white font-sans font-bold text-2xl rounded-lg"
+                  className="m-2 flex items-center justify-center w-[522px] h-[40px] bg-[#f2994a] text-white font-sans font-bold text-sm rounded-lg"
 
                 >
                   Sign up
                 </button>
                 <button
-                  className=" m-2 flex items-center justify-center  w-[522px] h-[50px]  bg-[#34383d] text-white font-sans text-2xl font-bold rounded-lg"
+                  className=" m-2 flex items-center justify-center  w-[522px] h-[40px]  bg-[#34383d] text-white font-sans text-sm font-bold rounded-lg"
                   onClick={googleSignUp}
                 >
                   <Image
@@ -221,11 +220,11 @@ const Register = () => {
                   />
                   Or signup with google
                 </button>
-                <div className="m-2 text-xl">
+                <div className="text-sm text-center mr-16">
                   Already have an account?
                   <button
                     onClick={signIn}
-                    className="text-[#f2994a] text-xl"
+                    className="text-[#f2994a] text-sm"
                     title="Login here"
                   >
                     Login Here
@@ -238,7 +237,7 @@ const Register = () => {
             <Image
               src="/assets/images/login/login_right.png"
               alt="image"
-              className="object-cover h-screen"
+              className="object-cover"
               width={800}
               height={899.89}
             />

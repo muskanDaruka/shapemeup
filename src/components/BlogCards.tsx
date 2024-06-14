@@ -35,8 +35,9 @@ const BlogCards: FC<Props> = ({
     description: "",
     keywords: "",
     blogSlugUrl: "",
-    faqQues: "",
-    faqAns: "",
+    faq: [
+      { ques: "", ans: "" } // Initializing faq as an array of objects
+    ],
     ctaBlogImg: "",
     ctaBlogImgUrl: "",
   });
@@ -45,7 +46,7 @@ const BlogCards: FC<Props> = ({
   };
   return (
     <div className="w-full md:w-[48%] rounded-md overflow-hidden">
-      <div className="flex w-full flex-1 h-[185px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
+      <div className="flex w-full flex-1 h-[200px] top-0 left-0 bg-white rounded-[10px] shadow-[0px_0px_10px_#0000001a]">
         <div className="overflow-hidden w-5/12">
           <img
             src={blogImgUrl}
@@ -53,7 +54,7 @@ const BlogCards: FC<Props> = ({
             className="bg-cover w-full h-full"
           />
         </div>
-        <div className="p-5 flex-1 flex flex-col items-start justify-between">
+        <div className="p-2 flex-1 flex flex-col items-start justify-evenly">
           <h5 className="text-[#F2994A] text-xl font-bold">{name}</h5>
           <h6>
             Category: <small>{category}</small>

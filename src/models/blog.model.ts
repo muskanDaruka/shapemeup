@@ -1,7 +1,17 @@
 import { IBlog } from "@/types/blog.type";
 import { Schema, model, models } from "mongoose";
 
+interface FAQ {
+  ques: string;
+  ans: string;
+}
+
 type BlogType = IBlog & Document;
+
+const faqSchema = new Schema<FAQ>({
+  ques: String,
+  ans: String
+});
 
 export const blogSchema = new Schema<BlogType>(
   {
@@ -16,8 +26,7 @@ export const blogSchema = new Schema<BlogType>(
     description: String,
     keywords: String,
     blogSlugUrl: String,
-    faqQues: String,
-    faqAns: String,
+    faq: [faqSchema],
     ctaBlogImg: String,
     ctaBlogImgUrl: String,
   },

@@ -83,31 +83,29 @@ const Products = () => {
     <div>
       <Hero data={heroImages} />
       <br />
-      <div className="flex flex-col items-center md:flex-row relative">
-        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} className="cursor-pointer absolute left-8 hidden sm:block" />
-        <div className="md:ml-auto md:mr-auto w-full md:w-[1100px] relative">
-          <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-            {productImages.map((item, index) => (
-              <div
-                key={index}
-                className="w-full md:w-[394px] h-[400px] md:m-0 mb-4 relative justify-center"
-              >
-                <Image
-                  src={item.imageSrc} alt="blog_banner"
-                  width={1440}
-                  height={528}
-                  className="w-full h-full object-cover rounded-lg"
-                />
-                <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
-                  <h1 className="font-bold text-xl text-white z-10">{item.title}</h1>
+      <section className="m-[40px]">
+        <h1 className="text-black text-4xl mb-[20px] font-bold"><center>Featured products</center></h1>
+        <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
+        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} onClick={handlePrevClick} className="cursor-pointer absolute left-8 hidden" />
+        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} onClick={handleNextClick} className="cursor-pointer absolute right-8 hidden" />
+        <div className="sm:ml-16 items-center justify-center ">
+          <Carousel showArrows={false} infiniteLoop={false} autoPlay={true} showThumbs={false} showStatus={false} centerMode={false}
+            selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
+            {products && products.length > 0 && (
+              [...Array(Math.ceil(products.length / 3))].map((_, index) => (
+                <div key={index} className=" flex flex-row justify-center items-center">
+                  {products.slice(index * 3, (index + 1) * 3).map((product: IProducts, index: number) => (
+                    <div key={index} className="mb-4 py-5 px-10">
+                      <Link href={`/products/${product._id}`}>
+                        <ProductUserCard key={product.id} product={product} />
+                      </Link>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
+              )))}
+          </Carousel>
         </div>
-        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} className="cursor-pointer absolute right-8 hidden sm:block" />
-      </div>
-      <br />
+      </section>
       <section className="relative">
         <div className="relative">
           <Image
@@ -125,22 +123,30 @@ const Products = () => {
           </div>
         </div>
       </section>
-      <section className="m-[40px]">
-        <h1 className="text-black text-4xl mb-[20px] font-bold"><center>Featured products</center></h1>
-        <HorizontalList data={list} setCurrentSlide={setCurrentSlide} currentSlide={currentSlide} />
-        <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} onClick={handlePrevClick} className="cursor-pointer absolute left-8 hidden" />
-        <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} onClick={handleNextClick} className="cursor-pointer absolute right-8 hidden" />
-        <div className="sm:ml-16 items-center justify-center ">
-          <Carousel showArrows={false} infiniteLoop={true} showThumbs={false} showStatus={false} centerMode={true}
-            centerSlidePercentage={centerSlidePercentage} selectedItem={currentSlide} onChange={(index) => setCurrentSlide(index)}>
-            {products.map((product: IProducts, index: number) => (
-              <div key={index} className={`mb-4 flex py-5 ${index % 2 === 0 ? 'w-full md:w-1/2' : 'w-full md:w-1/2'}`}>
-                <Link href={`/products/${product._id}`}>
-                  <ProductUserCard key={product.id} product={product} />
-                </Link>
-              </div>
-            ))}
-          </Carousel>
+      <section className="relative">
+        <div className="flex flex-col items-center md:flex-row p-6">
+          <Image src="/assets/images/icons/previous.png" alt="previous" width={37} height={37} className="cursor-pointer absolute left-8 hidden sm:block" />
+          <div className="md:ml-auto md:mr-auto w-full md:w-[1100px] relative">
+            <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+              {productImages.map((item, index) => (
+                <div
+                  key={index}
+                  className="w-full md:w-[394px] h-[400px] md:m-0 mb-4 relative justify-center"
+                >
+                  <Image
+                    src={item.imageSrc} alt="blog_banner"
+                    width={1440}
+                    height={528}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                  <div className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center p-5 text-white">
+                    <h1 className="font-bold text-xl text-white z-10">{item.title}</h1>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <Image src="/assets/images/icons/next.png" alt="next" width={37} height={37} className="cursor-pointer absolute right-8 hidden sm:block" />
         </div>
       </section>
       <Footer />

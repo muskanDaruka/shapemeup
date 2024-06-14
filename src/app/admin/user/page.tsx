@@ -1,5 +1,5 @@
 "use client"
-import Pagination from "@/components/Pagination";
+// import Pagination from "@/components/Pagination";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useAllUser, useDeleteUser } from "@/hooks/user.hooks";
@@ -75,7 +75,7 @@ const UserPage = () => {
                 </section>
                 <section className="w-full flex justify-end">
                     <div className="mt-[700px]">
-                        <Pagination />
+                        {/* <Pagination /> */}
                     </div>
                 </section>
             </div>
